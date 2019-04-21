@@ -23,7 +23,6 @@ namespace Fortnite_WM
             dbcon.propUid = tb_DB_UID.Text;
             dbcon.propPassword = tb_DB_PW.Text;
             DBConState();
-            DBexist();            
         }
         private void DBConState()
         {
@@ -31,6 +30,7 @@ namespace Fortnite_WM
             {
                 lb_ConnectionValue.Text = "verbunden";
                 lb_ConnectionValue.ForeColor = Color.Green;
+                DBexist();//select * from maps limit 0;   
             }
             else
             {
@@ -47,12 +47,34 @@ namespace Fortnite_WM
                 lb_DatabaseValue.Text = "existiert";
                 lb_DatabaseValue.ForeColor = Color.Green;
                 dbcon.propDatabase = "fortnite_wm";
+                this.TBexist(true);
             }
             else
             {
                 lb_DatabaseValue.Text = "existiert nicht";
                 lb_DatabaseValue.ForeColor = Color.Red;
                 this.DBCreate();
+                this.TBexist(false);
+            }
+        }
+        private void TBexist(bool dbex)
+        {
+            if (dbex)
+            {
+                Dictionary<string, string> tbs = dbcon.TBexist();
+                if (tbs["maps"] != "") lb_TB_MapsValue.Text = "existiert";
+                if (tbs["modes"] != "") lb_TB_ModesValue.Text = "existiert";
+                if (tbs["players"] != "") lb_TB_PlayersValue.Text = "existiert";
+                if (tbs["played_matches"] != "") lb_TB_PMValue.Text = "existiert";
+                if (tbs["teams"] != "") lb_TB_TeamsValue.Text = "existiert";
+            }
+            else
+            {
+                lb_TB_MapsValue.Text = "existiert nicht";
+                lb_TB_ModesValue.Text = "existiert nicht";
+                lb_TB_PlayersValue.Text = "existiert nicht";
+                lb_TB_PMValue.Text = "existiert nicht";
+                lb_TB_TeamsValue.Text = "existiert nicht";
             }
         }
         private void DBCreate()

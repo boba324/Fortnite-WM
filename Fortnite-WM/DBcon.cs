@@ -29,8 +29,6 @@ namespace Fortnite_WM
             server = "localhost";
             database = "";
             string connectionString;
-            Console.WriteLine(uid);
-            Console.WriteLine(password);
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";"; // + "DATABASE=" + database + ";"
 
             connection = new MySqlConnection(connectionString);
@@ -68,6 +66,66 @@ namespace Fortnite_WM
             else
             {
                 return Count;
+            }
+        }
+        public Dictionary<string, string> TBexist()
+        {
+            Dictionary<string, string> tbexist = new Dictionary<string, string>();
+            string query = "";
+            string key = "";
+            string asd;
+
+            //Open Connection
+            if (this.OpenConnection() == true)
+            {
+                int i = 0;
+                while (i<5)
+                {
+                    switch (i+1)
+                    {
+                        case 1:
+                            key = "maps";
+                            query = "show tables like 'maps';";
+                            break;
+                        case 2:
+                            key = "modes";
+                            query = "show tables like 'modes';";
+                            break;   
+                        case 3:
+                            key = "played_matches";
+                            query = "show tables like 'played_matches';";
+                            break;   
+                        case 4:
+                            key = "player";
+                            query = "show tables like 'player';";
+                            break;   
+                        case 5:
+                            key = "teams";
+                            query = "show tables like 'teams';";
+                            break;
+                        default:
+                            MessageBox.Show("Tabelle nicht bekannt.");
+                            break;
+                    }
+                    try
+                    {
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        Console.WriteLine(cmd.ExecuteScalar().GetType());
+                        tbexist.Add(key, cmd.ExecuteScalar().ToString());
+                    }
+                    catch (Exception)
+                    {
+                        tbexist.Add(key, "");
+                    }
+                    i++;
+                }
+                this.CloseConnection();
+
+                return tbexist;
+            }
+            else
+            {
+                return tbexist;
             }
         }
 
@@ -340,7 +398,7 @@ FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    list[0].Add(dataReader["SCHEMA_NAME"] + "");
+                    list[0].Add(dataReader["bla"] + "");
                 }
 
                 //close Data Reader
