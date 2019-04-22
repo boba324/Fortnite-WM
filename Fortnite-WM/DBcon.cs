@@ -68,12 +68,11 @@ namespace Fortnite_WM
                 return Count;
             }
         }
-        public Dictionary<string, string> TBexist()
+        public Dictionary<string, int> TBexist()
         {
-            Dictionary<string, string> tbexist = new Dictionary<string, string>();
+            Dictionary<string, int> tbexist = new Dictionary<string, int>();
             string query = "";
             string key = "";
-            string asd;
 
             //Open Connection
             if (this.OpenConnection() == true)
@@ -85,23 +84,23 @@ namespace Fortnite_WM
                     {
                         case 1:
                             key = "maps";
-                            query = "show tables like 'maps';";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'maps' LIMIT 1; ";
                             break;
                         case 2:
                             key = "modes";
-                            query = "show tables like 'modes';";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'modes' LIMIT 1;";
                             break;   
                         case 3:
                             key = "played_matches";
-                            query = "show tables like 'played_matches';";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'played_matches' LIMIT 1;";
                             break;   
                         case 4:
                             key = "player";
-                            query = "show tables like 'player';";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'player' LIMIT 1;";
                             break;   
                         case 5:
                             key = "teams";
-                            query = "show tables like 'teams';";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'teams' LIMIT 1;";
                             break;
                         default:
                             MessageBox.Show("Tabelle nicht bekannt.");
@@ -110,12 +109,11 @@ namespace Fortnite_WM
                     try
                     {
                         MySqlCommand cmd = new MySqlCommand(query, connection);
-                        Console.WriteLine(cmd.ExecuteScalar().GetType());
-                        tbexist.Add(key, cmd.ExecuteScalar().ToString());
+                        tbexist.Add(key, int.Parse(cmd.ExecuteScalar() + ""));
                     }
                     catch (Exception)
                     {
-                        tbexist.Add(key, "");
+                        tbexist.Add(key, 0);
                     }
                     i++;
                 }

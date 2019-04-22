@@ -18,11 +18,11 @@ namespace Fortnite_WM
             InitializeComponent();
         }
 
-        private void btn_TestCon_Click(object sender, EventArgs e)
+        private void btn_SaveCred_Click(object sender, EventArgs e)
         {
             dbcon.propUid = tb_DB_UID.Text;
             dbcon.propPassword = tb_DB_PW.Text;
-            DBConState();
+            MessageBox.Show("Daten wurden gespeichert.");
         }
         private void DBConState()
         {
@@ -61,12 +61,20 @@ namespace Fortnite_WM
         {
             if (dbex)
             {
-                Dictionary<string, string> tbs = dbcon.TBexist();
-                if (tbs["maps"] != "") lb_TB_MapsValue.Text = "existiert";
-                if (tbs["modes"] != "") lb_TB_ModesValue.Text = "existiert";
-                if (tbs["players"] != "") lb_TB_PlayersValue.Text = "existiert";
-                if (tbs["played_matches"] != "") lb_TB_PMValue.Text = "existiert";
-                if (tbs["teams"] != "") lb_TB_TeamsValue.Text = "existiert";
+                Dictionary<string, int> tbs = dbcon.TBexist();
+                if (tbs["maps"] != 0) { lb_TB_MapsValue.Text = "existiert"; } else { lb_TB_MapsValue.Text = "existiert nicht"; }
+                if (tbs["modes"] != 0) { lb_TB_ModesValue.Text = "existiert"; } else { lb_TB_ModesValue.Text = "existiert nicht"; }
+                if (tbs["player"] != 0) { lb_TB_PlayersValue.Text = "existiert"; } else { lb_TB_PlayersValue.Text = "existiert nicht"; }
+                if (tbs["played_matches"] != 0) { lb_TB_PMValue.Text = "existiert"; } else { lb_TB_PMValue.Text = "existiert nicht"; }
+                if (tbs["teams"] != 0) { lb_TB_TeamsValue.Text = "existiert"; }else { lb_TB_TeamsValue.Text = "existiert nicht"; }
+                if (tbs.ContainsValue(0))
+                {
+                    btn_RestoreDB.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Die Datenbankstruktur ist auf dem aktuellsten Stand.U");
+                }
             }
             else
             {
@@ -89,6 +97,15 @@ namespace Fortnite_WM
             {
                 MessageBox.Show("Es wurde keine Datenbank erstellt.");
             }
+        }
+        private void btn_ConnectRefresh_Click(object sender, EventArgs e)
+        {
+            DBConState();
+        }
+        private void btn_RestoreDB_Click(object sender, EventArgs e)
+        {
+            dbcon.DBCreate();
+            btn_RestoreDB.Visible = false;
         }
     }
 }

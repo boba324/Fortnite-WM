@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.gb_DB_State = new System.Windows.Forms.GroupBox();
-            this.btn_TestCon = new System.Windows.Forms.Button();
+            this.btn_ConnectRefresh = new System.Windows.Forms.Button();
+            this.btn_SaveCred = new System.Windows.Forms.Button();
             this.tb_DB_PW = new System.Windows.Forms.TextBox();
             this.lb_DB_PW = new System.Windows.Forms.Label();
             this.tb_DB_UID = new System.Windows.Forms.TextBox();
@@ -40,20 +41,21 @@
             this.lb_Connection = new System.Windows.Forms.Label();
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tp_Database_Infos = new System.Windows.Forms.TabPage();
+            this.gb_TB_State = new System.Windows.Forms.GroupBox();
+            this.lb_TB_MapsValue = new System.Windows.Forms.Label();
+            this.lb_TB_ModesValue = new System.Windows.Forms.Label();
+            this.lb_TB_PlayersValue = new System.Windows.Forms.Label();
+            this.lb_TB_TeamsValue = new System.Windows.Forms.Label();
+            this.lb_TB_PMValue = new System.Windows.Forms.Label();
+            this.lb_TB_PM = new System.Windows.Forms.Label();
+            this.lb_TB_Teams = new System.Windows.Forms.Label();
+            this.lb_TB_Players = new System.Windows.Forms.Label();
+            this.lb_TB_Modes = new System.Windows.Forms.Label();
+            this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tb_insert = new System.Windows.Forms.TabPage();
             this.tb_Select = new System.Windows.Forms.TabPage();
             this.tb_update = new System.Windows.Forms.TabPage();
-            this.gb_TB_State = new System.Windows.Forms.GroupBox();
-            this.lb_TB_Maps = new System.Windows.Forms.Label();
-            this.lb_TB_Modes = new System.Windows.Forms.Label();
-            this.lb_TB_Players = new System.Windows.Forms.Label();
-            this.lb_TB_Teams = new System.Windows.Forms.Label();
-            this.lb_TB_PM = new System.Windows.Forms.Label();
-            this.lb_TB_PMValue = new System.Windows.Forms.Label();
-            this.lb_TB_TeamsValue = new System.Windows.Forms.Label();
-            this.lb_TB_PlayersValue = new System.Windows.Forms.Label();
-            this.lb_TB_ModesValue = new System.Windows.Forms.Label();
-            this.lb_TB_MapsValue = new System.Windows.Forms.Label();
+            this.btn_RestoreDB = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tp_Database_Infos.SuspendLayout();
@@ -62,7 +64,8 @@
             // 
             // gb_DB_State
             // 
-            this.gb_DB_State.Controls.Add(this.btn_TestCon);
+            this.gb_DB_State.Controls.Add(this.btn_ConnectRefresh);
+            this.gb_DB_State.Controls.Add(this.btn_SaveCred);
             this.gb_DB_State.Controls.Add(this.tb_DB_PW);
             this.gb_DB_State.Controls.Add(this.lb_DB_PW);
             this.gb_DB_State.Controls.Add(this.tb_DB_UID);
@@ -78,15 +81,25 @@
             this.gb_DB_State.TabStop = false;
             this.gb_DB_State.Text = "Datenbank Status";
             // 
-            // btn_TestCon
+            // btn_ConnectRefresh
             // 
-            this.btn_TestCon.Location = new System.Drawing.Point(94, 112);
-            this.btn_TestCon.Name = "btn_TestCon";
-            this.btn_TestCon.Size = new System.Drawing.Size(100, 23);
-            this.btn_TestCon.TabIndex = 10;
-            this.btn_TestCon.Text = "Verbinden";
-            this.btn_TestCon.UseVisualStyleBackColor = true;
-            this.btn_TestCon.Click += new System.EventHandler(this.btn_TestCon_Click);
+            this.btn_ConnectRefresh.Location = new System.Drawing.Point(9, 112);
+            this.btn_ConnectRefresh.Name = "btn_ConnectRefresh";
+            this.btn_ConnectRefresh.Size = new System.Drawing.Size(79, 23);
+            this.btn_ConnectRefresh.TabIndex = 2;
+            this.btn_ConnectRefresh.Text = "Aktualisieren";
+            this.btn_ConnectRefresh.UseVisualStyleBackColor = true;
+            this.btn_ConnectRefresh.Click += new System.EventHandler(this.btn_ConnectRefresh_Click);
+            // 
+            // btn_SaveCred
+            // 
+            this.btn_SaveCred.Location = new System.Drawing.Point(107, 112);
+            this.btn_SaveCred.Name = "btn_SaveCred";
+            this.btn_SaveCred.Size = new System.Drawing.Size(87, 23);
+            this.btn_SaveCred.TabIndex = 10;
+            this.btn_SaveCred.Text = "Speichern";
+            this.btn_SaveCred.UseVisualStyleBackColor = true;
+            this.btn_SaveCred.Click += new System.EventHandler(this.btn_SaveCred_Click);
             // 
             // tb_DB_PW
             // 
@@ -183,12 +196,122 @@
             this.tp_Database_Infos.Text = "DB Infos";
             this.tp_Database_Infos.UseVisualStyleBackColor = true;
             // 
+            // gb_TB_State
+            // 
+            this.gb_TB_State.Controls.Add(this.btn_RestoreDB);
+            this.gb_TB_State.Controls.Add(this.lb_TB_MapsValue);
+            this.gb_TB_State.Controls.Add(this.lb_TB_ModesValue);
+            this.gb_TB_State.Controls.Add(this.lb_TB_PlayersValue);
+            this.gb_TB_State.Controls.Add(this.lb_TB_TeamsValue);
+            this.gb_TB_State.Controls.Add(this.lb_TB_PMValue);
+            this.gb_TB_State.Controls.Add(this.lb_TB_PM);
+            this.gb_TB_State.Controls.Add(this.lb_TB_Teams);
+            this.gb_TB_State.Controls.Add(this.lb_TB_Players);
+            this.gb_TB_State.Controls.Add(this.lb_TB_Modes);
+            this.gb_TB_State.Controls.Add(this.lb_TB_Maps);
+            this.gb_TB_State.Location = new System.Drawing.Point(6, 154);
+            this.gb_TB_State.Name = "gb_TB_State";
+            this.gb_TB_State.Size = new System.Drawing.Size(200, 122);
+            this.gb_TB_State.TabIndex = 1;
+            this.gb_TB_State.TabStop = false;
+            this.gb_TB_State.Text = "Tabellen Status";
+            // 
+            // lb_TB_MapsValue
+            // 
+            this.lb_TB_MapsValue.AutoSize = true;
+            this.lb_TB_MapsValue.Location = new System.Drawing.Point(104, 20);
+            this.lb_TB_MapsValue.Name = "lb_TB_MapsValue";
+            this.lb_TB_MapsValue.Size = new System.Drawing.Size(60, 13);
+            this.lb_TB_MapsValue.TabIndex = 9;
+            this.lb_TB_MapsValue.Text = "Unbekannt";
+            // 
+            // lb_TB_ModesValue
+            // 
+            this.lb_TB_ModesValue.AutoSize = true;
+            this.lb_TB_ModesValue.Location = new System.Drawing.Point(104, 33);
+            this.lb_TB_ModesValue.Name = "lb_TB_ModesValue";
+            this.lb_TB_ModesValue.Size = new System.Drawing.Size(60, 13);
+            this.lb_TB_ModesValue.TabIndex = 8;
+            this.lb_TB_ModesValue.Text = "Unbekannt";
+            // 
+            // lb_TB_PlayersValue
+            // 
+            this.lb_TB_PlayersValue.AutoSize = true;
+            this.lb_TB_PlayersValue.Location = new System.Drawing.Point(104, 46);
+            this.lb_TB_PlayersValue.Name = "lb_TB_PlayersValue";
+            this.lb_TB_PlayersValue.Size = new System.Drawing.Size(60, 13);
+            this.lb_TB_PlayersValue.TabIndex = 7;
+            this.lb_TB_PlayersValue.Text = "Unbekannt";
+            // 
+            // lb_TB_TeamsValue
+            // 
+            this.lb_TB_TeamsValue.AutoSize = true;
+            this.lb_TB_TeamsValue.Location = new System.Drawing.Point(104, 59);
+            this.lb_TB_TeamsValue.Name = "lb_TB_TeamsValue";
+            this.lb_TB_TeamsValue.Size = new System.Drawing.Size(60, 13);
+            this.lb_TB_TeamsValue.TabIndex = 6;
+            this.lb_TB_TeamsValue.Text = "Unbekannt";
+            // 
+            // lb_TB_PMValue
+            // 
+            this.lb_TB_PMValue.AutoSize = true;
+            this.lb_TB_PMValue.Location = new System.Drawing.Point(104, 72);
+            this.lb_TB_PMValue.Name = "lb_TB_PMValue";
+            this.lb_TB_PMValue.Size = new System.Drawing.Size(60, 13);
+            this.lb_TB_PMValue.TabIndex = 5;
+            this.lb_TB_PMValue.Text = "Unbekannt";
+            // 
+            // lb_TB_PM
+            // 
+            this.lb_TB_PM.AutoSize = true;
+            this.lb_TB_PM.Location = new System.Drawing.Point(6, 72);
+            this.lb_TB_PM.Name = "lb_TB_PM";
+            this.lb_TB_PM.Size = new System.Drawing.Size(83, 13);
+            this.lb_TB_PM.TabIndex = 4;
+            this.lb_TB_PM.Text = "Played Matches";
+            // 
+            // lb_TB_Teams
+            // 
+            this.lb_TB_Teams.AutoSize = true;
+            this.lb_TB_Teams.Location = new System.Drawing.Point(6, 59);
+            this.lb_TB_Teams.Name = "lb_TB_Teams";
+            this.lb_TB_Teams.Size = new System.Drawing.Size(39, 13);
+            this.lb_TB_Teams.TabIndex = 3;
+            this.lb_TB_Teams.Text = "Teams";
+            // 
+            // lb_TB_Players
+            // 
+            this.lb_TB_Players.AutoSize = true;
+            this.lb_TB_Players.Location = new System.Drawing.Point(6, 46);
+            this.lb_TB_Players.Name = "lb_TB_Players";
+            this.lb_TB_Players.Size = new System.Drawing.Size(41, 13);
+            this.lb_TB_Players.TabIndex = 2;
+            this.lb_TB_Players.Text = "Players";
+            // 
+            // lb_TB_Modes
+            // 
+            this.lb_TB_Modes.AutoSize = true;
+            this.lb_TB_Modes.Location = new System.Drawing.Point(6, 33);
+            this.lb_TB_Modes.Name = "lb_TB_Modes";
+            this.lb_TB_Modes.Size = new System.Drawing.Size(39, 13);
+            this.lb_TB_Modes.TabIndex = 1;
+            this.lb_TB_Modes.Text = "Modes";
+            // 
+            // lb_TB_Maps
+            // 
+            this.lb_TB_Maps.AutoSize = true;
+            this.lb_TB_Maps.Location = new System.Drawing.Point(6, 20);
+            this.lb_TB_Maps.Name = "lb_TB_Maps";
+            this.lb_TB_Maps.Size = new System.Drawing.Size(33, 13);
+            this.lb_TB_Maps.TabIndex = 0;
+            this.lb_TB_Maps.Text = "Maps";
+            // 
             // tb_insert
             // 
             this.tb_insert.Location = new System.Drawing.Point(4, 22);
             this.tb_insert.Name = "tb_insert";
             this.tb_insert.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_insert.Size = new System.Drawing.Size(245, 307);
+            this.tb_insert.Size = new System.Drawing.Size(768, 400);
             this.tb_insert.TabIndex = 1;
             this.tb_insert.Text = "Dateneingaben";
             this.tb_insert.UseVisualStyleBackColor = true;
@@ -198,7 +321,7 @@
             this.tb_Select.Location = new System.Drawing.Point(4, 22);
             this.tb_Select.Name = "tb_Select";
             this.tb_Select.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_Select.Size = new System.Drawing.Size(245, 307);
+            this.tb_Select.Size = new System.Drawing.Size(768, 400);
             this.tb_Select.TabIndex = 2;
             this.tb_Select.Text = "Datenabfragen";
             this.tb_Select.UseVisualStyleBackColor = true;
@@ -213,114 +336,16 @@
             this.tb_update.Text = "Datenänderung";
             this.tb_update.UseVisualStyleBackColor = true;
             // 
-            // gb_TB_State
+            // btn_RestoreDB
             // 
-            this.gb_TB_State.Controls.Add(this.lb_TB_MapsValue);
-            this.gb_TB_State.Controls.Add(this.lb_TB_ModesValue);
-            this.gb_TB_State.Controls.Add(this.lb_TB_PlayersValue);
-            this.gb_TB_State.Controls.Add(this.lb_TB_TeamsValue);
-            this.gb_TB_State.Controls.Add(this.lb_TB_PMValue);
-            this.gb_TB_State.Controls.Add(this.lb_TB_PM);
-            this.gb_TB_State.Controls.Add(this.lb_TB_Teams);
-            this.gb_TB_State.Controls.Add(this.lb_TB_Players);
-            this.gb_TB_State.Controls.Add(this.lb_TB_Modes);
-            this.gb_TB_State.Controls.Add(this.lb_TB_Maps);
-            this.gb_TB_State.Location = new System.Drawing.Point(6, 154);
-            this.gb_TB_State.Name = "gb_TB_State";
-            this.gb_TB_State.Size = new System.Drawing.Size(200, 91);
-            this.gb_TB_State.TabIndex = 1;
-            this.gb_TB_State.TabStop = false;
-            this.gb_TB_State.Text = "Tabellen Status";
-            // 
-            // lb_TB_Maps
-            // 
-            this.lb_TB_Maps.AutoSize = true;
-            this.lb_TB_Maps.Location = new System.Drawing.Point(15, 20);
-            this.lb_TB_Maps.Name = "lb_TB_Maps";
-            this.lb_TB_Maps.Size = new System.Drawing.Size(33, 13);
-            this.lb_TB_Maps.TabIndex = 0;
-            this.lb_TB_Maps.Text = "Maps";
-            // 
-            // lb_TB_Modes
-            // 
-            this.lb_TB_Modes.AutoSize = true;
-            this.lb_TB_Modes.Location = new System.Drawing.Point(15, 33);
-            this.lb_TB_Modes.Name = "lb_TB_Modes";
-            this.lb_TB_Modes.Size = new System.Drawing.Size(39, 13);
-            this.lb_TB_Modes.TabIndex = 1;
-            this.lb_TB_Modes.Text = "Modes";
-            // 
-            // lb_TB_Players
-            // 
-            this.lb_TB_Players.AutoSize = true;
-            this.lb_TB_Players.Location = new System.Drawing.Point(15, 46);
-            this.lb_TB_Players.Name = "lb_TB_Players";
-            this.lb_TB_Players.Size = new System.Drawing.Size(41, 13);
-            this.lb_TB_Players.TabIndex = 2;
-            this.lb_TB_Players.Text = "Players";
-            // 
-            // lb_TB_Teams
-            // 
-            this.lb_TB_Teams.AutoSize = true;
-            this.lb_TB_Teams.Location = new System.Drawing.Point(15, 59);
-            this.lb_TB_Teams.Name = "lb_TB_Teams";
-            this.lb_TB_Teams.Size = new System.Drawing.Size(39, 13);
-            this.lb_TB_Teams.TabIndex = 3;
-            this.lb_TB_Teams.Text = "Teams";
-            // 
-            // lb_TB_PM
-            // 
-            this.lb_TB_PM.AutoSize = true;
-            this.lb_TB_PM.Location = new System.Drawing.Point(15, 72);
-            this.lb_TB_PM.Name = "lb_TB_PM";
-            this.lb_TB_PM.Size = new System.Drawing.Size(83, 13);
-            this.lb_TB_PM.TabIndex = 4;
-            this.lb_TB_PM.Text = "Played Matches";
-            // 
-            // lb_TB_PMValue
-            // 
-            this.lb_TB_PMValue.AutoSize = true;
-            this.lb_TB_PMValue.Location = new System.Drawing.Point(104, 72);
-            this.lb_TB_PMValue.Name = "lb_TB_PMValue";
-            this.lb_TB_PMValue.Size = new System.Drawing.Size(60, 13);
-            this.lb_TB_PMValue.TabIndex = 5;
-            this.lb_TB_PMValue.Text = "Unbekannt";
-            // 
-            // lb_TB_TeamsValue
-            // 
-            this.lb_TB_TeamsValue.AutoSize = true;
-            this.lb_TB_TeamsValue.Location = new System.Drawing.Point(104, 59);
-            this.lb_TB_TeamsValue.Name = "lb_TB_TeamsValue";
-            this.lb_TB_TeamsValue.Size = new System.Drawing.Size(60, 13);
-            this.lb_TB_TeamsValue.TabIndex = 6;
-            this.lb_TB_TeamsValue.Text = "Unbekannt";
-            // 
-            // lb_TB_PlayersValue
-            // 
-            this.lb_TB_PlayersValue.AutoSize = true;
-            this.lb_TB_PlayersValue.Location = new System.Drawing.Point(104, 46);
-            this.lb_TB_PlayersValue.Name = "lb_TB_PlayersValue";
-            this.lb_TB_PlayersValue.Size = new System.Drawing.Size(60, 13);
-            this.lb_TB_PlayersValue.TabIndex = 7;
-            this.lb_TB_PlayersValue.Text = "Unbekannt";
-            // 
-            // lb_TB_ModesValue
-            // 
-            this.lb_TB_ModesValue.AutoSize = true;
-            this.lb_TB_ModesValue.Location = new System.Drawing.Point(104, 33);
-            this.lb_TB_ModesValue.Name = "lb_TB_ModesValue";
-            this.lb_TB_ModesValue.Size = new System.Drawing.Size(60, 13);
-            this.lb_TB_ModesValue.TabIndex = 8;
-            this.lb_TB_ModesValue.Text = "Unbekannt";
-            // 
-            // lb_TB_MapsValue
-            // 
-            this.lb_TB_MapsValue.AutoSize = true;
-            this.lb_TB_MapsValue.Location = new System.Drawing.Point(104, 20);
-            this.lb_TB_MapsValue.Name = "lb_TB_MapsValue";
-            this.lb_TB_MapsValue.Size = new System.Drawing.Size(60, 13);
-            this.lb_TB_MapsValue.TabIndex = 9;
-            this.lb_TB_MapsValue.Text = "Unbekannt";
+            this.btn_RestoreDB.Location = new System.Drawing.Point(9, 93);
+            this.btn_RestoreDB.Name = "btn_RestoreDB";
+            this.btn_RestoreDB.Size = new System.Drawing.Size(185, 23);
+            this.btn_RestoreDB.TabIndex = 2;
+            this.btn_RestoreDB.Text = "Datenbank Wiederherstellen";
+            this.btn_RestoreDB.UseVisualStyleBackColor = true;
+            this.btn_RestoreDB.Visible = false;
+            this.btn_RestoreDB.Click += new System.EventHandler(this.btn_RestoreDB_Click);
             // 
             // Form1
             // 
@@ -354,7 +379,7 @@
         private System.Windows.Forms.TabControl tc_fortnitewm;
         private System.Windows.Forms.TabPage tp_Database_Infos;
         private System.Windows.Forms.TabPage tb_insert;
-        private System.Windows.Forms.Button btn_TestCon;
+        private System.Windows.Forms.Button btn_SaveCred;
         private System.Windows.Forms.TabPage tb_Select;
         private System.Windows.Forms.TabPage tb_update;
         private System.Windows.Forms.GroupBox gb_TB_State;
@@ -368,6 +393,8 @@
         private System.Windows.Forms.Label lb_TB_Players;
         private System.Windows.Forms.Label lb_TB_Modes;
         private System.Windows.Forms.Label lb_TB_Maps;
+        private System.Windows.Forms.Button btn_ConnectRefresh;
+        private System.Windows.Forms.Button btn_RestoreDB;
     }
 }
 
