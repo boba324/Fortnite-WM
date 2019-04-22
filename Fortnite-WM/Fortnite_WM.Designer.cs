@@ -1,6 +1,6 @@
 ﻿namespace Fortnite_WM
 {
-    partial class Form1
+    partial class Fortnite_WM
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fortnite_WM));
             this.gb_DB_State = new System.Windows.Forms.GroupBox();
             this.btn_ConnectRefresh = new System.Windows.Forms.Button();
             this.btn_SaveCred = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tp_Database_Infos = new System.Windows.Forms.TabPage();
             this.gb_TB_State = new System.Windows.Forms.GroupBox();
+            this.btn_RestoreDB = new System.Windows.Forms.Button();
             this.lb_TB_MapsValue = new System.Windows.Forms.Label();
             this.lb_TB_ModesValue = new System.Windows.Forms.Label();
             this.lb_TB_PlayersValue = new System.Windows.Forms.Label();
@@ -53,13 +55,17 @@
             this.lb_TB_Modes = new System.Windows.Forms.Label();
             this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tb_insert = new System.Windows.Forms.TabPage();
+            this.gb_Table = new System.Windows.Forms.GroupBox();
+            this.gb_Insert_Table = new System.Windows.Forms.GroupBox();
+            this.cb_Insert_Table = new System.Windows.Forms.ComboBox();
             this.tb_Select = new System.Windows.Forms.TabPage();
             this.tb_update = new System.Windows.Forms.TabPage();
-            this.btn_RestoreDB = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tp_Database_Infos.SuspendLayout();
             this.gb_TB_State.SuspendLayout();
+            this.tb_insert.SuspendLayout();
+            this.gb_Insert_Table.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -103,12 +109,14 @@
             // 
             // tb_DB_PW
             // 
+            this.tb_DB_PW.AcceptsTab = true;
             this.tb_DB_PW.Location = new System.Drawing.Point(94, 85);
             this.tb_DB_PW.Name = "tb_DB_PW";
             this.tb_DB_PW.PasswordChar = '*';
             this.tb_DB_PW.Size = new System.Drawing.Size(100, 20);
             this.tb_DB_PW.TabIndex = 9;
             this.tb_DB_PW.Text = "123";
+            this.tb_DB_PW.UseSystemPasswordChar = true;
             // 
             // lb_DB_PW
             // 
@@ -121,10 +129,11 @@
             // 
             // tb_DB_UID
             // 
+            this.tb_DB_UID.AcceptsTab = true;
             this.tb_DB_UID.Location = new System.Drawing.Point(94, 59);
             this.tb_DB_UID.Name = "tb_DB_UID";
             this.tb_DB_UID.Size = new System.Drawing.Size(100, 20);
-            this.tb_DB_UID.TabIndex = 7;
+            this.tb_DB_UID.TabIndex = 8;
             this.tb_DB_UID.Text = "root";
             // 
             // lb_DB_UID
@@ -215,6 +224,17 @@
             this.gb_TB_State.TabIndex = 1;
             this.gb_TB_State.TabStop = false;
             this.gb_TB_State.Text = "Tabellen Status";
+            // 
+            // btn_RestoreDB
+            // 
+            this.btn_RestoreDB.Location = new System.Drawing.Point(9, 93);
+            this.btn_RestoreDB.Name = "btn_RestoreDB";
+            this.btn_RestoreDB.Size = new System.Drawing.Size(185, 23);
+            this.btn_RestoreDB.TabIndex = 2;
+            this.btn_RestoreDB.Text = "Datenbank Wiederherstellen";
+            this.btn_RestoreDB.UseVisualStyleBackColor = true;
+            this.btn_RestoreDB.Visible = false;
+            this.btn_RestoreDB.Click += new System.EventHandler(this.btn_RestoreDB_Click);
             // 
             // lb_TB_MapsValue
             // 
@@ -308,6 +328,8 @@
             // 
             // tb_insert
             // 
+            this.tb_insert.Controls.Add(this.gb_Table);
+            this.tb_insert.Controls.Add(this.gb_Insert_Table);
             this.tb_insert.Location = new System.Drawing.Point(4, 22);
             this.tb_insert.Name = "tb_insert";
             this.tb_insert.Padding = new System.Windows.Forms.Padding(3);
@@ -315,6 +337,32 @@
             this.tb_insert.TabIndex = 1;
             this.tb_insert.Text = "Dateneingaben";
             this.tb_insert.UseVisualStyleBackColor = true;
+            // 
+            // gb_Table
+            // 
+            this.gb_Table.Location = new System.Drawing.Point(6, 55);
+            this.gb_Table.Name = "gb_Table";
+            this.gb_Table.Size = new System.Drawing.Size(756, 342);
+            this.gb_Table.TabIndex = 1;
+            this.gb_Table.TabStop = false;
+            // 
+            // gb_Insert_Table
+            // 
+            this.gb_Insert_Table.Controls.Add(this.cb_Insert_Table);
+            this.gb_Insert_Table.Location = new System.Drawing.Point(6, 6);
+            this.gb_Insert_Table.Name = "gb_Insert_Table";
+            this.gb_Insert_Table.Size = new System.Drawing.Size(161, 43);
+            this.gb_Insert_Table.TabIndex = 0;
+            this.gb_Insert_Table.TabStop = false;
+            this.gb_Insert_Table.Text = "Tabellenauswahl";
+            // 
+            // cb_Insert_Table
+            // 
+            this.cb_Insert_Table.FormattingEnabled = true;
+            this.cb_Insert_Table.Location = new System.Drawing.Point(6, 16);
+            this.cb_Insert_Table.Name = "cb_Insert_Table";
+            this.cb_Insert_Table.Size = new System.Drawing.Size(149, 21);
+            this.cb_Insert_Table.TabIndex = 0;
             // 
             // tb_Select
             // 
@@ -336,31 +384,26 @@
             this.tb_update.Text = "Datenänderung";
             this.tb_update.UseVisualStyleBackColor = true;
             // 
-            // btn_RestoreDB
-            // 
-            this.btn_RestoreDB.Location = new System.Drawing.Point(9, 93);
-            this.btn_RestoreDB.Name = "btn_RestoreDB";
-            this.btn_RestoreDB.Size = new System.Drawing.Size(185, 23);
-            this.btn_RestoreDB.TabIndex = 2;
-            this.btn_RestoreDB.Text = "Datenbank Wiederherstellen";
-            this.btn_RestoreDB.UseVisualStyleBackColor = true;
-            this.btn_RestoreDB.Visible = false;
-            this.btn_RestoreDB.Click += new System.EventHandler(this.btn_RestoreDB_Click);
-            // 
-            // Form1
+            // Fortnite_WM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tc_fortnitewm);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "Fortnite_WM";
+            this.Text = "Fortnite WM";
             this.gb_DB_State.ResumeLayout(false);
             this.gb_DB_State.PerformLayout();
             this.tc_fortnitewm.ResumeLayout(false);
             this.tp_Database_Infos.ResumeLayout(false);
             this.gb_TB_State.ResumeLayout(false);
             this.gb_TB_State.PerformLayout();
+            this.tb_insert.ResumeLayout(false);
+            this.gb_Insert_Table.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -395,6 +438,9 @@
         private System.Windows.Forms.Label lb_TB_Maps;
         private System.Windows.Forms.Button btn_ConnectRefresh;
         private System.Windows.Forms.Button btn_RestoreDB;
+        private System.Windows.Forms.GroupBox gb_Insert_Table;
+        private System.Windows.Forms.ComboBox cb_Insert_Table;
+        private System.Windows.Forms.GroupBox gb_Table;
     }
 }
 

@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Fortnite_WM
 {
-    public partial class Form1 : Form
+    public partial class Fortnite_WM : Form
     {
         DBcon dbcon = new DBcon();
-        public Form1()
+        public Fortnite_WM()
         {
             InitializeComponent();
         }
