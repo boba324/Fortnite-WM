@@ -15,7 +15,6 @@ namespace Fortnite_WM
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
         private bool dbConState = false;
-        private RadioButton selectedrb;
         Dictionary<int, string> backgroundWords = new Dictionary<int, string>();
         Dictionary<int, string> insertValues = new Dictionary<int, string>();
         #endregion
