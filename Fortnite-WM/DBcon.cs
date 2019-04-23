@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
@@ -22,15 +23,13 @@ namespace Fortnite_WM
         {
             Connector();
         }
-
-        //Initialize values
+        
         private void Connector()
         {
             server = "localhost";
             database = "";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";"; // + "DATABASE=" + database + ";"
-
             connection = new MySqlConnection(connectionString);
            
         }
@@ -46,19 +45,11 @@ namespace Fortnite_WM
         public int DBexist()
         {
             string query = "SELECT COUNT(*) FROM information_schema.schemata WHERE SCHEMA_NAME='fortnite_wm';";
-
             int Count = -1;
-
-            //Open Connection
             if (this.OpenConnection() == true)
             {
-                //Create Mysql Command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                //ExecuteScalar will return one value
                 Count = int.Parse(cmd.ExecuteScalar() + "");
-
-                //close Connection
                 this.CloseConnection();
 
                 return Count;
@@ -68,6 +59,7 @@ namespace Fortnite_WM
                 return Count;
             }
         }
+
         public Dictionary<string, int> TBexist()
         {
             Dictionary<string, int> tbexist = new Dictionary<string, int>();
@@ -155,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
 `team_description` TEXT DEFAULT NULL, 
 `team_created` DATETIME NOT NULL, 
 `team_kills` SMALLINT UNSIGNED DEFAULT 0,
-`team_membercount` TINYINT UNSIGNED DEFAULT NULL,
+`team_membercount` TINYINT UNSIGNED DEFAULT 0,
 PRIMARY KEY (`team_id`));
  
  
@@ -214,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `modes` (
 `mode_name` TINYTEXT NOT NULL, 
 `mode_type` TINYINT UNSIGNED DEFAULT 7, 
 `mode_map_id` SMALLINT UNSIGNED NOT NULL, 
-`mode_max_player` TINYINT UNSIGNED NOT NULL, 
+`mode_max_player` TINYINT UNSIGNED DEFAULT 100, 
 `mode_weapon_types` TINYINT UNSIGNED DEFAULT 255,
 `mode_weapon_rarity` TINYINT UNSIGNED DEFAULT 63,
 PRIMARY KEY(`mode_id`),
@@ -263,7 +255,7 @@ FOREIGN KEY(`mode_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDA
 
 
 ###############################################################
-########             Zu den Seltenheiten               ########
+########           Zu den Gespielten Runden            ########
 ###############################################################
 CREATE TABLE IF NOT EXISTS `played_matches` (
 `pm_id` INT UNSIGNED AUTO_INCREMENT, 
@@ -275,35 +267,61 @@ PRIMARY KEY(`pm_id`),
 FOREIGN KEY(`pm_mode_id`) REFERENCES `modes`(`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE CASCADE);";
 #endregion
-            //open connection
             if (this.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(createDBQuery, connection);
-
-                //Execute command
                 cmd.ExecuteNonQuery();
-
-                //close connection
                 this.CloseConnection();
             }
         }
 
-        public void DBInsert()
+        public void DBInsert(Dictionary<string, string> par)
         {
-            #region InsertDBQuery
-            string insertDBQuery = @"";
+            #region TeamsDBQuery
+            string teamsDBQuery = @"INSERT INTO `fortnite_wm`.`teams`
+(`team_name`,
+`team_country`,
+`team_state`,
+`team_city`,
+`team_zip`,
+`team_street`,
+`team_streetnr`,
+`team_mail`,
+`team_description`,
+`team_created`)
+VALUES
+(
+" + par["Name"] + @",
+" + par["Country"] + @",
+" + par["State"] + @",
+" + par["City"] + @",
+" + par["ZIP"] + @",
+" + par["Street"] + @",
+" + par["Streetnr"] + @",
+" + par["Mail"] + @",
+" + par["Description"] + @",
+" + par["TimeStamp"] + @");";
             #endregion
-            //open connection
             if (this.OpenConnection() == true)
             {
-                MySqlCommand cmd = new MySqlCommand(insertDBQuery, connection);
+                MySqlCommand cmd = new MySqlCommand(teamsDBQuery, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
         }
 
-        //Open connection to database
+        public DataTable ComboData()
+        {
+            string query = "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema = 'fortnite_wm'";
+            MySqlDataAdapter tableAdapter = new MySqlDataAdapter(query, connection);
+            DataTable tableDS = new DataTable();
+            tableAdapter.Fill(tableDS);
+            DataRow row = tableDS.NewRow();
+            row["TABLE_NAME"] = "-";
+            tableDS.Rows.InsertAt(row, 0);
+            return tableDS;
+        }
+
         private bool OpenConnection()
         {
             try
@@ -329,8 +347,7 @@ FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE
                 return false;
             }
         }
-
-        //Close connection
+        
         private bool CloseConnection()
         {
             try
@@ -344,24 +361,26 @@ FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE
                 return false;
             }
         }
-
-        //Insert statements
-        public void Insert()
+        
+        public void Insert(Dictionary<int, string> par)
         {
-            this.OpenConnection();
+            string query = "Insert Into maps(`map_name`,`map_type`) Values('" + par[1] + "', " + par[0] + ")";
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+            }
         }
-
-        //Update statements
+        
         public void Update()
         {
         }
-
-        //Delete statements
+        
         public void Delete()
         {
         }
-
-        //Select statements
+        
         public List<string>[] Select(Array[] par)
         {
             string query = "";
@@ -413,8 +432,7 @@ FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE
                 return list;
             }
         }
-
-        //Count statements
+        
         public int Count()
         {
             return 1;
