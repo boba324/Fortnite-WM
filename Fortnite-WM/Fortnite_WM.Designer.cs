@@ -78,8 +78,27 @@
             this.cb_Modes_Rarity_Uncommon = new System.Windows.Forms.CheckBox();
             this.cb_Modes_Rarity_Common = new System.Windows.Forms.CheckBox();
             this.tb_Mode_Name = new System.Windows.Forms.TextBox();
+            this.gb_Maps = new System.Windows.Forms.GroupBox();
+            this.gb_Map = new System.Windows.Forms.GroupBox();
+            this.rb_Maps_Small = new System.Windows.Forms.RadioButton();
+            this.rb_Maps_Middle = new System.Windows.Forms.RadioButton();
+            this.rb_Maps_Large = new System.Windows.Forms.RadioButton();
+            this.tb_Map_Name = new System.Windows.Forms.TextBox();
+            this.gb_Teams = new System.Windows.Forms.GroupBox();
+            this.tb_Teams_Mail = new System.Windows.Forms.TextBox();
+            this.tb_Description = new System.Windows.Forms.TextBox();
+            this.tb_Teams_Name = new System.Windows.Forms.TextBox();
+            this.tb_Teams_Country = new System.Windows.Forms.TextBox();
+            this.tb_Teams_State = new System.Windows.Forms.TextBox();
+            this.tb_Teams_Streetnr = new System.Windows.Forms.TextBox();
+            this.tb_Teams_Postalcode = new System.Windows.Forms.TextBox();
+            this.tb_Teams_City = new System.Windows.Forms.TextBox();
+            this.tb_Teams_Street = new System.Windows.Forms.TextBox();
             this.btn_Insert = new System.Windows.Forms.Button();
             this.gb_Players = new System.Windows.Forms.GroupBox();
+            this.tb_Player_Mail = new System.Windows.Forms.TextBox();
+            this.tb_Player_Phonenumber = new System.Windows.Forms.TextBox();
+            this.tb_Player_Age = new System.Windows.Forms.TextBox();
             this.tb_Player_Streetnr = new System.Windows.Forms.TextBox();
             this.tb_Player_Street = new System.Windows.Forms.TextBox();
             this.tb_Player_City = new System.Windows.Forms.TextBox();
@@ -89,22 +108,6 @@
             this.tb_Player_Firstname = new System.Windows.Forms.TextBox();
             this.tb_Player_Familyame = new System.Windows.Forms.TextBox();
             this.tb_Player_Nickname = new System.Windows.Forms.TextBox();
-            this.gb_Maps = new System.Windows.Forms.GroupBox();
-            this.gb_Map = new System.Windows.Forms.GroupBox();
-            this.rb_Maps_Small = new System.Windows.Forms.RadioButton();
-            this.rb_Maps_Middle = new System.Windows.Forms.RadioButton();
-            this.rb_Maps_Large = new System.Windows.Forms.RadioButton();
-            this.tb_Map_Name = new System.Windows.Forms.TextBox();
-            this.gb_Teams = new System.Windows.Forms.GroupBox();
-            this.tb_Description = new System.Windows.Forms.TextBox();
-            this.tb_Teams_Name = new System.Windows.Forms.TextBox();
-            this.tb_04 = new System.Windows.Forms.TextBox();
-            this.tb_Teams_Country = new System.Windows.Forms.TextBox();
-            this.tb_Teams_State = new System.Windows.Forms.TextBox();
-            this.tb_Teams_Streetnr = new System.Windows.Forms.TextBox();
-            this.tb_Teams_Postalcode = new System.Windows.Forms.TextBox();
-            this.tb_Teams_City = new System.Windows.Forms.TextBox();
-            this.tb_Teams_Street = new System.Windows.Forms.TextBox();
             this.gb_Insert_Table = new System.Windows.Forms.GroupBox();
             this.cb_Insert_Table = new System.Windows.Forms.ComboBox();
             this.tab_Select = new System.Windows.Forms.TabPage();
@@ -119,10 +122,10 @@
             this.gb_Mode_Type.SuspendLayout();
             this.gb_Weapon_Type.SuspendLayout();
             this.gb_Rarity.SuspendLayout();
-            this.gb_Players.SuspendLayout();
             this.gb_Maps.SuspendLayout();
             this.gb_Map.SuspendLayout();
             this.gb_Teams.SuspendLayout();
+            this.gb_Players.SuspendLayout();
             this.gb_Insert_Table.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -246,10 +249,10 @@
             this.tc_fortnitewm.Controls.Add(this.tab_insert);
             this.tc_fortnitewm.Controls.Add(this.tab_Select);
             this.tc_fortnitewm.Controls.Add(this.tab_update);
-            this.tc_fortnitewm.Location = new System.Drawing.Point(12, 12);
+            this.tc_fortnitewm.Location = new System.Drawing.Point(10, 9);
             this.tc_fortnitewm.Name = "tc_fortnitewm";
             this.tc_fortnitewm.SelectedIndex = 0;
-            this.tc_fortnitewm.Size = new System.Drawing.Size(467, 426);
+            this.tc_fortnitewm.Size = new System.Drawing.Size(1049, 541);
             this.tc_fortnitewm.TabIndex = 2;
             // 
             // tab_Database_Infos
@@ -260,7 +263,7 @@
             this.tab_Database_Infos.Location = new System.Drawing.Point(4, 22);
             this.tab_Database_Infos.Name = "tab_Database_Infos";
             this.tab_Database_Infos.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Database_Infos.Size = new System.Drawing.Size(459, 400);
+            this.tab_Database_Infos.Size = new System.Drawing.Size(1041, 515);
             this.tab_Database_Infos.TabIndex = 0;
             this.tab_Database_Infos.Text = "DB Infos";
             // 
@@ -390,21 +393,21 @@
             this.tab_insert.BackColor = System.Drawing.Color.Gray;
             this.tab_insert.Controls.Add(this.btn_reset);
             this.tab_insert.Controls.Add(this.gb_Modes);
-            this.tab_insert.Controls.Add(this.btn_Insert);
-            this.tab_insert.Controls.Add(this.gb_Players);
             this.tab_insert.Controls.Add(this.gb_Maps);
             this.tab_insert.Controls.Add(this.gb_Teams);
+            this.tab_insert.Controls.Add(this.btn_Insert);
+            this.tab_insert.Controls.Add(this.gb_Players);
             this.tab_insert.Controls.Add(this.gb_Insert_Table);
             this.tab_insert.Location = new System.Drawing.Point(4, 22);
             this.tab_insert.Name = "tab_insert";
             this.tab_insert.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_insert.Size = new System.Drawing.Size(459, 400);
+            this.tab_insert.Size = new System.Drawing.Size(1041, 515);
             this.tab_insert.TabIndex = 1;
             this.tab_insert.Text = "Dateneingaben";
             // 
             // btn_reset
             // 
-            this.btn_reset.Location = new System.Drawing.Point(6, 301);
+            this.btn_reset.Location = new System.Drawing.Point(6, 413);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(209, 96);
             this.btn_reset.TabIndex = 20;
@@ -417,7 +420,7 @@
             this.gb_Modes.Controls.Add(this.gb_Weapon_Type);
             this.gb_Modes.Controls.Add(this.gb_Rarity);
             this.gb_Modes.Controls.Add(this.tb_Mode_Name);
-            this.gb_Modes.Location = new System.Drawing.Point(421, 6);
+            this.gb_Modes.Location = new System.Drawing.Point(594, 6);
             this.gb_Modes.Name = "gb_Modes";
             this.gb_Modes.Size = new System.Drawing.Size(441, 241);
             this.gb_Modes.TabIndex = 3;
@@ -429,7 +432,7 @@
             this.gb_Mode_Type.Controls.Add(this.cb_Modes_Type_Squad);
             this.gb_Mode_Type.Controls.Add(this.cb_Modes_Type_Duo);
             this.gb_Mode_Type.Controls.Add(this.cb_Modes_Type_Solo);
-            this.gb_Mode_Type.Location = new System.Drawing.Point(183, 19);
+            this.gb_Mode_Type.Location = new System.Drawing.Point(187, 16);
             this.gb_Mode_Type.Name = "gb_Mode_Type";
             this.gb_Mode_Type.Size = new System.Drawing.Size(248, 47);
             this.gb_Mode_Type.TabIndex = 17;
@@ -640,109 +643,20 @@
             // 
             // tb_Mode_Name
             // 
-            this.tb_Mode_Name.Location = new System.Drawing.Point(37, 34);
+            this.tb_Mode_Name.Location = new System.Drawing.Point(10, 32);
             this.tb_Mode_Name.Name = "tb_Mode_Name";
-            this.tb_Mode_Name.Size = new System.Drawing.Size(100, 20);
+            this.tb_Mode_Name.Size = new System.Drawing.Size(171, 20);
             this.tb_Mode_Name.TabIndex = 11;
-            // 
-            // btn_Insert
-            // 
-            this.btn_Insert.Location = new System.Drawing.Point(221, 301);
-            this.btn_Insert.Name = "btn_Insert";
-            this.btn_Insert.Size = new System.Drawing.Size(210, 96);
-            this.btn_Insert.TabIndex = 19;
-            this.btn_Insert.Text = "In Datenbank speichern";
-            this.btn_Insert.UseVisualStyleBackColor = true;
-            this.btn_Insert.Click += new System.EventHandler(this.btn_Insert_Click);
-            // 
-            // gb_Players
-            // 
-            this.gb_Players.Controls.Add(this.tb_Player_Streetnr);
-            this.gb_Players.Controls.Add(this.tb_Player_Street);
-            this.gb_Players.Controls.Add(this.tb_Player_City);
-            this.gb_Players.Controls.Add(this.tb_Player_Postalcode);
-            this.gb_Players.Controls.Add(this.tb_Player_State);
-            this.gb_Players.Controls.Add(this.tb_Player_Country);
-            this.gb_Players.Controls.Add(this.tb_Player_Firstname);
-            this.gb_Players.Controls.Add(this.tb_Player_Familyame);
-            this.gb_Players.Controls.Add(this.tb_Player_Nickname);
-            this.gb_Players.Location = new System.Drawing.Point(364, 108);
-            this.gb_Players.Name = "gb_Players";
-            this.gb_Players.Size = new System.Drawing.Size(221, 158);
-            this.gb_Players.TabIndex = 1;
-            this.gb_Players.TabStop = false;
-            this.gb_Players.Text = "Players";
-            // 
-            // tb_Player_Streetnr
-            // 
-            this.tb_Player_Streetnr.Location = new System.Drawing.Point(112, 123);
-            this.tb_Player_Streetnr.Name = "tb_Player_Streetnr";
-            this.tb_Player_Streetnr.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Streetnr.TabIndex = 10;
-            // 
-            // tb_Player_Street
-            // 
-            this.tb_Player_Street.Location = new System.Drawing.Point(6, 123);
-            this.tb_Player_Street.Name = "tb_Player_Street";
-            this.tb_Player_Street.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Street.TabIndex = 9;
-            // 
-            // tb_Player_City
-            // 
-            this.tb_Player_City.Location = new System.Drawing.Point(112, 97);
-            this.tb_Player_City.Name = "tb_Player_City";
-            this.tb_Player_City.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_City.TabIndex = 8;
-            // 
-            // tb_Player_Postalcode
-            // 
-            this.tb_Player_Postalcode.Location = new System.Drawing.Point(6, 97);
-            this.tb_Player_Postalcode.Name = "tb_Player_Postalcode";
-            this.tb_Player_Postalcode.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Postalcode.TabIndex = 7;
-            // 
-            // tb_Player_State
-            // 
-            this.tb_Player_State.Location = new System.Drawing.Point(112, 71);
-            this.tb_Player_State.Name = "tb_Player_State";
-            this.tb_Player_State.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_State.TabIndex = 6;
-            // 
-            // tb_Player_Country
-            // 
-            this.tb_Player_Country.Location = new System.Drawing.Point(6, 71);
-            this.tb_Player_Country.Name = "tb_Player_Country";
-            this.tb_Player_Country.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Country.TabIndex = 5;
-            // 
-            // tb_Player_Firstname
-            // 
-            this.tb_Player_Firstname.Location = new System.Drawing.Point(112, 45);
-            this.tb_Player_Firstname.Name = "tb_Player_Firstname";
-            this.tb_Player_Firstname.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Firstname.TabIndex = 4;
-            // 
-            // tb_Player_Familyame
-            // 
-            this.tb_Player_Familyame.Location = new System.Drawing.Point(6, 45);
-            this.tb_Player_Familyame.Name = "tb_Player_Familyame";
-            this.tb_Player_Familyame.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Familyame.TabIndex = 3;
-            // 
-            // tb_Player_Nickname
-            // 
-            this.tb_Player_Nickname.Location = new System.Drawing.Point(6, 19);
-            this.tb_Player_Nickname.Name = "tb_Player_Nickname";
-            this.tb_Player_Nickname.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Nickname.TabIndex = 2;
+            this.tb_Mode_Name.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Mode_Name.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // gb_Maps
             // 
             this.gb_Maps.Controls.Add(this.gb_Map);
             this.gb_Maps.Controls.Add(this.tb_Map_Name);
-            this.gb_Maps.Location = new System.Drawing.Point(6, 55);
+            this.gb_Maps.Location = new System.Drawing.Point(130, 273);
             this.gb_Maps.Name = "gb_Maps";
-            this.gb_Maps.Size = new System.Drawing.Size(310, 70);
+            this.gb_Maps.Size = new System.Drawing.Size(301, 68);
             this.gb_Maps.TabIndex = 2;
             this.gb_Maps.TabStop = false;
             this.gb_Maps.Text = "Maps";
@@ -752,7 +666,7 @@
             this.gb_Map.Controls.Add(this.rb_Maps_Small);
             this.gb_Map.Controls.Add(this.rb_Maps_Middle);
             this.gb_Map.Controls.Add(this.rb_Maps_Large);
-            this.gb_Map.Location = new System.Drawing.Point(133, 11);
+            this.gb_Map.Location = new System.Drawing.Point(118, 10);
             this.gb_Map.Name = "gb_Map";
             this.gb_Map.Size = new System.Drawing.Size(171, 48);
             this.gb_Map.TabIndex = 15;
@@ -794,94 +708,251 @@
             // 
             // tb_Map_Name
             // 
-            this.tb_Map_Name.Location = new System.Drawing.Point(12, 29);
+            this.tb_Map_Name.Location = new System.Drawing.Point(12, 28);
             this.tb_Map_Name.Name = "tb_Map_Name";
             this.tb_Map_Name.Size = new System.Drawing.Size(100, 20);
             this.tb_Map_Name.TabIndex = 0;
-            this.tb_Map_Name.Enter += new System.EventHandler(this.tb_Map_Name_Enter);
-            this.tb_Map_Name.Leave += new System.EventHandler(this.tb_Map_Name_Leave);
+            this.tb_Map_Name.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Map_Name.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // gb_Teams
             // 
+            this.gb_Teams.Controls.Add(this.tb_Teams_Mail);
             this.gb_Teams.Controls.Add(this.tb_Description);
             this.gb_Teams.Controls.Add(this.tb_Teams_Name);
-            this.gb_Teams.Controls.Add(this.tb_04);
             this.gb_Teams.Controls.Add(this.tb_Teams_Country);
             this.gb_Teams.Controls.Add(this.tb_Teams_State);
             this.gb_Teams.Controls.Add(this.tb_Teams_Streetnr);
             this.gb_Teams.Controls.Add(this.tb_Teams_Postalcode);
             this.gb_Teams.Controls.Add(this.tb_Teams_City);
             this.gb_Teams.Controls.Add(this.tb_Teams_Street);
-            this.gb_Teams.Location = new System.Drawing.Point(6, 55);
+            this.gb_Teams.Location = new System.Drawing.Point(367, 6);
             this.gb_Teams.Name = "gb_Teams";
-            this.gb_Teams.Size = new System.Drawing.Size(239, 235);
+            this.gb_Teams.Size = new System.Drawing.Size(221, 225);
             this.gb_Teams.TabIndex = 21;
             this.gb_Teams.TabStop = false;
             this.gb_Teams.Text = "Teams";
             // 
+            // tb_Teams_Mail
+            // 
+            this.tb_Teams_Mail.Location = new System.Drawing.Point(115, 17);
+            this.tb_Teams_Mail.Name = "tb_Teams_Mail";
+            this.tb_Teams_Mail.Size = new System.Drawing.Size(100, 20);
+            this.tb_Teams_Mail.TabIndex = 15;
+            this.tb_Teams_Mail.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Mail.Leave += new System.EventHandler(this.tb_Leave);
+            // 
             // tb_Description
             // 
-            this.tb_Description.Location = new System.Drawing.Point(12, 132);
+            this.tb_Description.Location = new System.Drawing.Point(6, 121);
             this.tb_Description.Multiline = true;
             this.tb_Description.Name = "tb_Description";
-            this.tb_Description.Size = new System.Drawing.Size(215, 97);
+            this.tb_Description.Size = new System.Drawing.Size(209, 97);
             this.tb_Description.TabIndex = 7;
+            this.tb_Description.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Description.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_Name
             // 
-            this.tb_Teams_Name.Location = new System.Drawing.Point(18, 28);
+            this.tb_Teams_Name.Location = new System.Drawing.Point(6, 17);
             this.tb_Teams_Name.Name = "tb_Teams_Name";
             this.tb_Teams_Name.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Name.TabIndex = 1;
-            // 
-            // tb_04
-            // 
-            this.tb_04.Location = new System.Drawing.Point(127, 28);
-            this.tb_04.Name = "tb_04";
-            this.tb_04.Size = new System.Drawing.Size(100, 20);
-            this.tb_04.TabIndex = 12;
+            this.tb_Teams_Name.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Name.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_Country
             // 
-            this.tb_Teams_Country.Location = new System.Drawing.Point(18, 54);
+            this.tb_Teams_Country.Location = new System.Drawing.Point(6, 43);
             this.tb_Teams_Country.Name = "tb_Teams_Country";
             this.tb_Teams_Country.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Country.TabIndex = 2;
+            this.tb_Teams_Country.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Country.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_State
             // 
-            this.tb_Teams_State.Location = new System.Drawing.Point(127, 53);
+            this.tb_Teams_State.Location = new System.Drawing.Point(115, 42);
             this.tb_Teams_State.Name = "tb_Teams_State";
             this.tb_Teams_State.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_State.TabIndex = 13;
+            this.tb_Teams_State.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_State.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_Streetnr
             // 
-            this.tb_Teams_Streetnr.Location = new System.Drawing.Point(127, 106);
+            this.tb_Teams_Streetnr.Location = new System.Drawing.Point(115, 95);
             this.tb_Teams_Streetnr.Name = "tb_Teams_Streetnr";
             this.tb_Teams_Streetnr.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Streetnr.TabIndex = 14;
+            this.tb_Teams_Streetnr.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Streetnr.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_Postalcode
             // 
-            this.tb_Teams_Postalcode.Location = new System.Drawing.Point(18, 80);
+            this.tb_Teams_Postalcode.Location = new System.Drawing.Point(6, 69);
             this.tb_Teams_Postalcode.Name = "tb_Teams_Postalcode";
             this.tb_Teams_Postalcode.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Postalcode.TabIndex = 5;
+            this.tb_Teams_Postalcode.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Postalcode.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_City
             // 
-            this.tb_Teams_City.Location = new System.Drawing.Point(127, 79);
+            this.tb_Teams_City.Location = new System.Drawing.Point(115, 68);
             this.tb_Teams_City.Name = "tb_Teams_City";
             this.tb_Teams_City.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_City.TabIndex = 6;
+            this.tb_Teams_City.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_City.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // tb_Teams_Street
             // 
-            this.tb_Teams_Street.Location = new System.Drawing.Point(18, 106);
+            this.tb_Teams_Street.Location = new System.Drawing.Point(6, 95);
             this.tb_Teams_Street.Name = "tb_Teams_Street";
             this.tb_Teams_Street.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Street.TabIndex = 4;
+            this.tb_Teams_Street.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Teams_Street.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // btn_Insert
+            // 
+            this.btn_Insert.Location = new System.Drawing.Point(221, 413);
+            this.btn_Insert.Name = "btn_Insert";
+            this.btn_Insert.Size = new System.Drawing.Size(210, 96);
+            this.btn_Insert.TabIndex = 19;
+            this.btn_Insert.Text = "In Datenbank speichern";
+            this.btn_Insert.UseVisualStyleBackColor = true;
+            this.btn_Insert.Click += new System.EventHandler(this.btn_Insert_Click);
+            // 
+            // gb_Players
+            // 
+            this.gb_Players.Controls.Add(this.tb_Player_Mail);
+            this.gb_Players.Controls.Add(this.tb_Player_Phonenumber);
+            this.gb_Players.Controls.Add(this.tb_Player_Age);
+            this.gb_Players.Controls.Add(this.tb_Player_Streetnr);
+            this.gb_Players.Controls.Add(this.tb_Player_Street);
+            this.gb_Players.Controls.Add(this.tb_Player_City);
+            this.gb_Players.Controls.Add(this.tb_Player_Postalcode);
+            this.gb_Players.Controls.Add(this.tb_Player_State);
+            this.gb_Players.Controls.Add(this.tb_Player_Country);
+            this.gb_Players.Controls.Add(this.tb_Player_Firstname);
+            this.gb_Players.Controls.Add(this.tb_Player_Familyame);
+            this.gb_Players.Controls.Add(this.tb_Player_Nickname);
+            this.gb_Players.Location = new System.Drawing.Point(6, 55);
+            this.gb_Players.Name = "gb_Players";
+            this.gb_Players.Size = new System.Drawing.Size(221, 175);
+            this.gb_Players.TabIndex = 1;
+            this.gb_Players.TabStop = false;
+            this.gb_Players.Text = "Players";
+            // 
+            // tb_Player_Mail
+            // 
+            this.tb_Player_Mail.Location = new System.Drawing.Point(113, 149);
+            this.tb_Player_Mail.Name = "tb_Player_Mail";
+            this.tb_Player_Mail.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Mail.TabIndex = 13;
+            this.tb_Player_Mail.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Mail.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Phonenumber
+            // 
+            this.tb_Player_Phonenumber.Location = new System.Drawing.Point(6, 149);
+            this.tb_Player_Phonenumber.Name = "tb_Player_Phonenumber";
+            this.tb_Player_Phonenumber.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Phonenumber.TabIndex = 12;
+            this.tb_Player_Phonenumber.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Phonenumber.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Age
+            // 
+            this.tb_Player_Age.Location = new System.Drawing.Point(113, 19);
+            this.tb_Player_Age.Name = "tb_Player_Age";
+            this.tb_Player_Age.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Age.TabIndex = 11;
+            this.tb_Player_Age.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Age.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Streetnr
+            // 
+            this.tb_Player_Streetnr.Location = new System.Drawing.Point(112, 123);
+            this.tb_Player_Streetnr.Name = "tb_Player_Streetnr";
+            this.tb_Player_Streetnr.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Streetnr.TabIndex = 10;
+            this.tb_Player_Streetnr.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Streetnr.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Street
+            // 
+            this.tb_Player_Street.Location = new System.Drawing.Point(6, 123);
+            this.tb_Player_Street.Name = "tb_Player_Street";
+            this.tb_Player_Street.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Street.TabIndex = 9;
+            this.tb_Player_Street.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Street.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_City
+            // 
+            this.tb_Player_City.Location = new System.Drawing.Point(112, 97);
+            this.tb_Player_City.Name = "tb_Player_City";
+            this.tb_Player_City.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_City.TabIndex = 8;
+            this.tb_Player_City.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_City.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Postalcode
+            // 
+            this.tb_Player_Postalcode.Location = new System.Drawing.Point(6, 97);
+            this.tb_Player_Postalcode.Name = "tb_Player_Postalcode";
+            this.tb_Player_Postalcode.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Postalcode.TabIndex = 7;
+            this.tb_Player_Postalcode.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Postalcode.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_State
+            // 
+            this.tb_Player_State.Location = new System.Drawing.Point(112, 71);
+            this.tb_Player_State.Name = "tb_Player_State";
+            this.tb_Player_State.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_State.TabIndex = 6;
+            this.tb_Player_State.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_State.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Country
+            // 
+            this.tb_Player_Country.Location = new System.Drawing.Point(6, 71);
+            this.tb_Player_Country.Name = "tb_Player_Country";
+            this.tb_Player_Country.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Country.TabIndex = 5;
+            this.tb_Player_Country.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Country.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Firstname
+            // 
+            this.tb_Player_Firstname.Location = new System.Drawing.Point(112, 45);
+            this.tb_Player_Firstname.Name = "tb_Player_Firstname";
+            this.tb_Player_Firstname.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Firstname.TabIndex = 4;
+            this.tb_Player_Firstname.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Firstname.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Familyame
+            // 
+            this.tb_Player_Familyame.Location = new System.Drawing.Point(6, 45);
+            this.tb_Player_Familyame.Name = "tb_Player_Familyame";
+            this.tb_Player_Familyame.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Familyame.TabIndex = 3;
+            this.tb_Player_Familyame.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Familyame.Leave += new System.EventHandler(this.tb_Leave);
+            // 
+            // tb_Player_Nickname
+            // 
+            this.tb_Player_Nickname.Location = new System.Drawing.Point(6, 19);
+            this.tb_Player_Nickname.Name = "tb_Player_Nickname";
+            this.tb_Player_Nickname.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Nickname.TabIndex = 2;
+            this.tb_Player_Nickname.Enter += new System.EventHandler(this.tb_Enter);
+            this.tb_Player_Nickname.Leave += new System.EventHandler(this.tb_Leave);
             // 
             // gb_Insert_Table
             // 
@@ -909,7 +980,7 @@
             this.tab_Select.Location = new System.Drawing.Point(4, 22);
             this.tab_Select.Name = "tab_Select";
             this.tab_Select.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Select.Size = new System.Drawing.Size(459, 400);
+            this.tab_Select.Size = new System.Drawing.Size(1041, 515);
             this.tab_Select.TabIndex = 2;
             this.tab_Select.Text = "Datenabfragen";
             // 
@@ -919,7 +990,7 @@
             this.tab_update.Location = new System.Drawing.Point(4, 22);
             this.tab_update.Name = "tab_update";
             this.tab_update.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_update.Size = new System.Drawing.Size(459, 400);
+            this.tab_update.Size = new System.Drawing.Size(1041, 515);
             this.tab_update.TabIndex = 3;
             this.tab_update.Text = "Datenänderung";
             // 
@@ -939,7 +1010,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(491, 450);
+            this.ClientSize = new System.Drawing.Size(1111, 582);
             this.Controls.Add(this.lb_CopyRight);
             this.Controls.Add(this.tc_fortnitewm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -963,14 +1034,14 @@
             this.gb_Weapon_Type.PerformLayout();
             this.gb_Rarity.ResumeLayout(false);
             this.gb_Rarity.PerformLayout();
-            this.gb_Players.ResumeLayout(false);
-            this.gb_Players.PerformLayout();
             this.gb_Maps.ResumeLayout(false);
             this.gb_Maps.PerformLayout();
             this.gb_Map.ResumeLayout(false);
             this.gb_Map.PerformLayout();
             this.gb_Teams.ResumeLayout(false);
             this.gb_Teams.PerformLayout();
+            this.gb_Players.ResumeLayout(false);
+            this.gb_Players.PerformLayout();
             this.gb_Insert_Table.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1021,7 +1092,6 @@
         private System.Windows.Forms.RadioButton rb_Maps_Middle;
         private System.Windows.Forms.RadioButton rb_Maps_Small;
         private System.Windows.Forms.TextBox tb_Teams_State;
-        private System.Windows.Forms.TextBox tb_04;
         private System.Windows.Forms.TextBox tb_Mode_Name;
         private System.Windows.Forms.TextBox tb_Teams_Streetnr;
         private System.Windows.Forms.GroupBox gb_Weapon_Type;
@@ -1060,6 +1130,10 @@
         private System.Windows.Forms.TextBox tb_Player_Firstname;
         private System.Windows.Forms.TextBox tb_Player_Familyame;
         private System.Windows.Forms.TextBox tb_Player_Nickname;
+        private System.Windows.Forms.TextBox tb_Player_Age;
+        private System.Windows.Forms.TextBox tb_Player_Mail;
+        private System.Windows.Forms.TextBox tb_Player_Phonenumber;
+        private System.Windows.Forms.TextBox tb_Teams_Mail;
     }
 }
 

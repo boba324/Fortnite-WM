@@ -12,10 +12,15 @@ namespace Fortnite_WM
 {
     public partial class Fortnite_WM : Form
     {
+        /*
+         * Größe des Fensters 507; 489
+         * Position der GroupBoxen 6,55
+         * Tabfenster Größe 467; 426
+         * */
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
         private bool dbConState = false;
-        Dictionary<int, string> backgroundWords = new Dictionary<int, string>();
+        Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<int, string> insertValues = new Dictionary<int, string>();
         #endregion
         public Fortnite_WM()
@@ -25,10 +30,13 @@ namespace Fortnite_WM
         }
         public void Fortnite_WMInit()
         {
-            BackgroundWordsInit();
+            wordsInit();
             LabelResetter();
             insertValues.Clear();
             gb_Players.Visible = false;
+            gb_Modes.Visible = false;
+            gb_Maps.Visible = false;
+            gb_Teams.Visible = false;
         }
         #region DB Status Abfrage / Erstellung
         private bool DBConState()
@@ -140,7 +148,7 @@ namespace Fortnite_WM
                     if (rb_Maps_Large.Checked) insertValues.Add(0, "1");
                     if (rb_Maps_Middle.Checked) insertValues.Add(0, "2");
                     if (rb_Maps_Small.Checked) insertValues.Add(0, "4");
-                    if (!backgroundWords.ContainsValue(tb_Map_Name.Text))
+                    if (!words.ContainsValue(tb_Map_Name.Text))
                     {
                         insertValues.Add(1, tb_Map_Name.Text);
                         dbcon.Insert(insertValues);
@@ -165,42 +173,107 @@ namespace Fortnite_WM
         }
         #endregion
         #region Textbox Enter / Leave behaviour
-        private void tb_Map_Name_Enter(object sender, EventArgs e)
+        private void tb_Enter(object sender, EventArgs e)
         {
-            if (backgroundWords.ContainsValue(tb_Map_Name.Text.ToString()))
+            TextBox tb = new TextBox();
+            if (sender is TextBox)
             {
-                tb_Map_Name.Text = String.Empty;
-                tb_Map_Name.ForeColor = Color.Black;
+                tb = (TextBox)sender;
+                if (words.ContainsValue(tb.Text.ToString()))
+                {
+                    tb.Text = String.Empty;
+                    tb.ForeColor = Color.Black;
+                }
             }
         }
-        private void tb_Map_Name_Leave(object sender, EventArgs e)
+        private void tb_Leave(object sender, EventArgs e)
         {
-            if (tb_Map_Name.Text.Trim().Length == 0) { 
-                tb_Map_Name.Text = backgroundWords[1];
-                tb_Map_Name.ForeColor = Color.Gray;
+            TextBox tb = new TextBox();
+            if (sender is TextBox)
+            {
+                tb = (TextBox)sender;
+                if (tb.Text.Trim().Length == 0)
+                {
+                    tb.Text = words[tb.Name];
+                    tb.ForeColor = Color.Gray;
+                }
             }
         }
         #endregion
         #region Hintergrund Methoden
-        private void BackgroundWordsInit()
+        private void wordsInit()
         {
-            backgroundWords.Clear();
-            backgroundWords.Add(1, "Name");
-            backgroundWords.Add(2, "Vorname");
-            backgroundWords.Add(3, "Alter");
-            backgroundWords.Add(4, "Straße");
-            backgroundWords.Add(5, "Bundesland");
-            backgroundWords.Add(6, "Stadt");
-            backgroundWords.Add(7, "Hausnummer");
-            backgroundWords.Add(8, "Rufnummer");
-            backgroundWords.Add(9, "E-Mail");
-            backgroundWords.Add(10, "Team Name");
-            backgroundWords.Add(11, "Postleitzahl");
-            backgroundWords.Add(12, "Land");
-            backgroundWords.Add(13, "Nickname");
-            backgroundWords.Add(14, "Nachname");
-            backgroundWords.Add(15, "Max. Spieler");
-            backgroundWords.Add(16, "Beschreibung");
+            words.Clear();
+            words.Add(tb_Map_Name.Name, "Name*");
+            tb_Map_Name.Text = words[tb_Map_Name.Name];
+            tb_Map_Name.ForeColor = Color.Gray;
+            words.Add(tb_Mode_Name.Name, "Name*");
+            tb_Mode_Name.Text = words[tb_Mode_Name.Name];
+            tb_Mode_Name.ForeColor = Color.Gray;
+            words.Add(tb_Player_Firstname.Name, "Vorname*");
+            tb_Player_Firstname.Text = words[tb_Player_Firstname.Name];
+            tb_Player_Firstname.ForeColor = Color.Gray;
+            words.Add(tb_Player_Age.Name, "Alter*");
+            tb_Player_Age.Text = words[tb_Player_Age.Name];
+            tb_Player_Age.ForeColor = Color.Gray;
+            words.Add(tb_Player_Street.Name, "Straße");
+            tb_Player_Street.Text = words[tb_Player_Street.Name];
+            tb_Player_Street.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Street.Name, "Straße*");
+            tb_Teams_Street.Text = words[tb_Teams_Street.Name];
+            tb_Teams_Street.ForeColor = Color.Gray;
+            words.Add(tb_Player_State.Name, "Bundesland");
+            tb_Player_State.Text = words[tb_Player_State.Name];
+            tb_Player_State.ForeColor = Color.Gray;
+            words.Add(tb_Teams_State.Name, "Bundesland*");
+            tb_Teams_State.Text = words[tb_Teams_State.Name];
+            tb_Teams_State.ForeColor = Color.Gray;
+            words.Add(tb_Player_City.Name, "Stadt");
+            tb_Player_City.Text = words[tb_Player_City.Name];
+            tb_Player_City.ForeColor = Color.Gray;
+            words.Add(tb_Teams_City.Name, "Stadt*");
+            tb_Teams_City.Text = words[tb_Teams_City.Name];
+            tb_Teams_City.ForeColor = Color.Gray;
+            words.Add(tb_Player_Streetnr.Name, "Hausnummer");
+            tb_Player_Streetnr.Text = words[tb_Player_Streetnr.Name];
+            tb_Player_Streetnr.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Streetnr.Name, "Hausnummer*");
+            tb_Teams_Streetnr.Text = words[tb_Teams_Streetnr.Name];
+            tb_Teams_Streetnr.ForeColor = Color.Gray;
+            words.Add(tb_Player_Phonenumber.Name, "Rufnummer");
+            tb_Player_Phonenumber.Text = words[tb_Player_Phonenumber.Name];
+            tb_Player_Phonenumber.ForeColor = Color.Gray;
+            words.Add(tb_Player_Mail.Name, "E-Mail*");
+            tb_Player_Mail.Text = words[tb_Player_Mail.Name];
+            tb_Player_Mail.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Mail.Name, "E-Mail*");
+            tb_Teams_Mail.Text = words[tb_Teams_Mail.Name];
+            tb_Teams_Mail.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Name.Name, "Team Name*");
+            tb_Teams_Name.Text = words[tb_Teams_Name.Name];
+            tb_Teams_Name.ForeColor = Color.Gray;
+            words.Add(tb_Player_Postalcode.Name, "Postleitzahl");
+            tb_Player_Postalcode.Text = words[tb_Player_Postalcode.Name];
+            tb_Player_Postalcode.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Postalcode.Name, "Postleitzahl*");
+            tb_Teams_Postalcode.Text = words[tb_Teams_Postalcode.Name];
+            tb_Teams_Postalcode.ForeColor = Color.Gray;
+            words.Add(tb_Player_Country.Name, "Land");
+            tb_Player_Country.Text = words[tb_Player_Country.Name];
+            tb_Player_Country.ForeColor = Color.Gray;
+            words.Add(tb_Teams_Country.Name, "Land*");
+            tb_Teams_Country.Text = words[tb_Teams_Country.Name];
+            tb_Teams_Country.ForeColor = Color.Gray;
+            words.Add(tb_Player_Nickname.Name, "Nickname*");
+            tb_Player_Nickname.Text = words[tb_Player_Nickname.Name];
+            tb_Player_Nickname.ForeColor = Color.Gray;
+            words.Add(tb_Player_Familyame.Name, "Nachname*");
+            tb_Player_Familyame.Text = words[tb_Player_Familyame.Name];
+            tb_Player_Familyame.ForeColor = Color.Gray;
+            words.Add("Max.P", "Max. Spieler");
+            words.Add(tb_Description.Name, "Beschreibung");
+            tb_Description.Text = words[tb_Description.Name];
+            tb_Description.ForeColor = Color.Gray;
         }
         private void LabelResetter()
         {
@@ -235,37 +308,42 @@ namespace Fortnite_WM
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
+                    wordsInit();
                     break;
                 case 1:
+                    wordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = true;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 2:
+                    wordsInit();
                     gb_Modes.Visible = true;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 3:
+                    wordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 4:
+                    wordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = true;
                     gb_Teams.Visible = false;
                     break;
                 case 5:
+                    wordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = true;
-
                     break;
                 default:
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table.SelectedIndex + " nicht bekannt.");
