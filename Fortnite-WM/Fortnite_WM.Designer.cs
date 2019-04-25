@@ -107,13 +107,14 @@
             this.tb_Player_State = new System.Windows.Forms.TextBox();
             this.tb_Player_Country = new System.Windows.Forms.TextBox();
             this.tb_Player_Firstname = new System.Windows.Forms.TextBox();
-            this.tb_Player_Familyame = new System.Windows.Forms.TextBox();
+            this.tb_Player_Familyname = new System.Windows.Forms.TextBox();
             this.tb_Player_Nickname = new System.Windows.Forms.TextBox();
             this.gb_Insert_Table = new System.Windows.Forms.GroupBox();
             this.cb_Insert_Table = new System.Windows.Forms.ComboBox();
             this.tab_Select = new System.Windows.Forms.TabPage();
             this.tab_update = new System.Windows.Forms.TabPage();
             this.lb_CopyRight = new System.Windows.Forms.Label();
+            this.cb_Player_Team_ID = new System.Windows.Forms.ComboBox();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -157,7 +158,7 @@
             this.btn_ConnectRefresh.TabIndex = 2;
             this.btn_ConnectRefresh.Text = "Aktualisieren";
             this.btn_ConnectRefresh.UseVisualStyleBackColor = true;
-            this.btn_ConnectRefresh.Click += new System.EventHandler(this.btn_ConnectRefresh_Click);
+            this.btn_ConnectRefresh.Click += new System.EventHandler(this.Btn_ConnectRefresh_Click);
             // 
             // btn_SaveCred
             // 
@@ -167,7 +168,7 @@
             this.btn_SaveCred.TabIndex = 10;
             this.btn_SaveCred.Text = "Speichern";
             this.btn_SaveCred.UseVisualStyleBackColor = true;
-            this.btn_SaveCred.Click += new System.EventHandler(this.btn_SaveCred_Click);
+            this.btn_SaveCred.Click += new System.EventHandler(this.Btn_SaveCred_Click);
             // 
             // tb_DB_PW
             // 
@@ -297,7 +298,7 @@
             this.btn_RestoreDB.Text = "Datenbank Wiederherstellen";
             this.btn_RestoreDB.UseVisualStyleBackColor = true;
             this.btn_RestoreDB.Visible = false;
-            this.btn_RestoreDB.Click += new System.EventHandler(this.btn_RestoreDB_Click);
+            this.btn_RestoreDB.Click += new System.EventHandler(this.Btn_RestoreDB_Click);
             // 
             // lb_TB_MapsValue
             // 
@@ -425,6 +426,7 @@
             this.btn_reset.TabIndex = 20;
             this.btn_reset.Text = "Zurücksetzen";
             this.btn_reset.UseVisualStyleBackColor = true;
+            this.btn_reset.Click += new System.EventHandler(this.Btn_reset_Click);
             // 
             // gb_Modes
             // 
@@ -659,8 +661,8 @@
             this.tb_Mode_Name.Name = "tb_Mode_Name";
             this.tb_Mode_Name.Size = new System.Drawing.Size(171, 20);
             this.tb_Mode_Name.TabIndex = 11;
-            this.tb_Mode_Name.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Mode_Name.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Mode_Name.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Mode_Name.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // gb_Maps
             // 
@@ -724,8 +726,8 @@
             this.tb_Map_Name.Name = "tb_Map_Name";
             this.tb_Map_Name.Size = new System.Drawing.Size(100, 20);
             this.tb_Map_Name.TabIndex = 0;
-            this.tb_Map_Name.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Map_Name.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Map_Name.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Map_Name.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // gb_Teams
             // 
@@ -751,8 +753,8 @@
             this.tb_Teams_Mail.Name = "tb_Teams_Mail";
             this.tb_Teams_Mail.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Mail.TabIndex = 15;
-            this.tb_Teams_Mail.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Mail.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Mail.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Mail.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Description
             // 
@@ -761,8 +763,8 @@
             this.tb_Description.Name = "tb_Description";
             this.tb_Description.Size = new System.Drawing.Size(209, 97);
             this.tb_Description.TabIndex = 7;
-            this.tb_Description.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Description.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Description.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Description.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_Name
             // 
@@ -770,8 +772,8 @@
             this.tb_Teams_Name.Name = "tb_Teams_Name";
             this.tb_Teams_Name.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Name.TabIndex = 1;
-            this.tb_Teams_Name.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Name.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Name.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Name.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_Country
             // 
@@ -779,8 +781,8 @@
             this.tb_Teams_Country.Name = "tb_Teams_Country";
             this.tb_Teams_Country.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Country.TabIndex = 2;
-            this.tb_Teams_Country.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Country.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Country.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Country.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_State
             // 
@@ -788,8 +790,8 @@
             this.tb_Teams_State.Name = "tb_Teams_State";
             this.tb_Teams_State.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_State.TabIndex = 13;
-            this.tb_Teams_State.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_State.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_State.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_State.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_Streetnr
             // 
@@ -797,8 +799,8 @@
             this.tb_Teams_Streetnr.Name = "tb_Teams_Streetnr";
             this.tb_Teams_Streetnr.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Streetnr.TabIndex = 14;
-            this.tb_Teams_Streetnr.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Streetnr.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Streetnr.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Streetnr.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_Postalcode
             // 
@@ -806,8 +808,8 @@
             this.tb_Teams_Postalcode.Name = "tb_Teams_Postalcode";
             this.tb_Teams_Postalcode.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Postalcode.TabIndex = 5;
-            this.tb_Teams_Postalcode.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Postalcode.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Postalcode.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Postalcode.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_City
             // 
@@ -815,8 +817,8 @@
             this.tb_Teams_City.Name = "tb_Teams_City";
             this.tb_Teams_City.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_City.TabIndex = 6;
-            this.tb_Teams_City.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_City.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_City.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_City.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Teams_Street
             // 
@@ -824,8 +826,8 @@
             this.tb_Teams_Street.Name = "tb_Teams_Street";
             this.tb_Teams_Street.Size = new System.Drawing.Size(100, 20);
             this.tb_Teams_Street.TabIndex = 4;
-            this.tb_Teams_Street.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Teams_Street.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Teams_Street.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Teams_Street.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // btn_Insert
             // 
@@ -835,10 +837,11 @@
             this.btn_Insert.TabIndex = 19;
             this.btn_Insert.Text = "In Datenbank speichern";
             this.btn_Insert.UseVisualStyleBackColor = true;
-            this.btn_Insert.Click += new System.EventHandler(this.btn_Insert_Click);
+            this.btn_Insert.Click += new System.EventHandler(this.Btn_Insert_Click);
             // 
             // gb_Players
             // 
+            this.gb_Players.Controls.Add(this.cb_Player_Team_ID);
             this.gb_Players.Controls.Add(this.tb_Player_Mail);
             this.gb_Players.Controls.Add(this.tb_Player_Phonenumber);
             this.gb_Players.Controls.Add(this.tb_Player_Age);
@@ -849,11 +852,11 @@
             this.gb_Players.Controls.Add(this.tb_Player_State);
             this.gb_Players.Controls.Add(this.tb_Player_Country);
             this.gb_Players.Controls.Add(this.tb_Player_Firstname);
-            this.gb_Players.Controls.Add(this.tb_Player_Familyame);
+            this.gb_Players.Controls.Add(this.tb_Player_Familyname);
             this.gb_Players.Controls.Add(this.tb_Player_Nickname);
             this.gb_Players.Location = new System.Drawing.Point(6, 55);
             this.gb_Players.Name = "gb_Players";
-            this.gb_Players.Size = new System.Drawing.Size(221, 175);
+            this.gb_Players.Size = new System.Drawing.Size(221, 202);
             this.gb_Players.TabIndex = 1;
             this.gb_Players.TabStop = false;
             this.gb_Players.Text = "Players";
@@ -864,8 +867,8 @@
             this.tb_Player_Mail.Name = "tb_Player_Mail";
             this.tb_Player_Mail.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Mail.TabIndex = 13;
-            this.tb_Player_Mail.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Mail.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Mail.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Mail.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Phonenumber
             // 
@@ -873,8 +876,8 @@
             this.tb_Player_Phonenumber.Name = "tb_Player_Phonenumber";
             this.tb_Player_Phonenumber.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Phonenumber.TabIndex = 12;
-            this.tb_Player_Phonenumber.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Phonenumber.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Phonenumber.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Phonenumber.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Age
             // 
@@ -882,8 +885,8 @@
             this.tb_Player_Age.Name = "tb_Player_Age";
             this.tb_Player_Age.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Age.TabIndex = 11;
-            this.tb_Player_Age.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Age.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Age.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Age.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Streetnr
             // 
@@ -891,8 +894,8 @@
             this.tb_Player_Streetnr.Name = "tb_Player_Streetnr";
             this.tb_Player_Streetnr.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Streetnr.TabIndex = 10;
-            this.tb_Player_Streetnr.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Streetnr.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Streetnr.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Streetnr.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Street
             // 
@@ -900,8 +903,8 @@
             this.tb_Player_Street.Name = "tb_Player_Street";
             this.tb_Player_Street.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Street.TabIndex = 9;
-            this.tb_Player_Street.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Street.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Street.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Street.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_City
             // 
@@ -909,8 +912,8 @@
             this.tb_Player_City.Name = "tb_Player_City";
             this.tb_Player_City.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_City.TabIndex = 8;
-            this.tb_Player_City.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_City.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_City.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_City.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Postalcode
             // 
@@ -918,8 +921,8 @@
             this.tb_Player_Postalcode.Name = "tb_Player_Postalcode";
             this.tb_Player_Postalcode.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Postalcode.TabIndex = 7;
-            this.tb_Player_Postalcode.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Postalcode.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Postalcode.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Postalcode.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_State
             // 
@@ -927,8 +930,8 @@
             this.tb_Player_State.Name = "tb_Player_State";
             this.tb_Player_State.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_State.TabIndex = 6;
-            this.tb_Player_State.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_State.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_State.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_State.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Country
             // 
@@ -936,8 +939,8 @@
             this.tb_Player_Country.Name = "tb_Player_Country";
             this.tb_Player_Country.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Country.TabIndex = 5;
-            this.tb_Player_Country.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Country.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Country.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Country.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Firstname
             // 
@@ -945,17 +948,17 @@
             this.tb_Player_Firstname.Name = "tb_Player_Firstname";
             this.tb_Player_Firstname.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Firstname.TabIndex = 4;
-            this.tb_Player_Firstname.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Firstname.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Firstname.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Firstname.Leave += new System.EventHandler(this.Tb_Leave);
             // 
-            // tb_Player_Familyame
+            // tb_Player_Familyname
             // 
-            this.tb_Player_Familyame.Location = new System.Drawing.Point(6, 45);
-            this.tb_Player_Familyame.Name = "tb_Player_Familyame";
-            this.tb_Player_Familyame.Size = new System.Drawing.Size(100, 20);
-            this.tb_Player_Familyame.TabIndex = 3;
-            this.tb_Player_Familyame.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Familyame.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Familyname.Location = new System.Drawing.Point(6, 45);
+            this.tb_Player_Familyname.Name = "tb_Player_Familyname";
+            this.tb_Player_Familyname.Size = new System.Drawing.Size(100, 20);
+            this.tb_Player_Familyname.TabIndex = 3;
+            this.tb_Player_Familyname.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Familyname.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // tb_Player_Nickname
             // 
@@ -963,8 +966,8 @@
             this.tb_Player_Nickname.Name = "tb_Player_Nickname";
             this.tb_Player_Nickname.Size = new System.Drawing.Size(100, 20);
             this.tb_Player_Nickname.TabIndex = 2;
-            this.tb_Player_Nickname.Enter += new System.EventHandler(this.tb_Enter);
-            this.tb_Player_Nickname.Leave += new System.EventHandler(this.tb_Leave);
+            this.tb_Player_Nickname.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Player_Nickname.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // gb_Insert_Table
             // 
@@ -984,7 +987,7 @@
             this.cb_Insert_Table.Size = new System.Drawing.Size(149, 21);
             this.cb_Insert_Table.TabIndex = 0;
             this.cb_Insert_Table.Text = "---";
-            this.cb_Insert_Table.TextChanged += new System.EventHandler(this.cb_Insert_Table_TextChanged);
+            this.cb_Insert_Table.TextChanged += new System.EventHandler(this.Cb_Insert_Table_TextChanged);
             // 
             // tab_Select
             // 
@@ -1016,6 +1019,14 @@
             this.lb_CopyRight.Size = new System.Drawing.Size(134, 14);
             this.lb_CopyRight.TabIndex = 3;
             this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
+            // 
+            // cb_Player_Team_ID
+            // 
+            this.cb_Player_Team_ID.FormattingEnabled = true;
+            this.cb_Player_Team_ID.Location = new System.Drawing.Point(49, 175);
+            this.cb_Player_Team_ID.Name = "cb_Player_Team_ID";
+            this.cb_Player_Team_ID.Size = new System.Drawing.Size(121, 21);
+            this.cb_Player_Team_ID.TabIndex = 14;
             // 
             // Fortnite_WM
             // 
@@ -1140,13 +1151,14 @@
         private System.Windows.Forms.TextBox tb_Player_State;
         private System.Windows.Forms.TextBox tb_Player_Country;
         private System.Windows.Forms.TextBox tb_Player_Firstname;
-        private System.Windows.Forms.TextBox tb_Player_Familyame;
+        private System.Windows.Forms.TextBox tb_Player_Familyname;
         private System.Windows.Forms.TextBox tb_Player_Nickname;
         private System.Windows.Forms.TextBox tb_Player_Age;
         private System.Windows.Forms.TextBox tb_Player_Mail;
         private System.Windows.Forms.TextBox tb_Player_Phonenumber;
         private System.Windows.Forms.TextBox tb_Teams_Mail;
         private System.Windows.Forms.MonthCalendar mc_Age;
+        private System.Windows.Forms.ComboBox cb_Player_Team_ID;
     }
 }
 

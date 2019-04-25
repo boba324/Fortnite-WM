@@ -12,13 +12,13 @@ namespace Fortnite_WM
     class DBcon
     {
         private MySqlConnection connection;
-        private string server;
-        private string database;
+        private readonly string server = "localhost";
+        private string database = "";
         private string uid;
         private string password;
-        public string propUid { set { uid = value; } }
-        public string propPassword { set { password = value; } }
-        public string propDatabase { set { database = value; } }
+        public string PropUid { set { uid = value; } }
+        public string PropPassword { set { password = value; } }
+        public string PropDatabase { set { database = value; } }
         public DBcon()
         {
             Connector();
@@ -26,10 +26,8 @@ namespace Fortnite_WM
         
         private void Connector()
         {
-            server = "localhost";
-            database = "";
             string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";"; // + "DATABASE=" + database + ";"
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
             connection = new MySqlConnection(connectionString);
            
         }
@@ -290,8 +288,66 @@ FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPD
 
         public void DBInsert(Dictionary<string, string> par)
         {
-            #region TeamsDBQuery
-            string teamsDBQuery = @"INSERT INTO `fortnite_wm`.`teams`
+            string query = "";
+            if (par["Tabelle"] == "-")
+            {
+
+            }
+            else if (par["Tabelle"] == "maps")
+            {
+
+            }
+            else if (par["Tabelle"] == "modes")
+            {
+
+            }
+            else if (par["Tabelle"] == "played_matches")
+            {
+
+            }
+            else if (par["Tabelle"] == "player")
+            {
+                #region PlayerDBQuery
+                query = @"INSERT INTO `fortnite_wm`.`player`
+(`player_nickname`,
+`player_team_id`,
+`player_familyname`,
+`player_firstname`,
+`player_age`,
+`player_country`,
+`player_state`,
+`player_city`,
+`player_zip`,
+`player_street`,
+`player_streetnr`,
+`player_phonenumber`,
+`player_mail`,
+`player_created`)
+VALUES
+('" + par["tb_Player_Nickname"] + @"',
+" + par["cb_Player_Team_ID"] + @",
+'" + par["tb_Player_Familyname"] + @"',
+'" + par["tb_Player_Firstname"] + @"',
+'" + par["tb_Player_Age"] + @"',
+'" + par["tb_Player_Country"] + @"',
+'" + par["tb_Player_State"] + @"',
+'" + par["tb_Player_City"] + @"',
+" + par["tb_Player_Postalcode"] + @",
+'" + par["tb_Player_Street"] + @"',
+" + par["tb_Player_Streetnr"] + @",
+" + par["tb_Player_Phonenumber"] + @",
+'" + par["tb_Player_Mail"] + @"',
+NOW())";
+                #endregion
+            }
+            else if (par["Tabelle"] == "scores")
+            {
+
+            }
+            else if (par["Tabelle"] == "teams")
+            {
+                #region TeamsDBQuery
+                query = @"INSERT INTO `fortnite_wm`.`teams`
 (`team_name`,
 `team_country`,
 `team_state`,
@@ -303,8 +359,7 @@ FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPD
 `team_description`,
 `team_created`)
 VALUES
-(
-'" + par["tb_Teams_Name"] + @"',
+('" + par["tb_Teams_Name"] + @"',
 '" + par["tb_Teams_Country"] + @"',
 '" + par["tb_Teams_State"] + @"',
 '" + par["tb_Teams_City"] + @"',
@@ -314,25 +369,68 @@ VALUES
 '" + par["tb_Teams_Mail"] + @"',
 '" + par["tb_Description"] + @"',
 NOW());";
-            #endregion
+                #endregion
+            }
             if (this.OpenConnection() == true)
             {
-                MySqlCommand cmd = new MySqlCommand(teamsDBQuery, connection);
+                MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
         }
 
-        public DataTable ComboData()
+        public DataTable ComboData(int par)
         {
-            string query = "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema = 'fortnite_wm'";
-            MySqlDataAdapter tableAdapter = new MySqlDataAdapter(query, connection);
+            string query = "";
+            MySqlDataAdapter tableAdapter;
             DataTable tableDS = new DataTable();
-            tableAdapter.Fill(tableDS);
-            DataRow row = tableDS.NewRow();
-            row["TABLE_NAME"] = "-";
-            tableDS.Rows.InsertAt(row, 0);
-            return tableDS;
+            DataRow row;
+            switch (par)
+            {
+                case 0:
+                    query = "SELECT * FROM information_schema.tables WHERE table_schema = 'fortnite_wm'";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    row = tableDS.NewRow();
+                    row["TABLE_NAME"] = "-";
+                    tableDS.Rows.InsertAt(row, 0);
+                    return tableDS;
+                case 1:
+                    query = "SELECT * FROM teams;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                case 2:
+                    query = "SELECT * FROM player;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                case 3:
+                    query = "SELECT * FROM maps;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                case 4:
+                    query = "SELECT * FROM modes;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                case 5:
+                    query = "SELECT * FROM played_matches;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                case 6:
+                    query = "SELECT * FROM scores;";
+                    tableAdapter = new MySqlDataAdapter(query, connection);
+                    tableAdapter.Fill(tableDS);
+                    return tableDS;
+                default:
+                    row =  tableDS.NewRow();
+                    row["err"] = "err";
+                    tableDS.Rows.InsertAt(row, 0);
+                    return tableDS;
+            }
         }
 
         private bool OpenConnection()

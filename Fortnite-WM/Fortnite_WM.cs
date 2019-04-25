@@ -31,9 +31,10 @@ namespace Fortnite_WM
         }
         public void Fortnite_WMInit()
         {
-            wordsInit();
+            WordsInit();
             LabelResetter();
             insertValues.Clear();
+            vals.Clear();
             gb_Players.Visible = false;
             gb_Modes.Visible = false;
             gb_Maps.Visible = false;
@@ -48,7 +49,7 @@ namespace Fortnite_WM
                 lb_ConnectionValue.ForeColor = Color.Lime;
                 DBexist();
                 dbConState = true;
-                return true; 
+                return dbcon.DBConState(); 
             }
             else
             {
@@ -65,7 +66,7 @@ namespace Fortnite_WM
             {
                 lb_DatabaseValue.Text = "existiert";
                 lb_DatabaseValue.ForeColor = Color.Lime;
-                dbcon.propDatabase = "fortnite_wm";
+                dbcon.PropDatabase = "fortnite_wm";
                 this.TBexist(true);
             }
             else
@@ -119,80 +120,119 @@ namespace Fortnite_WM
         }
         #endregion
         #region Button Events
-        private void btn_ConnectRefresh_Click(object sender, EventArgs e)
+        private void Btn_ConnectRefresh_Click(object sender, EventArgs e)
         {
             if (DBConState())
             {
                 ComboFiller();
             }
         }
-        private void btn_RestoreDB_Click(object sender, EventArgs e)
+        private void Btn_RestoreDB_Click(object sender, EventArgs e)
         {
             dbcon.DBCreate();
             btn_RestoreDB.Visible = false;
         }
-        private void btn_SaveCred_Click(object sender, EventArgs e)
+        private void Btn_SaveCred_Click(object sender, EventArgs e)
         {
-            dbcon.propUid = tb_DB_UID.Text;
-            dbcon.propPassword = tb_DB_PW.Text;
+            dbcon.PropUid = tb_DB_UID.Text;
+            dbcon.PropPassword = tb_DB_PW.Text;
             Fortnite_WMInit();
             MessageBox.Show("Daten wurden gespeichert.");
         }
-        private void btn_Insert_Click(object sender, EventArgs e)
+        private void Btn_Insert_Click(object sender, EventArgs e)
         {
-            switch (cb_Insert_Table.SelectedIndex)
+            if (dbConState)
             {
-                case 0:
-                    MessageBox.Show("Bitte wählen sie eine Tabelle aus.");
-                    break;
-                case 1:
-                    if (rb_Maps_Large.Checked) insertValues.Add(0, "1");
-                    if (rb_Maps_Middle.Checked) insertValues.Add(0, "2");
-                    if (rb_Maps_Small.Checked) insertValues.Add(0, "4");
-                    if (!words.ContainsValue(tb_Map_Name.Text))
-                    {
-                        insertValues.Add(1, tb_Map_Name.Text);
-                        dbcon.Insert(insertValues);
-                    }
-                    break;
-                case 2:
-                    
-                    break;
-                case 3:
-                    
-                    break;
-                case 4:
-                    
-                    break;
-                case 5:
-                    
+                switch (cb_Insert_Table.SelectedIndex)
+                {
+                    case 0:
+                        MessageBox.Show("Bitte wählen sie eine Tabelle aus.");
+                        break;
+                    case 1:
+                        vals.Add("Tabelle", "maps");
+                        if (rb_Maps_Large.Checked) insertValues.Add(0, "1");
+                        if (rb_Maps_Middle.Checked) insertValues.Add(0, "2");
+                        if (rb_Maps_Small.Checked) insertValues.Add(0, "4");
+                        if (!words.ContainsValue(tb_Map_Name.Text))
+                        {
+                            insertValues.Add(1, tb_Map_Name.Text);
+                            dbcon.Insert(insertValues);
+                        }
+                        break;
+                    case 2:
 
-                    break;
-                case 6:
-                    if (tb_Teams_Name.Text != words[tb_Teams_Name.Name] && tb_Teams_City.Text != words[tb_Teams_City.Name] &&
-                        tb_Teams_Country.Text != words[tb_Teams_Country.Name] && tb_Teams_Mail.Text != words[tb_Teams_Mail.Name] &&
-                         tb_Teams_Postalcode.Text != words[tb_Teams_Postalcode.Name] && tb_Teams_Streetnr.Text != words[tb_Teams_Streetnr.Name] &&
-                        tb_Teams_State.Text != words[tb_Teams_State.Name] && tb_Teams_Street.Text != words[tb_Teams_Street.Name] )
-                    {
-                        vals.Add(tb_Teams_Name.Name, tb_Teams_Name.Text);
-                        vals.Add(tb_Teams_Country.Name, tb_Teams_Country.Text);
-                        vals.Add(tb_Teams_Postalcode.Name, tb_Teams_Postalcode.Text);
-                        vals.Add(tb_Teams_State.Name, tb_Teams_State.Text);
-                        vals.Add(tb_Teams_City.Name, tb_Teams_City.Text);
-                        vals.Add(tb_Teams_Mail.Name, tb_Teams_Mail.Text);
-                        vals.Add(tb_Teams_Streetnr.Name, tb_Teams_Streetnr.Text);
-                        vals.Add(tb_Teams_Street.Name, tb_Teams_Street.Text);
-                        if (tb_Description.Text != words[tb_Description.Name]) { vals.Add(tb_Description.Name, tb_Description.Text); }else { vals.Add(tb_Description.Name, null); }
-                        dbcon.DBInsert(vals);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+                        vals.Add("Tabelle", "player");
+                        if (tb_Player_Nickname.Text != words[tb_Player_Nickname.Name] &&  tb_Player_Mail.Text != words[tb_Player_Mail.Name] &&
+                            tb_Player_Age.Text != words[tb_Player_Age.Name] && tb_Player_Firstname.Text != words[tb_Player_Firstname.Name] && 
+                            tb_Player_Familyname.Text != words[tb_Player_Familyname.Name])
+                        {
+                            vals.Add(tb_Player_Nickname.Name, tb_Player_Nickname.Text);
+                            vals.Add(tb_Player_Age.Name, tb_Player_Age.Text);
+                            vals.Add(tb_Player_Firstname.Name, tb_Player_Firstname.Text);
+                            vals.Add(tb_Player_Familyname.Name, tb_Player_Familyname.Text);
+                            vals.Add(tb_Player_Mail.Name, tb_Player_Mail.Text);
+                            vals.Add(cb_Player_Team_ID.Name, cb_Player_Team_ID.SelectedValue.ToString());
+                            if (tb_Player_Country.Text != words[tb_Player_Country.Name]) { vals.Add(tb_Player_Country.Name, tb_Player_Country.Text); } else { vals.Add(tb_Player_Country.Name, "NULL"); }
+                            if (tb_Player_Postalcode.Text != words[tb_Player_Postalcode.Name]) { vals.Add(tb_Player_Postalcode.Name, tb_Player_Postalcode.Text); } else { vals.Add(tb_Player_Postalcode.Name, "NULL"); }
+                            if (tb_Player_State.Text != words[tb_Player_State.Name]) { vals.Add(tb_Player_State.Name, tb_Player_State.Text); } else { vals.Add(tb_Player_State.Name, "NULL"); }
+                            if (tb_Player_City.Text != words[tb_Player_City.Name]) { vals.Add(tb_Player_City.Name, tb_Player_City.Text); } else { vals.Add(tb_Player_City.Name, "NULL"); }
+                            if (tb_Player_Streetnr.Text != words[tb_Player_Streetnr.Name]) { vals.Add(tb_Player_Streetnr.Name, tb_Player_Streetnr.Text); } else { vals.Add(tb_Player_Streetnr.Name, "NULL"); }
+                            if (tb_Player_Street.Text != words[tb_Player_Street.Name]) { vals.Add(tb_Player_Street.Name, tb_Player_Street.Text); } else { vals.Add(tb_Player_Street.Name, "NULL"); }
+                            if (tb_Player_Phonenumber.Text != words[tb_Player_Phonenumber.Name]) { vals.Add(tb_Player_Phonenumber.Name, tb_Player_Phonenumber.Text); } else { vals.Add(tb_Player_Phonenumber.Name, "NULL"); }
+                            dbcon.DBInsert(vals);
+                            vals.Clear();
+                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bitte befülle alle mit * markierten Felder.");
+                        }
+                        break;
+                    case 5:
+
+
+                        break;
+                    case 6:
+                        if (tb_Teams_Name.Text != words[tb_Teams_Name.Name] && tb_Teams_City.Text != words[tb_Teams_City.Name] &&
+                            tb_Teams_Country.Text != words[tb_Teams_Country.Name] && tb_Teams_Mail.Text != words[tb_Teams_Mail.Name] &&
+                             tb_Teams_Postalcode.Text != words[tb_Teams_Postalcode.Name] && tb_Teams_Streetnr.Text != words[tb_Teams_Streetnr.Name] &&
+                            tb_Teams_State.Text != words[tb_Teams_State.Name] && tb_Teams_Street.Text != words[tb_Teams_Street.Name])
+                        {
+                            vals.Add(tb_Teams_Name.Name, tb_Teams_Name.Text);
+                            vals.Add(tb_Teams_Country.Name, tb_Teams_Country.Text);
+                            vals.Add(tb_Teams_Postalcode.Name, tb_Teams_Postalcode.Text);
+                            vals.Add(tb_Teams_State.Name, tb_Teams_State.Text);
+                            vals.Add(tb_Teams_City.Name, tb_Teams_City.Text);
+                            vals.Add(tb_Teams_Mail.Name, tb_Teams_Mail.Text);
+                            vals.Add(tb_Teams_Streetnr.Name, tb_Teams_Streetnr.Text);
+                            vals.Add(tb_Teams_Street.Name, tb_Teams_Street.Text);
+                            if (tb_Description.Text != words[tb_Description.Name]) { vals.Add(tb_Description.Name, tb_Description.Text); } else { vals.Add(tb_Description.Name, null); }
+                            dbcon.DBInsert(vals);
+                            vals.Clear();
+                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bitte befülle alle mit * markierten Felder.");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte verbinde dich mit der Datenbank um Daten eintragen zu können.");
             }
         }
         #endregion
         #region Textbox Enter / Leave behaviour
-        private void tb_Enter(object sender, EventArgs e)
+        private void Tb_Enter(object sender, EventArgs e)
         {
             TextBox tb = new TextBox();
             if (sender is TextBox)
@@ -213,14 +253,38 @@ namespace Fortnite_WM
                 mc_Age.Hide();
             }
         }
-        private void tb_Leave(object sender, EventArgs e)
+        private void Tb_Leave(object sender, EventArgs e)
         {
             TextBox tb = new TextBox();
             if (sender is TextBox)
             {
                 tb = (TextBox)sender;
-                if (tb.Name != tb_Teams_Mail.Name) tb.Text = string.Concat(tb.Text.Where(char.IsLetterOrDigit));
-                if (tb.Name == tb_Teams_Postalcode.Name || tb.Name == tb_Teams_Streetnr.Name) tb.Text = string.Concat(tb.Text.Where(char.IsDigit));
+                if (tb.Name == tb_Player_Mail.Name || tb.Name == tb_Player_City.Name || tb.Name == tb_Player_Age.Name ||
+                    tb.Name == tb_Player_Street.Name || tb.Name == tb_Player_State.Name)
+                {
+                    tb.Text = tb.Text;
+                }
+                else if (tb.Name == tb_Teams_Mail.Name || tb.Name == tb_Teams_City.Name || tb.Name == tb_Teams_Street.Name ||
+                     tb.Name == tb_Teams_State.Name)
+                {
+                    tb.Text = tb.Text;
+                }
+                else if (tb.Name == tb_DB_UID.Name || tb.Name == tb_DB_PW.Name || tb.Name == tb_Description.Name)
+                {
+                    tb.Text = tb.Text;
+                }
+                else
+                {
+                    tb.Text = string.Concat(tb.Text.Where(char.IsLetterOrDigit));
+                }
+                if (tb.Name == tb_Teams_Postalcode.Name || tb.Name == tb_Teams_Streetnr.Name)
+                {
+                    tb.Text = string.Concat(tb.Text.Where(char.IsDigit));
+                }
+                if (tb.Name == tb_Player_Postalcode.Name || tb.Name == tb_Player_Streetnr.Name || tb.Name == tb_Player_Phonenumber.Name)
+                {
+                    tb.Text = string.Concat(tb.Text.Where(char.IsDigit));
+                }
                 if (tb.Text.Trim().Length == 0)
                 {
                     tb.Text = words[tb.Name];
@@ -248,7 +312,7 @@ namespace Fortnite_WM
             }
         }
         #region Hintergrund Methoden
-        private void wordsInit()
+        private void WordsInit()
         {
             words.Clear();
             words.Add(tb_Map_Name.Name, "Name*");
@@ -314,9 +378,9 @@ namespace Fortnite_WM
             words.Add(tb_Player_Nickname.Name, "Nickname*");
             tb_Player_Nickname.Text = words[tb_Player_Nickname.Name];
             tb_Player_Nickname.ForeColor = Color.Gray;
-            words.Add(tb_Player_Familyame.Name, "Nachname*");
-            tb_Player_Familyame.Text = words[tb_Player_Familyame.Name];
-            tb_Player_Familyame.ForeColor = Color.Gray;
+            words.Add(tb_Player_Familyname.Name, "Nachname*");
+            tb_Player_Familyname.Text = words[tb_Player_Familyname.Name];
+            tb_Player_Familyname.ForeColor = Color.Gray;
             words.Add("Max.P", "Max. Spieler");
             words.Add(tb_Description.Name, "Beschreibung");
             tb_Description.Text = words[tb_Description.Name];
@@ -341,12 +405,16 @@ namespace Fortnite_WM
         }
         private void ComboFiller()
         {
-            cb_Insert_Table.DataSource = dbcon.ComboData();
+            cb_Insert_Table.DataSource = dbcon.ComboData(0);
             cb_Insert_Table.DisplayMember = "TABLE_NAME";
             cb_Insert_Table.ValueMember = "TABLE_NAME";
+
+            cb_Player_Team_ID.DataSource = dbcon.ComboData(1);
+            cb_Player_Team_ID.DisplayMember = "team_Name";
+            cb_Player_Team_ID.ValueMember = "team_id";
         }
         #endregion
-        private void cb_Insert_Table_TextChanged(object sender, EventArgs e)
+        private void Cb_Insert_Table_TextChanged(object sender, EventArgs e)
         {
             switch (cb_Insert_Table.SelectedIndex)
             {
@@ -355,45 +423,45 @@ namespace Fortnite_WM
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
-                    wordsInit();
+                    WordsInit();
                     break;
                 case 1:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = true;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 2:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = true;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 3:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 4:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = true;
                     gb_Teams.Visible = false;
                     break;
                 case 5:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     break;
                 case 6:
-                    wordsInit();
+                    WordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;
                     gb_Players.Visible = false;
@@ -403,6 +471,13 @@ namespace Fortnite_WM
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table.SelectedIndex + " nicht bekannt.");
                     break;
             }
+        }
+
+        private void Btn_reset_Click(object sender, EventArgs e)
+        {
+            WordsInit();
+            insertValues.Clear();
+            vals.Clear();
         }
     }
 }
