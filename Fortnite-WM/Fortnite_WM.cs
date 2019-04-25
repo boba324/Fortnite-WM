@@ -22,6 +22,7 @@ namespace Fortnite_WM
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<int, string> insertValues = new Dictionary<int, string>();
+        Dictionary<string, string> vals = new Dictionary<string, string>();
         #endregion
         public Fortnite_WM()
         {
@@ -167,6 +168,24 @@ namespace Fortnite_WM
                     
 
                     break;
+                case 6:
+                    if (tb_Teams_Name.Text != words[tb_Teams_Name.Name] && tb_Teams_City.Text != words[tb_Teams_City.Name] &&
+                        tb_Teams_Country.Text != words[tb_Teams_Country.Name] && tb_Teams_Mail.Text != words[tb_Teams_Mail.Name] &&
+                         tb_Teams_Postalcode.Text != words[tb_Teams_Postalcode.Name] && tb_Teams_Streetnr.Text != words[tb_Teams_Streetnr.Name] &&
+                        tb_Teams_State.Text != words[tb_Teams_State.Name] && tb_Teams_Street.Text != words[tb_Teams_Street.Name] )
+                    {
+                        vals.Add(tb_Teams_Name.Name, tb_Teams_Name.Text);
+                        vals.Add(tb_Teams_Country.Name, tb_Teams_Country.Text);
+                        vals.Add(tb_Teams_Postalcode.Name, tb_Teams_Postalcode.Text);
+                        vals.Add(tb_Teams_State.Name, tb_Teams_State.Text);
+                        vals.Add(tb_Teams_City.Name, tb_Teams_City.Text);
+                        vals.Add(tb_Teams_Mail.Name, tb_Teams_Mail.Text);
+                        vals.Add(tb_Teams_Streetnr.Name, tb_Teams_Streetnr.Text);
+                        vals.Add(tb_Teams_Street.Name, tb_Teams_Street.Text);
+                        if (tb_Description.Text != words[tb_Description.Name]) { vals.Add(tb_Description.Name, tb_Description.Text); }else { vals.Add(tb_Description.Name, null); }
+                        dbcon.DBInsert(vals);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -185,6 +204,14 @@ namespace Fortnite_WM
                     tb.ForeColor = Color.Black;
                 }
             }
+            if (tb.Name == "tb_Player_Age") 
+            {
+                mc_Age.Show();
+            }
+            else
+            {
+                mc_Age.Hide();
+            }
         }
         private void tb_Leave(object sender, EventArgs e)
         {
@@ -192,6 +219,8 @@ namespace Fortnite_WM
             if (sender is TextBox)
             {
                 tb = (TextBox)sender;
+                if (tb.Name != tb_Teams_Mail.Name) tb.Text = string.Concat(tb.Text.Where(char.IsLetterOrDigit));
+                if (tb.Name == tb_Teams_Postalcode.Name || tb.Name == tb_Teams_Streetnr.Name) tb.Text = string.Concat(tb.Text.Where(char.IsDigit));
                 if (tb.Text.Trim().Length == 0)
                 {
                     tb.Text = words[tb.Name];
@@ -200,6 +229,24 @@ namespace Fortnite_WM
             }
         }
         #endregion
+        private void MC_DateSelected(object sender, System.Windows.Forms.DateRangeEventArgs e)
+        {
+            tb_Player_Age.Text = ConvertToDateTime(e.Start.ToShortDateString()).Year.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Month.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Day.ToString();
+            tb_Player_Age.ForeColor = Color.Black;
+        }
+        private DateTime ConvertToDateTime(string value)
+        {
+            try
+            {
+                return Convert.ToDateTime(value);
+                //Console.WriteLine("'{0}' converts to {1} {2} time.", value, convertedDate, convertedDate.Kind.ToString());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("'{0}' is not in the proper format.", value);
+                return Convert.ToDateTime(value);
+            }
+        }
         #region Hintergrund Methoden
         private void wordsInit()
         {
@@ -249,7 +296,7 @@ namespace Fortnite_WM
             words.Add(tb_Teams_Mail.Name, "E-Mail*");
             tb_Teams_Mail.Text = words[tb_Teams_Mail.Name];
             tb_Teams_Mail.ForeColor = Color.Gray;
-            words.Add(tb_Teams_Name.Name, "Team Name*");
+            words.Add(tb_Teams_Name.Name, "Name*");
             tb_Teams_Name.Text = words[tb_Teams_Name.Name];
             tb_Teams_Name.ForeColor = Color.Gray;
             words.Add(tb_Player_Postalcode.Name, "Postleitzahl");
@@ -339,6 +386,13 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     break;
                 case 5:
+                    wordsInit();
+                    gb_Modes.Visible = false;
+                    gb_Maps.Visible = false;
+                    gb_Players.Visible = false;
+                    gb_Teams.Visible = false;
+                    break;
+                case 6:
                     wordsInit();
                     gb_Modes.Visible = false;
                     gb_Maps.Visible = false;

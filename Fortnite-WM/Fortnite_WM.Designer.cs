@@ -55,6 +55,7 @@
             this.lb_TB_Modes = new System.Windows.Forms.Label();
             this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tab_insert = new System.Windows.Forms.TabPage();
+            this.mc_Age = new System.Windows.Forms.MonthCalendar();
             this.btn_reset = new System.Windows.Forms.Button();
             this.gb_Modes = new System.Windows.Forms.GroupBox();
             this.gb_Mode_Type = new System.Windows.Forms.GroupBox();
@@ -391,6 +392,7 @@
             // tab_insert
             // 
             this.tab_insert.BackColor = System.Drawing.Color.Gray;
+            this.tab_insert.Controls.Add(this.mc_Age);
             this.tab_insert.Controls.Add(this.btn_reset);
             this.tab_insert.Controls.Add(this.gb_Modes);
             this.tab_insert.Controls.Add(this.gb_Maps);
@@ -404,6 +406,16 @@
             this.tab_insert.Size = new System.Drawing.Size(1041, 515);
             this.tab_insert.TabIndex = 1;
             this.tab_insert.Text = "Dateneingaben";
+            // 
+            // mc_Age
+            // 
+            this.mc_Age.Location = new System.Drawing.Point(233, 55);
+            this.mc_Age.MaxSelectionCount = 1;
+            this.mc_Age.Name = "mc_Age";
+            this.mc_Age.TabIndex = 2;
+            this.mc_Age.TabStop = false;
+            this.mc_Age.Visible = false;
+            this.mc_Age.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.MC_DateSelected);
             // 
             // btn_reset
             // 
@@ -1134,6 +1146,7 @@
         private System.Windows.Forms.TextBox tb_Player_Mail;
         private System.Windows.Forms.TextBox tb_Player_Phonenumber;
         private System.Windows.Forms.TextBox tb_Teams_Mail;
+        private System.Windows.Forms.MonthCalendar mc_Age;
     }
 }
 

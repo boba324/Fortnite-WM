@@ -147,7 +147,6 @@ CREATE TABLE IF NOT EXISTS `teams` (
 `team_description` TEXT DEFAULT NULL, 
 `team_created` DATETIME NOT NULL, 
 `team_kills` SMALLINT UNSIGNED DEFAULT 0,
-`team_membercount` TINYINT UNSIGNED DEFAULT 0,
 PRIMARY KEY (`team_id`));
  
  
@@ -162,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `maps` (
 PRIMARY KEY (`map_id`));
  
 ###############################################################
-########                 Zu der Map größe                 ########
+########                 Zu der Map Größe              ########
 ###############################################################
 #	map_type
 #
@@ -183,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `player` (
 `player_team_id` SMALLINT UNSIGNED NOT NULL, 
 `player_familyname` TINYTEXT NOT NULL, 
 `player_firstname` TINYTEXT NOT NULL, 
+`player_age` DATE NOT NULL,
 `player_country` TINYTEXT DEFAULT NULL,
 `player_state` TINYTEXT DEFAULT NULL,
 `player_city` TINYTEXT DEFAULT NULL, 
@@ -258,14 +258,27 @@ FOREIGN KEY(`mode_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDA
 ########           Zu den Gespielten Runden            ########
 ###############################################################
 CREATE TABLE IF NOT EXISTS `played_matches` (
-`pm_id` INT UNSIGNED AUTO_INCREMENT, 
-`pm_mode_id`  TINYINT UNSIGNED NOT NULL, 
-`pm_map_id`  SMALLINT UNSIGNED NOT NULL, 
+`pm_id` INT UNSIGNED AUTO_INCREMENT,
+`pm_mode_id`  TINYINT UNSIGNED NOT NULL,
 `pm_match_type` TINYTEXT NOT NULL,
+`pm_winning_team_id` SMALLINT UNSIGNED NOT NULL,
+`pm_second_team_id` SMALLINT UNSIGNED NOT NULL,
+`pm_third_team_id` SMALLINT UNSIGNED NOT NULL,
 `pm_player_round_start` TINYINT UNSIGNED DEFAULT 100,
 PRIMARY KEY(`pm_id`),
 FOREIGN KEY(`pm_mode_id`) REFERENCES `modes`(`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE CASCADE);";
+FOREIGN KEY(`pm_winning_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY(`pm_second_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY(`pm_third_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+###############################################################
+########                 Zu den Punkten                ########
+###############################################################
+CREATE TABLE IF NOT EXISTS `scores` (
+`sc_team_id` SMALLINT UNSIGNED NOT NULL,
+`sc_points` SMALLINT UNSIGNED DEFAULT 0,
+FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE)";
 #endregion
             if (this.OpenConnection() == true)
             {
@@ -291,16 +304,16 @@ FOREIGN KEY(`pm_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDATE
 `team_created`)
 VALUES
 (
-" + par["Name"] + @",
-" + par["Country"] + @",
-" + par["State"] + @",
-" + par["City"] + @",
-" + par["ZIP"] + @",
-" + par["Street"] + @",
-" + par["Streetnr"] + @",
-" + par["Mail"] + @",
-" + par["Description"] + @",
-" + par["TimeStamp"] + @");";
+'" + par["tb_Teams_Name"] + @"',
+'" + par["tb_Teams_Country"] + @"',
+'" + par["tb_Teams_State"] + @"',
+'" + par["tb_Teams_City"] + @"',
+" + par["tb_Teams_Postalcode"] + @",
+'" + par["tb_Teams_Street"] + @"',
+" + par["tb_Teams_Streetnr"] + @",
+'" + par["tb_Teams_Mail"] + @"',
+'" + par["tb_Description"] + @"',
+NOW());";
             #endregion
             if (this.OpenConnection() == true)
             {
