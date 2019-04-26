@@ -48,6 +48,7 @@ namespace Fortnite_WM
             gb_Players.Visible = false;
             gb_Teams.Visible = false;
             gb_Played_Matches.Visible = false;
+            gb_Scores.Visible = false;
         }
         #region DB Status Abfrage / Erstellung
         private bool DBConState()
@@ -231,18 +232,29 @@ namespace Fortnite_WM
                         if (cb_Played_Matches_Second_Place.SelectedIndex > -1) vals.Add(cb_Played_Matches_Second_Place.Name, cb_Played_Matches_Second_Place.SelectedValue.ToString());
                         if (cb_Played_Matches_Third_Place.SelectedIndex > -1) vals.Add(cb_Played_Matches_Third_Place.Name, cb_Played_Matches_Third_Place.SelectedValue.ToString());
                         vals.Add(nud_Max_Player.Name, nud_Max_Player.Value.ToString());
-                        if (cb_Played_Matches_First_Place.SelectedValue.ToString() != cb_Played_Matches_Second_Place.SelectedValue.ToString() && 
-                            cb_Played_Matches_First_Place.SelectedValue.ToString() != cb_Played_Matches_Third_Place.SelectedValue.ToString())
+                        if (cb_Played_Matches_First_Place.SelectedIndex > -1 && cb_Played_Matches_Second_Place.SelectedIndex > -1 && cb_Played_Matches_Third_Place.SelectedIndex > -1)
                         {
-                            dbcon.DBInsert(vals);
-                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
-                            WordsInit();
-                            LabelResetter();
-                            ComboFiller();
+                            if (cb_Played_Matches_First_Place.SelectedValue.ToString() != cb_Played_Matches_Second_Place.SelectedValue.ToString() &&
+                                cb_Played_Matches_First_Place.SelectedValue.ToString() != cb_Played_Matches_Third_Place.SelectedValue.ToString())
+                            {
+                                dbcon.DBInsert(vals);
+                                MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                                WordsInit();
+                                LabelResetter();
+                                ComboFiller();
+                                cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                                cb_Played_Matches_First_Place.SelectedIndex = 0;
+                                cb_Played_Matches_Second_Place.SelectedIndex = 0;
+                                cb_Played_Matches_Third_Place.SelectedIndex = 0;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Bitte darauf achten das kein Team auf 2 Platzierungen eingetragen ist.");
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Bitte darauf achten das kein Team auf Zwei Platzierungen eingetragen ist.");
+                            MessageBox.Show("Bitte zuerst den Modus und den Modus Typ wählen.");
                         }
                         vals.Clear();
                         #endregion
@@ -281,8 +293,24 @@ namespace Fortnite_WM
                         #endregion
                         break;
                     case 5:
-
-
+                        #region Scores
+                        vals.Add("Tabelle", "scores");
+                        if (cb_Scores_Team_ID.SelectedIndex > -1 && words[tb_Scores_Points.Name] != tb_Scores_Points.Text.ToString())
+                        {
+                            vals.Add(cb_Scores_Team_ID.Name ,cb_Scores_Team_ID.SelectedValue.ToString());
+                            vals.Add(tb_Scores_Points.Name, tb_Scores_Points.Text.ToString());
+                            dbcon.DBInsert(vals);
+                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                            WordsInit();
+                            LabelResetter();
+                            ComboFiller();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bitte befülle alle mit * markierten Felder und wähle ein Team aus.");
+                        }
+                        vals.Clear();
+                        #endregion
                         break;
                     case 6:
                         #region Teams
@@ -325,6 +353,10 @@ namespace Fortnite_WM
         }
         private void Btn_reset_Click(object sender, EventArgs e)
         {
+            cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+            cb_Played_Matches_First_Place.SelectedIndex = 0;
+            cb_Played_Matches_Second_Place.SelectedIndex = 0;
+            cb_Played_Matches_Third_Place.SelectedIndex = 0;
             WordsInit();
             vals.Clear();
         }
@@ -375,7 +407,7 @@ namespace Fortnite_WM
                 {
                     tb.Text = string.Concat(tb.Text.Where(char.IsLetterOrDigit));
                 }
-                if (tb.Name == tb_Teams_Postalcode.Name || tb.Name == tb_Teams_Streetnr.Name)
+                if (tb.Name == tb_Teams_Postalcode.Name || tb.Name == tb_Teams_Streetnr.Name || tb.Name == tb_Scores_Points.Name)
                 {
                     tb.Text = string.Concat(tb.Text.Where(char.IsDigit));
                 }
@@ -391,24 +423,14 @@ namespace Fortnite_WM
             }
         }
         #endregion
+        #region MonthCalender Events
         private void MC_DateSelected(object sender, System.Windows.Forms.DateRangeEventArgs e)
         {
             tb_Player_Age.Text = e.Start.ToShortDateString();
             player_age = ConvertToDateTime(e.Start.ToShortDateString()).Year.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Month.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Day.ToString();
             tb_Player_Age.ForeColor = Color.Black;
         }
-        private DateTime ConvertToDateTime(string value)
-        {
-            try
-            {
-                return Convert.ToDateTime(value);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("'{0}' is not in the proper format.", value);
-                return Convert.ToDateTime(value);
-            }
-        }
+        #endregion
         #region Hintergrund Methoden
         private void WordsInit()
         {
@@ -479,7 +501,9 @@ namespace Fortnite_WM
             words.Add(tb_Player_Familyname.Name, "Nachname*");
             tb_Player_Familyname.Text = words[tb_Player_Familyname.Name];
             tb_Player_Familyname.ForeColor = Color.Gray;
-            words.Add("Max.P", "Max. Spieler");
+            words.Add(tb_Scores_Points.Name, "Punkte*");
+            tb_Scores_Points.Text = words[tb_Scores_Points.Name];
+            tb_Scores_Points.ForeColor = Color.Gray;
             words.Add(tb_Description.Name, "Beschreibung");
             tb_Description.Text = words[tb_Description.Name];
             tb_Description.ForeColor = Color.Gray;
@@ -522,6 +546,22 @@ namespace Fortnite_WM
             cb_Played_Matches_Mode_Name.DataSource = dbcon.ComboData(4);
             cb_Played_Matches_Mode_Name.DisplayMember = "mode_name";
             cb_Played_Matches_Mode_Name.ValueMember = "mode_id";
+
+            cb_Scores_Team_ID.DataSource = dbcon.ComboData(1);
+            cb_Scores_Team_ID.DisplayMember = "team_name";
+            cb_Scores_Team_ID.ValueMember = "team_id";
+        }
+        private DateTime ConvertToDateTime(string value)
+        {
+            try
+            {
+                return Convert.ToDateTime(value);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("'{0}' is not in the proper format.", value);
+                return Convert.ToDateTime(value);
+            }
         }
         #endregion
         #region ComboBox Events
@@ -535,6 +575,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = false;
                     break;
                 case 1:
                     gb_Modes.Visible = false;
@@ -542,6 +583,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = false;
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -549,6 +591,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = false;
                     break;
                 case 3:
                     gb_Modes.Visible = false;
@@ -556,6 +599,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = true;
+                    gb_Scores.Visible = false;
                     break;
                 case 4:
                     gb_Modes.Visible = false;
@@ -563,6 +607,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = true;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = false;
                     break;
                 case 5:
                     gb_Modes.Visible = false;
@@ -570,6 +615,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = true;
                     break;
                 case 6:
                     gb_Modes.Visible = false;
@@ -577,6 +623,7 @@ namespace Fortnite_WM
                     gb_Players.Visible = false;
                     gb_Teams.Visible = true;
                     gb_Played_Matches.Visible = false;
+                    gb_Scores.Visible = false;
                     break;
                 default:
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table.SelectedIndex + " nicht bekannt.");
@@ -638,7 +685,7 @@ namespace Fortnite_WM
                 table = "player";
                 cb_Played_Matches_First_Place.DataSource = ranking;
                 cb_Played_Matches_First_Place.DisplayMember = "player_nickname";
-                cb_Played_Matches_First_Place.ValueMember = "player_id";
+                cb_Played_Matches_First_Place.ValueMember = "player_team_id";
                 cb_Played_Matches_First_Place.SelectedIndex = 0;
             }
             else if (cb_Played_Matches_Mode_Type.SelectedItem.ToString() == "Duo" || cb_Played_Matches_Mode_Type.SelectedItem.ToString() == "Squad")
@@ -659,13 +706,13 @@ namespace Fortnite_WM
                 for (int i = ranking_second.Rows.Count - 1; i >= 0; i--)
                 {
                     DataRow dr = ranking_second.Rows[i];
-                    if (dr["player_id"].ToString() == cb_Played_Matches_First_Place.SelectedValue.ToString())
+                    if (dr["player_team_id"].ToString() == cb_Played_Matches_First_Place.SelectedValue.ToString())
                         dr.Delete();
                 }
                 ranking_second.AcceptChanges();
                 cb_Played_Matches_Second_Place.DataSource = ranking_second;
                 cb_Played_Matches_Second_Place.DisplayMember = "player_nickname";
-                cb_Played_Matches_Second_Place.ValueMember = "player_id";
+                cb_Played_Matches_Second_Place.ValueMember = "player_team_id";
                 cb_Played_Matches_Second_Place.SelectedIndex = 0;
             }
             else
@@ -693,13 +740,13 @@ namespace Fortnite_WM
                 for (int i = ranking_third.Rows.Count - 1; i >= 0; i--)
                 {
                     DataRow dr = ranking_third.Rows[i];
-                    if (dr["player_id"].ToString() == cb_Played_Matches_Second_Place.SelectedValue.ToString() || dr["player_id"].ToString() == cb_Played_Matches_First_Place.SelectedValue.ToString())
+                    if (dr["player_team_id"].ToString() == cb_Played_Matches_Second_Place.SelectedValue.ToString() || dr["player_team_id"].ToString() == cb_Played_Matches_First_Place.SelectedValue.ToString())
                         dr.Delete();
                 }
                 ranking_third.AcceptChanges();
                 cb_Played_Matches_Third_Place.DataSource = ranking_third;
                 cb_Played_Matches_Third_Place.DisplayMember = "player_nickname";
-                cb_Played_Matches_Third_Place.ValueMember = "player_id";
+                cb_Played_Matches_Third_Place.ValueMember = "player_team_id";
                 cb_Played_Matches_Third_Place.SelectedIndex = 0;
             }
             else

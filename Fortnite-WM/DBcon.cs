@@ -370,6 +370,9 @@ NOW())";
             }
             else if (par["Tabelle"] == "scores")
             {
+                #region ScoresDBQuery
+                query = "INSERT INTO `fortnite_wm`.`scores`(`sc_team_id`,`sc_points`) VALUES(" + par["cb_Scores_Team_ID"] + ", " + par["tb_Scores_Points"] + ")";
+                #endregion
 
             }
             else if (par["Tabelle"] == "teams")
