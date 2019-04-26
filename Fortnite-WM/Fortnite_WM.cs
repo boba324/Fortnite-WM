@@ -21,8 +21,11 @@ namespace Fortnite_WM
         DBcon dbcon = new DBcon();
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
-        Dictionary<int, string> insertValues = new Dictionary<int, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
+        private string player_age = "";
+        private int modes_weapontype = 0;
+        private int modes_type = 0;
+        private int modes_rarity = 0;
         #endregion
         public Fortnite_WM()
         {
@@ -33,8 +36,8 @@ namespace Fortnite_WM
         {
             WordsInit();
             LabelResetter();
-            insertValues.Clear();
             vals.Clear();
+            mc_Age.SetDate(mc_Age.TodayDate.AddYears(-18));
             gb_Players.Visible = false;
             gb_Modes.Visible = false;
             gb_Maps.Visible = false;
@@ -149,30 +152,70 @@ namespace Fortnite_WM
                         MessageBox.Show("Bitte wählen sie eine Tabelle aus.");
                         break;
                     case 1:
+                        #region Maps
                         vals.Add("Tabelle", "maps");
-                        if (rb_Maps_Large.Checked) insertValues.Add(0, "1");
-                        if (rb_Maps_Middle.Checked) insertValues.Add(0, "2");
-                        if (rb_Maps_Small.Checked) insertValues.Add(0, "4");
-                        if (!words.ContainsValue(tb_Map_Name.Text))
+                        if (rb_Maps_Large.Checked) vals.Add("map_type", "4");
+                        if (rb_Maps_Middle.Checked) vals.Add("map_type", "2");
+                        if (rb_Maps_Small.Checked) vals.Add("map_type", "1");
+                        if (!words.ContainsValue(tb_Map_Name.Text) && rb_Maps_Small.Checked || rb_Maps_Middle.Checked || rb_Maps_Large.Checked)
                         {
-                            insertValues.Add(1, tb_Map_Name.Text);
-                            dbcon.Insert(insertValues);
+                            vals.Add(tb_Map_Name.Name, tb_Map_Name.Text);
+                            dbcon.DBInsert(vals);
+                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                         }
+                        else
+                        {
+                            MessageBox.Show("Bitte befülle alle mit * markierten Felder.");
+                        }
+                        vals.Clear();
+                        #endregion
                         break;
                     case 2:
-
+                        #region Modes
+                        vals.Add("Tabelle", "modes");
+                        if (cb_Modes_Weapontype_Pistol.Checked) modes_weapontype += 1;
+                        if (cb_Modes_Weapontype_Schotgun.Checked) modes_weapontype += 2;
+                        if (cb_Modes_Weapontype_Submaschinegun.Checked) modes_weapontype += 4;
+                        if (cb_Modes_Weapontype_Assultrifle.Checked) modes_weapontype += 8;
+                        if (cb_Modes_Weapontype_Rocketlauncher.Checked) modes_weapontype += 16;
+                        if (cb_Modes_Weapontype_Granadelauncher.Checked) modes_weapontype += 32;
+                        if (cb_Modes_Weapontype_Sniperrifel.Checked) modes_weapontype += 64;
+                        if (cb_Modes_Weapontype_Bombs_and_Granates.Checked) modes_weapontype += 128;
+                        if (cb_Modes_Type_Solo.Checked) modes_type += 1;
+                        if (cb_Modes_Type_Duo.Checked) modes_type += 2;
+                        if (cb_Modes_Type_Squad.Checked) modes_type += 4;
+                        if (cb_Modes_Rarity_Common.Checked) modes_rarity += 1;
+                        if (cb_Modes_Rarity_Uncommon.Checked) modes_rarity += 2;
+                        if (cb_Modes_Rarity_Rare.Checked) modes_rarity += 4;
+                        if (cb_Modes_Rarity_Epic.Checked) modes_rarity += 8;
+                        if (cb_Modes_Rarity_Legendary.Checked) modes_rarity += 16;
+                        if (cb_Modes_Rarity_Mythical.Checked) modes_rarity += 32;
+                        if (!words.ContainsValue(tb_Mode_Name.Text))
+                        {
+                            vals.Add(tb_Mode_Name.Name, tb_Mode_Name.Text);
+                            vals.Add(cb_Mode_Map_Name.Name, cb_Mode_Map_Name.SelectedValue.ToString());
+                            vals.Add("modes_weapontype", modes_weapontype.ToString());
+                            vals.Add("modes_type", modes_type.ToString());
+                            vals.Add("modes_rarity", modes_rarity.ToString());
+                            vals.Add(nud_Max_Player.Name, nud_Max_Player.Value.ToString());
+                            dbcon.DBInsert(vals);
+                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                        }
+                        vals.Clear();
+                        #endregion
                         break;
                     case 3:
 
                         break;
                     case 4:
+                        #region Player
                         vals.Add("Tabelle", "player");
                         if (tb_Player_Nickname.Text != words[tb_Player_Nickname.Name] &&  tb_Player_Mail.Text != words[tb_Player_Mail.Name] &&
                             tb_Player_Age.Text != words[tb_Player_Age.Name] && tb_Player_Firstname.Text != words[tb_Player_Firstname.Name] && 
                             tb_Player_Familyname.Text != words[tb_Player_Familyname.Name])
                         {
                             vals.Add(tb_Player_Nickname.Name, tb_Player_Nickname.Text);
-                            vals.Add(tb_Player_Age.Name, tb_Player_Age.Text);
+                            vals.Add(tb_Player_Age.Name, player_age);
                             vals.Add(tb_Player_Firstname.Name, tb_Player_Firstname.Text);
                             vals.Add(tb_Player_Familyname.Name, tb_Player_Familyname.Text);
                             vals.Add(tb_Player_Mail.Name, tb_Player_Mail.Text);
@@ -185,19 +228,22 @@ namespace Fortnite_WM
                             if (tb_Player_Street.Text != words[tb_Player_Street.Name]) { vals.Add(tb_Player_Street.Name, tb_Player_Street.Text); } else { vals.Add(tb_Player_Street.Name, "NULL"); }
                             if (tb_Player_Phonenumber.Text != words[tb_Player_Phonenumber.Name]) { vals.Add(tb_Player_Phonenumber.Name, tb_Player_Phonenumber.Text); } else { vals.Add(tb_Player_Phonenumber.Name, "NULL"); }
                             dbcon.DBInsert(vals);
-                            vals.Clear();
                             MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                         }
                         else
                         {
                             MessageBox.Show("Bitte befülle alle mit * markierten Felder.");
                         }
+                        vals.Clear();
+                        #endregion
                         break;
                     case 5:
 
 
                         break;
                     case 6:
+                        #region Teams
+                        vals.Add("Tabelle", "teams");
                         if (tb_Teams_Name.Text != words[tb_Teams_Name.Name] && tb_Teams_City.Text != words[tb_Teams_City.Name] &&
                             tb_Teams_Country.Text != words[tb_Teams_Country.Name] && tb_Teams_Mail.Text != words[tb_Teams_Mail.Name] &&
                              tb_Teams_Postalcode.Text != words[tb_Teams_Postalcode.Name] && tb_Teams_Streetnr.Text != words[tb_Teams_Streetnr.Name] &&
@@ -213,13 +259,14 @@ namespace Fortnite_WM
                             vals.Add(tb_Teams_Street.Name, tb_Teams_Street.Text);
                             if (tb_Description.Text != words[tb_Description.Name]) { vals.Add(tb_Description.Name, tb_Description.Text); } else { vals.Add(tb_Description.Name, null); }
                             dbcon.DBInsert(vals);
-                            vals.Clear();
                             MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                         }
                         else
                         {
                             MessageBox.Show("Bitte befülle alle mit * markierten Felder.");
                         }
+                        vals.Clear();
+                        #endregion
                         break;
                     default:
                         break;
@@ -295,7 +342,8 @@ namespace Fortnite_WM
         #endregion
         private void MC_DateSelected(object sender, System.Windows.Forms.DateRangeEventArgs e)
         {
-            tb_Player_Age.Text = ConvertToDateTime(e.Start.ToShortDateString()).Year.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Month.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Day.ToString();
+            tb_Player_Age.Text = e.Start.ToShortDateString();
+            player_age = ConvertToDateTime(e.Start.ToShortDateString()).Year.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Month.ToString() + "-" + ConvertToDateTime(e.Start.ToShortDateString()).Day.ToString();
             tb_Player_Age.ForeColor = Color.Black;
         }
         private DateTime ConvertToDateTime(string value)
@@ -303,7 +351,6 @@ namespace Fortnite_WM
             try
             {
                 return Convert.ToDateTime(value);
-                //Console.WriteLine("'{0}' converts to {1} {2} time.", value, convertedDate, convertedDate.Kind.ToString());
             }
             catch (FormatException)
             {
@@ -412,6 +459,14 @@ namespace Fortnite_WM
             cb_Player_Team_ID.DataSource = dbcon.ComboData(1);
             cb_Player_Team_ID.DisplayMember = "team_Name";
             cb_Player_Team_ID.ValueMember = "team_id";
+
+            cb_Mode_Map_Name.DataSource = dbcon.ComboData(3);
+            cb_Mode_Map_Name.DisplayMember = "map_name";
+            cb_Mode_Map_Name.ValueMember = "map_id";
+
+            cb_Played_Matches_Mode_Name.DataSource = dbcon.ComboData(4);
+            cb_Played_Matches_Mode_Name.DisplayMember = "mode_name";
+            cb_Played_Matches_Mode_Name.ValueMember = "mode_id";
         }
         #endregion
         private void Cb_Insert_Table_TextChanged(object sender, EventArgs e)
@@ -476,7 +531,6 @@ namespace Fortnite_WM
         private void Btn_reset_Click(object sender, EventArgs e)
         {
             WordsInit();
-            insertValues.Clear();
             vals.Clear();
         }
     }

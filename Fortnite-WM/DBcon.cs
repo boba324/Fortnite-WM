@@ -289,17 +289,30 @@ FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPD
         public void DBInsert(Dictionary<string, string> par)
         {
             string query = "";
-            if (par["Tabelle"] == "-")
+            if (par["Tabelle"] == "maps")
             {
-
-            }
-            else if (par["Tabelle"] == "maps")
-            {
-
+                #region MapsDBQuery
+                query = "Insert Into maps(`map_name`,`map_type`) Values('" + par["tb_Map_Name"] + "', " + par["map_type"] + ")";
+                #endregion
             }
             else if (par["Tabelle"] == "modes")
             {
-
+                #region ModesDBQuery
+                query = @"INSERT INTO `fortnite_wm`.`modes`
+(`mode_name`,
+`mode_type`,
+`mode_map_id`,
+`mode_max_player`,
+`mode_weapon_types`,
+`mode_weapon_rarity`)
+VALUES
+('"+ par["tb_Mode_Name"] + @"',
+" + par["modes_type"] + @",
+" + par["cb_Mode_Map_Name"] + @",
+" + par["nup_Max_Player"] + @",
+" + par["modes_weapontype"] + @",
+" + par["modes_rarity"] + @",";
+                #endregion
             }
             else if (par["Tabelle"] == "played_matches")
             {
@@ -470,17 +483,6 @@ NOW());";
             {
                 MessageBox.Show(ex.Message);
                 return false;
-            }
-        }
-        
-        public void Insert(Dictionary<int, string> par)
-        {
-            string query = "Insert Into maps(`map_name`,`map_type`) Values('" + par[1] + "', " + par[0] + ")";
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-                this.CloseConnection();
             }
         }
         
