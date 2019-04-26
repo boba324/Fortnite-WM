@@ -23,9 +23,11 @@ namespace Fortnite_WM
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
         private string player_age = "";
-        private int modes_weapontype = 0;
-        private int modes_type = 0;
-        private int modes_rarity = 0;
+        private int modes_weapontype = 0;//255
+        private int modes_type = 0;//7
+        private int modes_rarity = 0;//63
+        private bool resett = true;
+        private string table = "";
         #endregion
         public Fortnite_WM()
         {
@@ -192,6 +194,9 @@ namespace Fortnite_WM
                         if (cb_Modes_Rarity_Mythical.Checked) modes_rarity += 32;
                         if (!words.ContainsValue(tb_Mode_Name.Text))
                         {
+                            if (modes_rarity == 0) modes_rarity = 63;
+                            if (modes_type == 0) modes_type = 7;
+                            if (modes_weapontype == 0) modes_weapontype = 255;
                             vals.Add(tb_Mode_Name.Name, tb_Mode_Name.Text);
                             vals.Add(cb_Mode_Map_Name.Name, cb_Mode_Map_Name.SelectedValue.ToString());
                             vals.Add("modes_weapontype", modes_weapontype.ToString());
@@ -201,6 +206,9 @@ namespace Fortnite_WM
                             dbcon.DBInsert(vals);
                             MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                         }
+                        modes_weapontype = 0;
+                        modes_type = 0;
+                        modes_rarity = 0;
                         vals.Clear();
                         #endregion
                         break;
@@ -276,9 +284,15 @@ namespace Fortnite_WM
             {
                 MessageBox.Show("Bitte verbinde dich mit der Datenbank um Daten eintragen zu können.");
             }
+            ComboFiller();
+        }
+        private void Btn_reset_Click(object sender, EventArgs e)
+        {
+            WordsInit();
+            vals.Clear();
         }
         #endregion
-        #region Textbox Enter / Leave behaviour
+        #region TextBox Events
         private void Tb_Enter(object sender, EventArgs e)
         {
             TextBox tb = new TextBox();
@@ -452,12 +466,16 @@ namespace Fortnite_WM
         }
         private void ComboFiller()
         {
-            cb_Insert_Table.DataSource = dbcon.ComboData(0);
-            cb_Insert_Table.DisplayMember = "TABLE_NAME";
-            cb_Insert_Table.ValueMember = "TABLE_NAME";
+            if (resett)
+            {
+                cb_Insert_Table.DataSource = dbcon.ComboData(0);
+                cb_Insert_Table.DisplayMember = "TABLE_NAME";
+                cb_Insert_Table.ValueMember = "TABLE_NAME";
+            }
+            resett = false;
 
             cb_Player_Team_ID.DataSource = dbcon.ComboData(1);
-            cb_Player_Team_ID.DisplayMember = "team_Name";
+            cb_Player_Team_ID.DisplayMember = "team_name";
             cb_Player_Team_ID.ValueMember = "team_id";
 
             cb_Mode_Map_Name.DataSource = dbcon.ComboData(3);
@@ -469,6 +487,7 @@ namespace Fortnite_WM
             cb_Played_Matches_Mode_Name.ValueMember = "mode_id";
         }
         #endregion
+        #region ComboBox Events
         private void Cb_Insert_Table_TextChanged(object sender, EventArgs e)
         {
             switch (cb_Insert_Table.SelectedIndex)
@@ -526,12 +545,88 @@ namespace Fortnite_WM
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table.SelectedIndex + " nicht bekannt.");
                     break;
             }
+            ComboFiller();
         }
-
-        private void Btn_reset_Click(object sender, EventArgs e)
+        private void CB_Played_Matches_Mode_Name_TextChanged(object sender, EventArgs e)
         {
-            WordsInit();
-            vals.Clear();
+            if (dbConState && cb_Insert_Table.SelectedIndex == 3) {
+            
+                switch (dbcon.Mode_Type(cb_Played_Matches_Mode_Name.SelectedValue.ToString()))
+                {
+                    case 1:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Solo");
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 2:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Duo");
+
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 3:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Solo");
+                        cb_Played_Matches_Mode_Type.Items.Insert(1, "Duo");
+
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 4:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Squad");
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 5:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Solo");
+                        cb_Played_Matches_Mode_Type.Items.Insert(1, "Squad");
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 6:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Duo");
+                        cb_Played_Matches_Mode_Type.Items.Insert(1, "Squad");
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    case 7:
+                        cb_Played_Matches_Mode_Type.Items.Clear();
+                        cb_Played_Matches_Mode_Type.Items.Insert(0, "Solo");
+                        cb_Played_Matches_Mode_Type.Items.Insert(1, "Duo");
+                        cb_Played_Matches_Mode_Type.Items.Insert(2, "Squad");
+                        cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                        break;
+                    default: MessageBox.Show("Unbekannter Modus Typ. " + dbcon.Mode_Type(cb_Played_Matches_Mode_Name.SelectedValue.ToString()));
+                        break;
+                }
+            }
         }
+        private void CB_Played_Matches_Mode_Type_TextChanged(object sender, EventArgs e)
+        {
+            if (cb_Played_Matches_Mode_Type.SelectedItem.ToString() == "Solo")
+            {
+                cb_Played_Matches_First_Place.DataSource = dbcon.ComboData(2);
+                cb_Played_Matches_First_Place.DisplayMember = "player_name";
+                cb_Played_Matches_First_Place.ValueMember = "player_id";
+            }
+            else if (cb_Played_Matches_Mode_Type.SelectedItem.ToString() == "Duo" || cb_Played_Matches_Mode_Type.SelectedItem.ToString() == "Squad")
+            {
+                cb_Played_Matches_First_Place.DataSource = dbcon.ComboData(1);
+                cb_Played_Matches_First_Place.DisplayMember = "team_name";
+                cb_Played_Matches_First_Place.ValueMember = "team_id";
+            }
+        }
+        private void CB_Played_Matches_First_Place_TextChanged(object sender, EventArgs e)
+        {
+            cb_Played_Matches_Second_Place = cb_Played_Matches_First_Place;
+            cb_Played_Matches_Second_Place.Items.Remove(cb_Played_Matches_First_Place.SelectedItem);
+            cb_Played_Matches_Second_Place.SelectedIndex = 0;
+        }
+        private void CB_Played_Matches_Second_Place_TextChanged(object sender, EventArgs e)
+        {
+            cb_Played_Matches_Third_Place = cb_Played_Matches_Second_Place;
+            cb_Played_Matches_Third_Place.Items.Remove(cb_Played_Matches_Second_Place.SelectedItem);
+            cb_Played_Matches_Third_Place.SelectedIndex = 0;
+        }
+        #endregion
     }
 }

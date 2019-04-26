@@ -309,9 +309,9 @@ VALUES
 ('"+ par["tb_Mode_Name"] + @"',
 " + par["modes_type"] + @",
 " + par["cb_Mode_Map_Name"] + @",
-" + par["nup_Max_Player"] + @",
+" + par["nud_Max_Player"] + @",
 " + par["modes_weapontype"] + @",
-" + par["modes_rarity"] + @",";
+" + par["modes_rarity"] + @");";
                 #endregion
             }
             else if (par["Tabelle"] == "played_matches")
@@ -512,32 +512,18 @@ NOW());";
                 default:
                     break;
             }
-
-            //Create a list to store the result
             List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
-
-            //Open connection
             if (this.OpenConnection() == true)
             {
-                //Create Command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
                 while (dataReader.Read())
                 {
                     list[0].Add(dataReader["bla"] + "");
                 }
-
-                //close Data Reader
                 dataReader.Close();
-
-                //close Connection
                 this.CloseConnection();
-
-                //return list to be displayed
                 return list;
             }
             else
@@ -546,9 +532,17 @@ NOW());";
             }
         }
         
-        public int Count()
+        public int Mode_Type(string id)
         {
-            return 1;
+            string query = "SELECT mode_type FROM modes where mode_id = " + id + ";";
+            int value = new int();
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                value = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            return value;
         }
     }
 }

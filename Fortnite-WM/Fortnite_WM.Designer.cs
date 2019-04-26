@@ -1116,6 +1116,7 @@
             this.cb_Played_Matches_Mode_Name.Name = "cb_Played_Matches_Mode_Name";
             this.cb_Played_Matches_Mode_Name.Size = new System.Drawing.Size(121, 21);
             this.cb_Played_Matches_Mode_Name.TabIndex = 0;
+            this.cb_Played_Matches_Mode_Name.TextChanged += new System.EventHandler(this.CB_Played_Matches_Mode_Name_TextChanged);
             // 
             // cb_Played_Matches_Mode_Type
             // 
@@ -1124,6 +1125,7 @@
             this.cb_Played_Matches_Mode_Type.Name = "cb_Played_Matches_Mode_Type";
             this.cb_Played_Matches_Mode_Type.Size = new System.Drawing.Size(121, 21);
             this.cb_Played_Matches_Mode_Type.TabIndex = 1;
+            this.cb_Played_Matches_Mode_Type.TextChanged += new System.EventHandler(this.CB_Played_Matches_Mode_Type_TextChanged);
             // 
             // cb_Played_Matches_First_Place
             // 
@@ -1132,6 +1134,7 @@
             this.cb_Played_Matches_First_Place.Name = "cb_Played_Matches_First_Place";
             this.cb_Played_Matches_First_Place.Size = new System.Drawing.Size(121, 21);
             this.cb_Played_Matches_First_Place.TabIndex = 2;
+            this.cb_Played_Matches_First_Place.TextChanged += new System.EventHandler(this.CB_Played_Matches_First_Place_TextChanged);
             // 
             // cb_Played_Matches_Second_Place
             // 
@@ -1140,6 +1143,7 @@
             this.cb_Played_Matches_Second_Place.Name = "cb_Played_Matches_Second_Place";
             this.cb_Played_Matches_Second_Place.Size = new System.Drawing.Size(121, 21);
             this.cb_Played_Matches_Second_Place.TabIndex = 3;
+            this.cb_Played_Matches_Second_Place.TextChanged += new System.EventHandler(this.CB_Played_Matches_Second_Place_TextChanged);
             // 
             // cb_Played_Matches_Third_Place
             // 
