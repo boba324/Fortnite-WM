@@ -316,7 +316,22 @@ VALUES
             }
             else if (par["Tabelle"] == "played_matches")
             {
-
+                #region Played_MatchesDBQuery
+                query = @"INSERT INTO `fortnite_wm`.`played_matches`
+(`pm_mode_id`,
+`pm_match_type`,
+`pm_winning_team_id`,
+`pm_second_team_id`,
+`pm_third_team_id`,
+`pm_player_round_start`)
+VALUES
+(" + par["cb_Played_Matches_Mode_Name"] + @",
+'" + par["cb_Played_Matches_Mode_Type"] + @"',
+" + par["cb_Played_Matches_First_Place"] + @",
+" + par["cb_Played_Matches_Second_Place"] + @",
+" + par["cb_Played_Matches_Third_Place"] + @",
+" + par["nud_Max_Player"] + @");";
+                #endregion
             }
             else if (par["Tabelle"] == "player")
             {
@@ -544,5 +559,6 @@ NOW());";
             }
             return value;
         }
+
     }
 }
