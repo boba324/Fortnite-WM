@@ -32,6 +32,7 @@ namespace Fortnite_WM
         DataTable ranking_second = new DataTable();
         DataTable ranking_third = new DataTable();
         #endregion
+        #region Init
         public Fortnite_WM()
         {
             InitializeComponent();
@@ -50,6 +51,7 @@ namespace Fortnite_WM
             gb_Played_Matches.Visible = false;
             gb_Scores.Visible = false;
         }
+        #endregion
         #region DB Status Abfrage / Erstellung
         private bool DBConState()
         {

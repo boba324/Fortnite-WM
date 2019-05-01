@@ -55,6 +55,9 @@
             this.lb_TB_Modes = new System.Windows.Forms.Label();
             this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tab_insert = new System.Windows.Forms.TabPage();
+            this.gb_Scores = new System.Windows.Forms.GroupBox();
+            this.cb_Scores_Team_ID = new System.Windows.Forms.ComboBox();
+            this.tb_Scores_Points = new System.Windows.Forms.TextBox();
             this.gb_Played_Matches = new System.Windows.Forms.GroupBox();
             this.lb_Played_Matches_Player_at_Round_Start = new System.Windows.Forms.Label();
             this.lb_Played_Matches_Third_Place = new System.Windows.Forms.Label();
@@ -131,14 +134,12 @@
             this.tab_Select = new System.Windows.Forms.TabPage();
             this.tab_update = new System.Windows.Forms.TabPage();
             this.lb_CopyRight = new System.Windows.Forms.Label();
-            this.gb_Scores = new System.Windows.Forms.GroupBox();
-            this.tb_Scores_Points = new System.Windows.Forms.TextBox();
-            this.cb_Scores_Team_ID = new System.Windows.Forms.ComboBox();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
             this.gb_TB_State.SuspendLayout();
             this.tab_insert.SuspendLayout();
+            this.gb_Scores.SuspendLayout();
             this.gb_Played_Matches.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Played_Matches_Player_at_Round_Start)).BeginInit();
             this.gb_Modes.SuspendLayout();
@@ -151,7 +152,6 @@
             this.gb_Teams.SuspendLayout();
             this.gb_Players.SuspendLayout();
             this.gb_Insert_Table.SuspendLayout();
-            this.gb_Scores.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -432,6 +432,34 @@
             this.tab_insert.Size = new System.Drawing.Size(1041, 515);
             this.tab_insert.TabIndex = 1;
             this.tab_insert.Text = "Dateneingaben";
+            // 
+            // gb_Scores
+            // 
+            this.gb_Scores.Controls.Add(this.cb_Scores_Team_ID);
+            this.gb_Scores.Controls.Add(this.tb_Scores_Points);
+            this.gb_Scores.Location = new System.Drawing.Point(482, 331);
+            this.gb_Scores.Name = "gb_Scores";
+            this.gb_Scores.Size = new System.Drawing.Size(242, 54);
+            this.gb_Scores.TabIndex = 23;
+            this.gb_Scores.TabStop = false;
+            this.gb_Scores.Text = "Team Punkte";
+            // 
+            // cb_Scores_Team_ID
+            // 
+            this.cb_Scores_Team_ID.FormattingEnabled = true;
+            this.cb_Scores_Team_ID.Location = new System.Drawing.Point(6, 19);
+            this.cb_Scores_Team_ID.Name = "cb_Scores_Team_ID";
+            this.cb_Scores_Team_ID.Size = new System.Drawing.Size(121, 21);
+            this.cb_Scores_Team_ID.TabIndex = 1;
+            // 
+            // tb_Scores_Points
+            // 
+            this.tb_Scores_Points.Location = new System.Drawing.Point(133, 20);
+            this.tb_Scores_Points.Name = "tb_Scores_Points";
+            this.tb_Scores_Points.Size = new System.Drawing.Size(100, 20);
+            this.tb_Scores_Points.TabIndex = 0;
+            this.tb_Scores_Points.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Scores_Points.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // gb_Played_Matches
             // 
@@ -1229,34 +1257,6 @@
             this.lb_CopyRight.TabIndex = 3;
             this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
             // 
-            // gb_Scores
-            // 
-            this.gb_Scores.Controls.Add(this.cb_Scores_Team_ID);
-            this.gb_Scores.Controls.Add(this.tb_Scores_Points);
-            this.gb_Scores.Location = new System.Drawing.Point(482, 331);
-            this.gb_Scores.Name = "gb_Scores";
-            this.gb_Scores.Size = new System.Drawing.Size(242, 54);
-            this.gb_Scores.TabIndex = 23;
-            this.gb_Scores.TabStop = false;
-            this.gb_Scores.Text = "Team Punkte";
-            // 
-            // tb_Scores_Points
-            // 
-            this.tb_Scores_Points.Location = new System.Drawing.Point(133, 20);
-            this.tb_Scores_Points.Name = "tb_Scores_Points";
-            this.tb_Scores_Points.Size = new System.Drawing.Size(100, 20);
-            this.tb_Scores_Points.TabIndex = 0;
-            this.tb_Scores_Points.Enter += new System.EventHandler(this.Tb_Enter);
-            this.tb_Scores_Points.Leave += new System.EventHandler(this.Tb_Leave);
-            // 
-            // cb_Scores_Team_ID
-            // 
-            this.cb_Scores_Team_ID.FormattingEnabled = true;
-            this.cb_Scores_Team_ID.Location = new System.Drawing.Point(6, 19);
-            this.cb_Scores_Team_ID.Name = "cb_Scores_Team_ID";
-            this.cb_Scores_Team_ID.Size = new System.Drawing.Size(121, 21);
-            this.cb_Scores_Team_ID.TabIndex = 1;
-            // 
             // Fortnite_WM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1278,6 +1278,8 @@
             this.gb_TB_State.ResumeLayout(false);
             this.gb_TB_State.PerformLayout();
             this.tab_insert.ResumeLayout(false);
+            this.gb_Scores.ResumeLayout(false);
+            this.gb_Scores.PerformLayout();
             this.gb_Played_Matches.ResumeLayout(false);
             this.gb_Played_Matches.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Played_Matches_Player_at_Round_Start)).EndInit();
@@ -1299,8 +1301,6 @@
             this.gb_Players.ResumeLayout(false);
             this.gb_Players.PerformLayout();
             this.gb_Insert_Table.ResumeLayout(false);
-            this.gb_Scores.ResumeLayout(false);
-            this.gb_Scores.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
