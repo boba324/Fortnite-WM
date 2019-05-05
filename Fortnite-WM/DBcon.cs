@@ -63,8 +63,7 @@ namespace Fortnite_WM
             Dictionary<string, int> tbexist = new Dictionary<string, int>();
             string query = "";
             string key = "";
-
-            //Open Connection
+            
             if (this.OpenConnection() == true)
             {
                 int i = 0;
@@ -512,42 +511,13 @@ NOW());";
         {
         }
         
-        public List<string>[] Select(Array[] par)
+        public DataTable Select(string query)
         {
-            string query = "";
-            // 1 maps
-            // 2 modes
-            // 3 played_matches
-            // 4 player
-            // 5 teams
-            switch (int.Parse(par[0].ToString()))
-            {
-                case 1: query = ";"; break;
-                case 2: query = ";"; break;
-                case 3: query = ";"; break;
-                case 4: query = ";"; break;
-                case 5: query = ";"; break;
-                default:
-                    break;
-            }
-            List<string>[] list = new List<string>[3];
-            list[0] = new List<string>();
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    list[0].Add(dataReader["bla"] + "");
-                }
-                dataReader.Close();
-                this.CloseConnection();
-                return list;
-            }
-            else
-            {
-                return list;
-            }
+            MySqlDataAdapter tableAdapter;
+            DataTable tableDS = new DataTable();
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(tableDS);
+            return tableDS;
         }
         
         public int Mode_Type(string id)
@@ -563,5 +533,14 @@ NOW());";
             return value;
         }
 
+        public DataTable ColumnNames(string table)
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable tableDS = new DataTable();
+            string query = "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = 'fortnite_wm' AND table_name = '"+ table +"'";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(tableDS);
+            return tableDS;
+        }
     }
 }

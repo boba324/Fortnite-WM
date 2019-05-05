@@ -16,9 +16,16 @@ namespace Fortnite_WM
          * Größe des Fensters 507; 489
          * Position der GroupBoxen 6,55
          * Tabfenster Größe 467; 426
-         * */
+         *
+         * Um ein anderes form nach dem schließen 
+         * erneut öffnen zu können muss
+         * ausgabe = new Ausgabe();
+         * ausgabe.Show();
+         * ausgeführt werden.
+         */
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
+        Ausgabe ausgabe;
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
@@ -135,6 +142,7 @@ namespace Fortnite_WM
             if (DBConState())
             {
                 ComboFiller();
+                ComboListFiller();
             }
         }
         private void Btn_RestoreDB_Click(object sender, EventArgs e)
@@ -551,6 +559,13 @@ namespace Fortnite_WM
             cb_Scores_Team_ID.DisplayMember = "team_name";
             cb_Scores_Team_ID.ValueMember = "team_id";
         }
+        private void ComboListFiller()
+        {
+            DataTable dt = dbcon.ColumnNames("teams");
+            clb_Ausgabe_Teams_Spalten.DataSource = dt;
+            clb_Ausgabe_Teams_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Teams_Spalten.ValueMember = "COLUMN_NAME";
+        }
         private DateTime ConvertToDateTime(string value)
         {
             try
@@ -767,5 +782,13 @@ namespace Fortnite_WM
             
         }
         #endregion
+
+        private void Ausgabe_Click(object sender, EventArgs e)
+        {
+            DataTable dt = dbcon.Select("Select * from teams");
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
     }
 }

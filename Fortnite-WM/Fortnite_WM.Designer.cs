@@ -55,6 +55,9 @@
             this.lb_TB_Modes = new System.Windows.Forms.Label();
             this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tab_insert = new System.Windows.Forms.TabPage();
+            this.gb_Scores = new System.Windows.Forms.GroupBox();
+            this.cb_Scores_Team_ID = new System.Windows.Forms.ComboBox();
+            this.tb_Scores_Points = new System.Windows.Forms.TextBox();
             this.gb_Played_Matches = new System.Windows.Forms.GroupBox();
             this.lb_Played_Matches_Player_at_Round_Start = new System.Windows.Forms.Label();
             this.lb_Played_Matches_Third_Place = new System.Windows.Forms.Label();
@@ -129,16 +132,23 @@
             this.gb_Insert_Table = new System.Windows.Forms.GroupBox();
             this.cb_Insert_Table = new System.Windows.Forms.ComboBox();
             this.tab_Select = new System.Windows.Forms.TabPage();
+            this.btn_Teams_All = new System.Windows.Forms.Button();
             this.tab_update = new System.Windows.Forms.TabPage();
             this.lb_CopyRight = new System.Windows.Forms.Label();
-            this.gb_Scores = new System.Windows.Forms.GroupBox();
-            this.tb_Scores_Points = new System.Windows.Forms.TextBox();
-            this.cb_Scores_Team_ID = new System.Windows.Forms.ComboBox();
+            this.gb_Ausgabe_Teams = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.gb_Ausgabe_Teams_Spalten = new System.Windows.Forms.GroupBox();
+            this.clb_Ausgabe_Teams_Spalten = new System.Windows.Forms.CheckedListBox();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
             this.gb_TB_State.SuspendLayout();
             this.tab_insert.SuspendLayout();
+            this.gb_Scores.SuspendLayout();
             this.gb_Played_Matches.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Played_Matches_Player_at_Round_Start)).BeginInit();
             this.gb_Modes.SuspendLayout();
@@ -151,7 +161,9 @@
             this.gb_Teams.SuspendLayout();
             this.gb_Players.SuspendLayout();
             this.gb_Insert_Table.SuspendLayout();
-            this.gb_Scores.SuspendLayout();
+            this.tab_Select.SuspendLayout();
+            this.gb_Ausgabe_Teams.SuspendLayout();
+            this.gb_Ausgabe_Teams_Spalten.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -432,6 +444,34 @@
             this.tab_insert.Size = new System.Drawing.Size(1041, 515);
             this.tab_insert.TabIndex = 1;
             this.tab_insert.Text = "Dateneingaben";
+            // 
+            // gb_Scores
+            // 
+            this.gb_Scores.Controls.Add(this.cb_Scores_Team_ID);
+            this.gb_Scores.Controls.Add(this.tb_Scores_Points);
+            this.gb_Scores.Location = new System.Drawing.Point(482, 331);
+            this.gb_Scores.Name = "gb_Scores";
+            this.gb_Scores.Size = new System.Drawing.Size(242, 54);
+            this.gb_Scores.TabIndex = 23;
+            this.gb_Scores.TabStop = false;
+            this.gb_Scores.Text = "Team Punkte";
+            // 
+            // cb_Scores_Team_ID
+            // 
+            this.cb_Scores_Team_ID.FormattingEnabled = true;
+            this.cb_Scores_Team_ID.Location = new System.Drawing.Point(6, 19);
+            this.cb_Scores_Team_ID.Name = "cb_Scores_Team_ID";
+            this.cb_Scores_Team_ID.Size = new System.Drawing.Size(121, 21);
+            this.cb_Scores_Team_ID.TabIndex = 1;
+            // 
+            // tb_Scores_Points
+            // 
+            this.tb_Scores_Points.Location = new System.Drawing.Point(133, 20);
+            this.tb_Scores_Points.Name = "tb_Scores_Points";
+            this.tb_Scores_Points.Size = new System.Drawing.Size(100, 20);
+            this.tb_Scores_Points.TabIndex = 0;
+            this.tb_Scores_Points.Enter += new System.EventHandler(this.Tb_Enter);
+            this.tb_Scores_Points.Leave += new System.EventHandler(this.Tb_Leave);
             // 
             // gb_Played_Matches
             // 
@@ -1201,12 +1241,23 @@
             // tab_Select
             // 
             this.tab_Select.BackColor = System.Drawing.Color.Gray;
+            this.tab_Select.Controls.Add(this.gb_Ausgabe_Teams);
             this.tab_Select.Location = new System.Drawing.Point(4, 22);
             this.tab_Select.Name = "tab_Select";
             this.tab_Select.Padding = new System.Windows.Forms.Padding(3);
             this.tab_Select.Size = new System.Drawing.Size(1041, 515);
             this.tab_Select.TabIndex = 2;
             this.tab_Select.Text = "Datenabfragen";
+            // 
+            // btn_Teams_All
+            // 
+            this.btn_Teams_All.Location = new System.Drawing.Point(6, 184);
+            this.btn_Teams_All.Name = "btn_Teams_All";
+            this.btn_Teams_All.Size = new System.Drawing.Size(75, 23);
+            this.btn_Teams_All.TabIndex = 0;
+            this.btn_Teams_All.Text = "Alle Teams";
+            this.btn_Teams_All.UseVisualStyleBackColor = true;
+            this.btn_Teams_All.Click += new System.EventHandler(this.Ausgabe_Click);
             // 
             // tab_update
             // 
@@ -1229,33 +1280,84 @@
             this.lb_CopyRight.TabIndex = 3;
             this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
             // 
-            // gb_Scores
+            // gb_Ausgabe_Teams
             // 
-            this.gb_Scores.Controls.Add(this.cb_Scores_Team_ID);
-            this.gb_Scores.Controls.Add(this.tb_Scores_Points);
-            this.gb_Scores.Location = new System.Drawing.Point(482, 331);
-            this.gb_Scores.Name = "gb_Scores";
-            this.gb_Scores.Size = new System.Drawing.Size(242, 54);
-            this.gb_Scores.TabIndex = 23;
-            this.gb_Scores.TabStop = false;
-            this.gb_Scores.Text = "Team Punkte";
+            this.gb_Ausgabe_Teams.Controls.Add(this.gb_Ausgabe_Teams_Spalten);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button5);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button4);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button3);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button2);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button1);
+            this.gb_Ausgabe_Teams.Controls.Add(this.btn_Teams_All);
+            this.gb_Ausgabe_Teams.Location = new System.Drawing.Point(6, 6);
+            this.gb_Ausgabe_Teams.Name = "gb_Ausgabe_Teams";
+            this.gb_Ausgabe_Teams.Size = new System.Drawing.Size(469, 244);
+            this.gb_Ausgabe_Teams.TabIndex = 1;
+            this.gb_Ausgabe_Teams.TabStop = false;
+            this.gb_Ausgabe_Teams.Text = "Teams";
             // 
-            // tb_Scores_Points
+            // button1
             // 
-            this.tb_Scores_Points.Location = new System.Drawing.Point(133, 20);
-            this.tb_Scores_Points.Name = "tb_Scores_Points";
-            this.tb_Scores_Points.Size = new System.Drawing.Size(100, 20);
-            this.tb_Scores_Points.TabIndex = 0;
-            this.tb_Scores_Points.Enter += new System.EventHandler(this.Tb_Enter);
-            this.tb_Scores_Points.Leave += new System.EventHandler(this.Tb_Leave);
+            this.button1.Location = new System.Drawing.Point(6, 213);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Alle Teams";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // cb_Scores_Team_ID
+            // button2
             // 
-            this.cb_Scores_Team_ID.FormattingEnabled = true;
-            this.cb_Scores_Team_ID.Location = new System.Drawing.Point(6, 19);
-            this.cb_Scores_Team_ID.Name = "cb_Scores_Team_ID";
-            this.cb_Scores_Team_ID.Size = new System.Drawing.Size(121, 21);
-            this.cb_Scores_Team_ID.TabIndex = 1;
+            this.button2.Location = new System.Drawing.Point(87, 184);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Alle Teams";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(87, 213);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Alle Teams";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(168, 184);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Alle Teams";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(168, 213);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Alle Teams";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // gb_Ausgabe_Teams_Spalten
+            // 
+            this.gb_Ausgabe_Teams_Spalten.Controls.Add(this.clb_Ausgabe_Teams_Spalten);
+            this.gb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
+            this.gb_Ausgabe_Teams_Spalten.Name = "gb_Ausgabe_Teams_Spalten";
+            this.gb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(133, 120);
+            this.gb_Ausgabe_Teams_Spalten.TabIndex = 6;
+            this.gb_Ausgabe_Teams_Spalten.TabStop = false;
+            this.gb_Ausgabe_Teams_Spalten.Text = "Spalten";
+            // 
+            // clb_Ausgabe_Teams_Spalten
+            // 
+            this.clb_Ausgabe_Teams_Spalten.FormattingEnabled = true;
+            this.clb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
+            this.clb_Ausgabe_Teams_Spalten.Name = "clb_Ausgabe_Teams_Spalten";
+            this.clb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(120, 94);
+            this.clb_Ausgabe_Teams_Spalten.TabIndex = 0;
             // 
             // Fortnite_WM
             // 
@@ -1278,6 +1380,8 @@
             this.gb_TB_State.ResumeLayout(false);
             this.gb_TB_State.PerformLayout();
             this.tab_insert.ResumeLayout(false);
+            this.gb_Scores.ResumeLayout(false);
+            this.gb_Scores.PerformLayout();
             this.gb_Played_Matches.ResumeLayout(false);
             this.gb_Played_Matches.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Played_Matches_Player_at_Round_Start)).EndInit();
@@ -1299,8 +1403,9 @@
             this.gb_Players.ResumeLayout(false);
             this.gb_Players.PerformLayout();
             this.gb_Insert_Table.ResumeLayout(false);
-            this.gb_Scores.ResumeLayout(false);
-            this.gb_Scores.PerformLayout();
+            this.tab_Select.ResumeLayout(false);
+            this.gb_Ausgabe_Teams.ResumeLayout(false);
+            this.gb_Ausgabe_Teams_Spalten.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1413,6 +1518,15 @@
         private System.Windows.Forms.GroupBox gb_Scores;
         private System.Windows.Forms.ComboBox cb_Scores_Team_ID;
         private System.Windows.Forms.TextBox tb_Scores_Points;
+        private System.Windows.Forms.Button btn_Teams_All;
+        private System.Windows.Forms.GroupBox gb_Ausgabe_Teams;
+        private System.Windows.Forms.GroupBox gb_Ausgabe_Teams_Spalten;
+        private System.Windows.Forms.CheckedListBox clb_Ausgabe_Teams_Spalten;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
