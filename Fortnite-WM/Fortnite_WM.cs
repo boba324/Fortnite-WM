@@ -29,6 +29,7 @@ namespace Fortnite_WM
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
+        Dictionary<int, string> spalten = new Dictionary<int, string>();
         private string player_age = "";
         private int modes_weapontype = 0;//255
         private int modes_type = 0;//7
@@ -793,10 +794,19 @@ namespace Fortnite_WM
 
         private void btn_test_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            string spalten = "";
             foreach (DataRowView itemChecked in clb_Ausgabe_Teams_Spalten.CheckedItems)
             {
-                MessageBox.Show("Item with title: \"" + itemChecked.Row.ItemArray[0].ToString());
+                //MessageBox.Show("Item with title: \"" + itemChecked.Row.ItemArray[0].ToString());
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
             }
+            spalten = spalten.Substring(0, spalten.Length - 1);
+            DataTable dt = dbcon.Select("Select " + spalten + " from teams");
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
         }
     }
 }
