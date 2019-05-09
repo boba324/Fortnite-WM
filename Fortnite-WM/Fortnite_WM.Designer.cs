@@ -132,17 +132,17 @@
             this.gb_Insert_Table = new System.Windows.Forms.GroupBox();
             this.cb_Insert_Table = new System.Windows.Forms.ComboBox();
             this.tab_Select = new System.Windows.Forms.TabPage();
+            this.gb_Ausgabe_Teams = new System.Windows.Forms.GroupBox();
+            this.gb_Ausgabe_Teams_Spalten = new System.Windows.Forms.GroupBox();
+            this.clb_Ausgabe_Teams_Spalten = new System.Windows.Forms.CheckedListBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btn_test = new System.Windows.Forms.Button();
             this.btn_Teams_All = new System.Windows.Forms.Button();
             this.tab_update = new System.Windows.Forms.TabPage();
             this.lb_CopyRight = new System.Windows.Forms.Label();
-            this.gb_Ausgabe_Teams = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.gb_Ausgabe_Teams_Spalten = new System.Windows.Forms.GroupBox();
-            this.clb_Ausgabe_Teams_Spalten = new System.Windows.Forms.CheckedListBox();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -1249,6 +1249,86 @@
             this.tab_Select.TabIndex = 2;
             this.tab_Select.Text = "Datenabfragen";
             // 
+            // gb_Ausgabe_Teams
+            // 
+            this.gb_Ausgabe_Teams.Controls.Add(this.gb_Ausgabe_Teams_Spalten);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button5);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button4);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button3);
+            this.gb_Ausgabe_Teams.Controls.Add(this.button2);
+            this.gb_Ausgabe_Teams.Controls.Add(this.btn_test);
+            this.gb_Ausgabe_Teams.Controls.Add(this.btn_Teams_All);
+            this.gb_Ausgabe_Teams.Location = new System.Drawing.Point(6, 6);
+            this.gb_Ausgabe_Teams.Name = "gb_Ausgabe_Teams";
+            this.gb_Ausgabe_Teams.Size = new System.Drawing.Size(469, 244);
+            this.gb_Ausgabe_Teams.TabIndex = 1;
+            this.gb_Ausgabe_Teams.TabStop = false;
+            this.gb_Ausgabe_Teams.Text = "Teams";
+            // 
+            // gb_Ausgabe_Teams_Spalten
+            // 
+            this.gb_Ausgabe_Teams_Spalten.Controls.Add(this.clb_Ausgabe_Teams_Spalten);
+            this.gb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
+            this.gb_Ausgabe_Teams_Spalten.Name = "gb_Ausgabe_Teams_Spalten";
+            this.gb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(133, 120);
+            this.gb_Ausgabe_Teams_Spalten.TabIndex = 6;
+            this.gb_Ausgabe_Teams_Spalten.TabStop = false;
+            this.gb_Ausgabe_Teams_Spalten.Text = "Spalten";
+            // 
+            // clb_Ausgabe_Teams_Spalten
+            // 
+            this.clb_Ausgabe_Teams_Spalten.FormattingEnabled = true;
+            this.clb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
+            this.clb_Ausgabe_Teams_Spalten.Name = "clb_Ausgabe_Teams_Spalten";
+            this.clb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(120, 94);
+            this.clb_Ausgabe_Teams_Spalten.TabIndex = 0;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(168, 213);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Alle Teams";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(168, 184);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Alle Teams";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(87, 213);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Alle Teams";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(87, 184);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Alle Teams";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // btn_test
+            // 
+            this.btn_test.Location = new System.Drawing.Point(6, 213);
+            this.btn_test.Name = "btn_test";
+            this.btn_test.Size = new System.Drawing.Size(75, 23);
+            this.btn_test.TabIndex = 1;
+            this.btn_test.Text = "test";
+            this.btn_test.UseVisualStyleBackColor = true;
+            this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
+            // 
             // btn_Teams_All
             // 
             this.btn_Teams_All.Location = new System.Drawing.Point(6, 184);
@@ -1279,85 +1359,6 @@
             this.lb_CopyRight.Size = new System.Drawing.Size(134, 14);
             this.lb_CopyRight.TabIndex = 3;
             this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
-            // 
-            // gb_Ausgabe_Teams
-            // 
-            this.gb_Ausgabe_Teams.Controls.Add(this.gb_Ausgabe_Teams_Spalten);
-            this.gb_Ausgabe_Teams.Controls.Add(this.button5);
-            this.gb_Ausgabe_Teams.Controls.Add(this.button4);
-            this.gb_Ausgabe_Teams.Controls.Add(this.button3);
-            this.gb_Ausgabe_Teams.Controls.Add(this.button2);
-            this.gb_Ausgabe_Teams.Controls.Add(this.button1);
-            this.gb_Ausgabe_Teams.Controls.Add(this.btn_Teams_All);
-            this.gb_Ausgabe_Teams.Location = new System.Drawing.Point(6, 6);
-            this.gb_Ausgabe_Teams.Name = "gb_Ausgabe_Teams";
-            this.gb_Ausgabe_Teams.Size = new System.Drawing.Size(469, 244);
-            this.gb_Ausgabe_Teams.TabIndex = 1;
-            this.gb_Ausgabe_Teams.TabStop = false;
-            this.gb_Ausgabe_Teams.Text = "Teams";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 213);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Alle Teams";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(87, 184);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Alle Teams";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(87, 213);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Alle Teams";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(168, 184);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Alle Teams";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(168, 213);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Alle Teams";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // gb_Ausgabe_Teams_Spalten
-            // 
-            this.gb_Ausgabe_Teams_Spalten.Controls.Add(this.clb_Ausgabe_Teams_Spalten);
-            this.gb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
-            this.gb_Ausgabe_Teams_Spalten.Name = "gb_Ausgabe_Teams_Spalten";
-            this.gb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(133, 120);
-            this.gb_Ausgabe_Teams_Spalten.TabIndex = 6;
-            this.gb_Ausgabe_Teams_Spalten.TabStop = false;
-            this.gb_Ausgabe_Teams_Spalten.Text = "Spalten";
-            // 
-            // clb_Ausgabe_Teams_Spalten
-            // 
-            this.clb_Ausgabe_Teams_Spalten.FormattingEnabled = true;
-            this.clb_Ausgabe_Teams_Spalten.Location = new System.Drawing.Point(6, 19);
-            this.clb_Ausgabe_Teams_Spalten.Name = "clb_Ausgabe_Teams_Spalten";
-            this.clb_Ausgabe_Teams_Spalten.Size = new System.Drawing.Size(120, 94);
-            this.clb_Ausgabe_Teams_Spalten.TabIndex = 0;
             // 
             // Fortnite_WM
             // 
@@ -1526,7 +1527,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_test;
     }
 }
 

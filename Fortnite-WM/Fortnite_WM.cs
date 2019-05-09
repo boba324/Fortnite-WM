@@ -790,5 +790,13 @@ namespace Fortnite_WM
             ausgabe.GridFiller(dt);
             ausgabe.Show();
         }
+
+        private void btn_test_Click(object sender, EventArgs e)
+        {
+            foreach (DataRowView itemChecked in clb_Ausgabe_Teams_Spalten.CheckedItems)
+            {
+                MessageBox.Show("Item with title: \"" + itemChecked.Row.ItemArray[0].ToString());
+            }
+        }
     }
 }
