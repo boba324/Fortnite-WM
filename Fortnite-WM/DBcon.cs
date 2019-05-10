@@ -529,8 +529,24 @@ NOW());";
             }
         }
         
-        public void Delete()
+        public void Delete(DataTable changes, string table)
         {
+            OpenConnection();
+            try
+            {
+                mda = new MySqlDataAdapter("select * from " + table, connection);
+                MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                mda.DeleteCommand = mcb.GetDeleteCommand();
+                mda.Update(changes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
         
         public DataTable Select(string query)

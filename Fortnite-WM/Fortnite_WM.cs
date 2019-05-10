@@ -353,10 +353,17 @@ namespace Fortnite_WM
         }
         private void Btn_reset_Click(object sender, EventArgs e)
         {
-            cb_Played_Matches_Mode_Type.SelectedIndex = 0;
-            cb_Played_Matches_First_Place.SelectedIndex = 0;
-            cb_Played_Matches_Second_Place.SelectedIndex = 0;
-            cb_Played_Matches_Third_Place.SelectedIndex = 0;
+            try
+            {
+                cb_Played_Matches_Mode_Type.SelectedIndex = 0;
+                cb_Played_Matches_First_Place.SelectedIndex = 0;
+                cb_Played_Matches_Second_Place.SelectedIndex = 0;
+                cb_Played_Matches_Third_Place.SelectedIndex = 0;
+            }
+            catch
+            {
+
+            }
             WordsInit();
             vals.Clear();
         }
@@ -519,6 +526,21 @@ namespace Fortnite_WM
                 {
                     dbcon.Update(changes, cb_Update_Table_Select.SelectedValue.ToString());
                     ((DataTable)dgv_Update.DataSource).AcceptChanges();
+                    MessageBox.Show("Daten wurden erfolgreich geupdated.");
+                }
+            }
+        }
+        private void Btn_Delete_Save_Click(object sender, EventArgs e)
+        {
+            DataTable changes = ((DataTable)dgv_Delete.DataSource).GetChanges();
+
+            if (changes != null)
+            {
+                if (cb_Delete_Table_Select.SelectedValue.ToString() != "-" || cb_Delete_Table_Select.SelectedValue.ToString() != "---")
+                {
+                    dbcon.Delete(changes, cb_Delete_Table_Select.SelectedValue.ToString());
+                    ((DataTable)dgv_Delete.DataSource).AcceptChanges();
+                    MessageBox.Show("Daten wurden erfolgreich gelöscht.");
                 }
             }
         }
@@ -700,6 +722,10 @@ namespace Fortnite_WM
                 cb_Update_Table_Select.DataSource = dbcon.ComboData(0);
                 cb_Update_Table_Select.DisplayMember = "TABLE_NAME";
                 cb_Update_Table_Select.ValueMember = "TABLE_NAME";
+
+                cb_Delete_Table_Select.DataSource = dbcon.ComboData(0);
+                cb_Delete_Table_Select.DisplayMember = "TABLE_NAME";
+                cb_Delete_Table_Select.ValueMember = "TABLE_NAME";
             }
             resett = false;
 
@@ -787,9 +813,20 @@ namespace Fortnite_WM
                 return Convert.ToDateTime(value);
             }
         }
-        private void DataGridFiller(DataTable data)
+        private void DataGridFiller(DataTable data, int state)
         {
-            dgv_Update.DataSource = data;
+            switch (state)
+            {
+                case 0:
+                    dgv_Update.DataSource = data;
+                    break;
+                case 1:
+                    dgv_Delete.DataSource = data;
+                    break;
+                default:
+                    break;
+            }
+            
         }
         #endregion
         #region ComboBox Events
@@ -812,7 +849,6 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
-                    tab_insert.BackgroundImage = Image.FromFile("..\\..\\images\\map.png");
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -861,16 +897,32 @@ namespace Fortnite_WM
             ComboFiller();
             WordsInit();
         }
-        private void CB_Update_Table_Select_TextChanged(object sender, EventArgs e)
+        private void CB_Update_AND_Delete_Table_Select_TextChanged(object sender, EventArgs e)
         {
-            if (cb_Update_Table_Select.SelectedIndex == 0 )
+            ComboBox cb = new ComboBox();
+            if (sender is ComboBox)
             {
-                dgv_Update.DataSource = null;
-                
-            }
-            else
-            {
-                DataGridFiller(dbcon.Select("SELECT * FROM " + cb_Update_Table_Select.SelectedValue.ToString()));
+                cb = (ComboBox)sender;
+                if (cb.SelectedIndex == 0)
+                {
+                    dgv_Update.DataSource = null;
+                    dgv_Delete.DataSource = null;
+                }
+                else
+                {
+                    if (cb.Name == "cb_Update_Table_Select")
+                    {
+                        DataGridFiller(dbcon.Select("SELECT * FROM " + cb.SelectedValue.ToString()),0);
+                    }
+                    else if (cb.Name == "cb_Delete_Table_Select")
+                    {
+                        DataGridFiller(dbcon.Select("SELECT * FROM " + cb.SelectedValue.ToString()),1);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unbekanntes Feld. Error 0x80090467");
+                    }
+                }
             }
         }
         private void CB_Played_Matches_Mode_Name_TextChanged(object sender, EventArgs e)
