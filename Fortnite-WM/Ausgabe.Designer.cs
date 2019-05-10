@@ -38,10 +38,11 @@
             this.dgv_Ausgabe.AllowUserToAddRows = false;
             this.dgv_Ausgabe.AllowUserToDeleteRows = false;
             this.dgv_Ausgabe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Ausgabe.Location = new System.Drawing.Point(12, 12);
+            this.dgv_Ausgabe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_Ausgabe.Location = new System.Drawing.Point(0, 0);
             this.dgv_Ausgabe.Name = "dgv_Ausgabe";
             this.dgv_Ausgabe.ReadOnly = true;
-            this.dgv_Ausgabe.Size = new System.Drawing.Size(776, 426);
+            this.dgv_Ausgabe.Size = new System.Drawing.Size(800, 450);
             this.dgv_Ausgabe.TabIndex = 0;
             // 
             // Ausgabe
@@ -50,7 +51,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dgv_Ausgabe);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

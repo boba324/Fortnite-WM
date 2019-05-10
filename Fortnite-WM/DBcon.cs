@@ -12,6 +12,7 @@ namespace Fortnite_WM
     class DBcon
     {
         private MySqlConnection connection;
+        private MySqlDataAdapter mda;
         private readonly string server = "localhost";
         private string database = "";
         private string uid;
@@ -23,13 +24,12 @@ namespace Fortnite_WM
         {
             Connector();
         }
-        
+
         private void Connector()
         {
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            string connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
             connection = new MySqlConnection(connectionString);
-           
+
         }
 
         public bool DBConState()
@@ -63,13 +63,13 @@ namespace Fortnite_WM
             Dictionary<string, int> tbexist = new Dictionary<string, int>();
             string query = "";
             string key = "";
-            
+
             if (this.OpenConnection() == true)
             {
                 int i = 0;
-                while (i<5)
+                while (i < 6)
                 {
-                    switch (i+1)
+                    switch (i + 1)
                     {
                         case 1:
                             key = "maps";
@@ -78,18 +78,22 @@ namespace Fortnite_WM
                         case 2:
                             key = "modes";
                             query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'modes' LIMIT 1;";
-                            break;   
+                            break;
                         case 3:
                             key = "played_matches";
                             query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'played_matches' LIMIT 1;";
-                            break;   
+                            break;
                         case 4:
                             key = "player";
                             query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'player' LIMIT 1;";
-                            break;   
+                            break;
                         case 5:
                             key = "teams";
                             query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'teams' LIMIT 1;";
+                            break;
+                        case 6:
+                            key = "scores";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'scores' LIMIT 1;";
                             break;
                         default:
                             MessageBox.Show("Tabelle nicht bekannt.");
@@ -273,10 +277,12 @@ FOREIGN KEY(`pm_third_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE 
 ########                 Zu den Punkten                ########
 ###############################################################
 CREATE TABLE IF NOT EXISTS `scores` (
+`sc_id` INT UNSIGNED AUTO_INCREMENT NOT NULL,
 `sc_team_id` SMALLINT UNSIGNED NOT NULL,
 `sc_points` SMALLINT UNSIGNED DEFAULT 0,
+PRIMARY KEY(`sc_id`),
 FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE)";
-#endregion
+            #endregion
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(createDBQuery, connection);
@@ -305,7 +311,7 @@ FOREIGN KEY(`sc_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPD
 `mode_weapon_types`,
 `mode_weapon_rarity`)
 VALUES
-('"+ par["tb_Mode_Name"] + @"',
+('" + par["tb_Mode_Name"] + @"',
 " + par["modes_type"] + @",
 " + par["cb_Mode_Map_Name"] + @",
 " + par["nud_Max_Player"] + @",
@@ -456,7 +462,7 @@ NOW());";
                     tableAdapter.Fill(tableDS);
                     return tableDS;
                 default:
-                    row =  tableDS.NewRow();
+                    row = tableDS.NewRow();
                     row["err"] = "err";
                     tableDS.Rows.InsertAt(row, 0);
                     return tableDS;
@@ -481,14 +487,14 @@ NOW());";
                     case 1045:
                         MessageBox.Show("User ID oder Passwort stimmt nicht überein, bitte versuche sie es erneut.");
                         break;
-                    default :
+                    default:
                         MessageBox.Show(ex.ToString());
                         break;
                 }
                 return false;
             }
         }
-        
+
         private bool CloseConnection()
         {
             try
@@ -502,9 +508,25 @@ NOW());";
                 return false;
             }
         }
-        
-        public void Update()
+
+        public void Update(DataTable changes, string table)
         {
+            OpenConnection();
+            try
+            {
+                mda = new MySqlDataAdapter("select * from " + table, connection);
+                MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                mda.UpdateCommand = mcb.GetUpdateCommand();
+                mda.Update(changes);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
         
         public void Delete()
