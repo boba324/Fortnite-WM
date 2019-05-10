@@ -697,6 +697,8 @@ namespace Fortnite_WM
             lb_TB_PMValue.ForeColor = Color.Black;
             lb_TB_TeamsValue.Text = "unbekannt";
             lb_TB_TeamsValue.ForeColor = Color.Black;
+            lb_TB_ScoresValue.Text = "unbekannt";
+            lb_TB_ScoresValue.ForeColor = Color.Black;
         }
         private void ComboFiller()
         {
