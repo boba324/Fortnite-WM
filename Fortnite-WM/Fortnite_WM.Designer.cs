@@ -1497,7 +1497,7 @@
             this.btn_Update_Save.TabIndex = 2;
             this.btn_Update_Save.Text = "Speichern";
             this.btn_Update_Save.UseVisualStyleBackColor = true;
-            this.btn_Update_Save.Click += new System.EventHandler(this.btn_Update_Save_Click);
+            this.btn_Update_Save.Click += new System.EventHandler(this.Btn_Update_Save_Click);
             // 
             // gb_Update_Table_Select
             // 
@@ -1604,7 +1604,7 @@
             this.btn_Played_Matches_All.TabIndex = 0;
             this.btn_Played_Matches_All.Text = "Alle Abgeschlos-senen Spiele";
             this.btn_Played_Matches_All.UseVisualStyleBackColor = true;
-            this.btn_Played_Matches_All.Click += new System.EventHandler(this.btn_Played_Matches_All_Click);
+            this.btn_Played_Matches_All.Click += new System.EventHandler(this.Btn_Played_Matches_All_Click);
             // 
             // gb_Ausgabe_Scores
             // 
@@ -1648,7 +1648,7 @@
             this.btn_Scores_All.TabIndex = 0;
             this.btn_Scores_All.Text = "Alle Punkte";
             this.btn_Scores_All.UseVisualStyleBackColor = true;
-            this.btn_Scores_All.Click += new System.EventHandler(this.btn_Scores_All_Click);
+            this.btn_Scores_All.Click += new System.EventHandler(this.Btn_Scores_All_Click);
             // 
             // Fortnite_WM
             // 

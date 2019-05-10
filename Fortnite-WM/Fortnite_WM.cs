@@ -459,7 +459,7 @@ namespace Fortnite_WM
             ausgabe.GridFiller(dt);
             ausgabe.Show();
         }
-        private void btn_Played_Matches_All_Click(object sender, EventArgs e)
+        private void Btn_Played_Matches_All_Click(object sender, EventArgs e)
         {
             int i = 0;
             string spalten = "";
@@ -484,7 +484,7 @@ namespace Fortnite_WM
             ausgabe.GridFiller(dt);
             ausgabe.Show();
         }
-        private void btn_Scores_All_Click(object sender, EventArgs e)
+        private void Btn_Scores_All_Click(object sender, EventArgs e)
         {
             int i = 0;
             string spalten = "";
@@ -509,7 +509,7 @@ namespace Fortnite_WM
             ausgabe.GridFiller(dt);
             ausgabe.Show();
         }
-        private void btn_Update_Save_Click(object sender, EventArgs e)
+        private void Btn_Update_Save_Click(object sender, EventArgs e)
         {
             DataTable changes = ((DataTable)dgv_Update.DataSource).GetChanges();
 
