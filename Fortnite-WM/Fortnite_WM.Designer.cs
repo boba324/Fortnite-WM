@@ -485,6 +485,7 @@
             // 
             // gb_Scores
             // 
+            this.gb_Scores.BackColor = System.Drawing.Color.Transparent;
             this.gb_Scores.Controls.Add(this.cb_Scores_Team_ID);
             this.gb_Scores.Controls.Add(this.tb_Scores_Points);
             this.gb_Scores.Location = new System.Drawing.Point(482, 331);
@@ -513,6 +514,7 @@
             // 
             // gb_Played_Matches
             // 
+            this.gb_Played_Matches.BackColor = System.Drawing.Color.Transparent;
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Player_at_Round_Start);
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Third_Place);
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Second_Place);
@@ -672,6 +674,7 @@
             // 
             // gb_Modes
             // 
+            this.gb_Modes.BackColor = System.Drawing.Color.Transparent;
             this.gb_Modes.Controls.Add(this.lb_Max_Player);
             this.gb_Modes.Controls.Add(this.nud_Max_Player);
             this.gb_Modes.Controls.Add(this.cb_Mode_Map_Name);
@@ -945,9 +948,10 @@
             // 
             // gb_Maps
             // 
+            this.gb_Maps.BackColor = System.Drawing.Color.Transparent;
             this.gb_Maps.Controls.Add(this.gb_Map);
             this.gb_Maps.Controls.Add(this.tb_Map_Name);
-            this.gb_Maps.Location = new System.Drawing.Point(130, 273);
+            this.gb_Maps.Location = new System.Drawing.Point(287, 6);
             this.gb_Maps.Name = "gb_Maps";
             this.gb_Maps.Size = new System.Drawing.Size(301, 68);
             this.gb_Maps.TabIndex = 2;
@@ -1010,6 +1014,7 @@
             // 
             // gb_Teams
             // 
+            this.gb_Teams.BackColor = System.Drawing.Color.Transparent;
             this.gb_Teams.Controls.Add(this.tb_Teams_Mail);
             this.gb_Teams.Controls.Add(this.tb_Description);
             this.gb_Teams.Controls.Add(this.tb_Teams_Name);
@@ -1019,7 +1024,7 @@
             this.gb_Teams.Controls.Add(this.tb_Teams_Postalcode);
             this.gb_Teams.Controls.Add(this.tb_Teams_City);
             this.gb_Teams.Controls.Add(this.tb_Teams_Street);
-            this.gb_Teams.Location = new System.Drawing.Point(367, 6);
+            this.gb_Teams.Location = new System.Drawing.Point(248, 152);
             this.gb_Teams.Name = "gb_Teams";
             this.gb_Teams.Size = new System.Drawing.Size(221, 225);
             this.gb_Teams.TabIndex = 21;
@@ -1120,6 +1125,7 @@
             // 
             // gb_Players
             // 
+            this.gb_Players.BackColor = System.Drawing.Color.Transparent;
             this.gb_Players.Controls.Add(this.cb_Player_Team_ID);
             this.gb_Players.Controls.Add(this.tb_Player_Mail);
             this.gb_Players.Controls.Add(this.tb_Player_Phonenumber);
@@ -1258,6 +1264,7 @@
             // 
             // gb_Insert_Table_Select
             // 
+            this.gb_Insert_Table_Select.BackColor = System.Drawing.Color.Transparent;
             this.gb_Insert_Table_Select.Controls.Add(this.cb_Insert_Table_Select);
             this.gb_Insert_Table_Select.Location = new System.Drawing.Point(6, 6);
             this.gb_Insert_Table_Select.Name = "gb_Insert_Table_Select";

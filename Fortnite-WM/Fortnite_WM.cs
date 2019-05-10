@@ -12,17 +12,6 @@ namespace Fortnite_WM
 {
     public partial class Fortnite_WM : Form
     {
-        /*
-         * Größe des Fensters 507; 489
-         * Position der GroupBoxen 6,55
-         * Tabfenster Größe 467; 426
-         *
-         * Um ein anderes form nach dem schließen 
-         * erneut öffnen zu können muss
-         * ausgabe = new Ausgabe();
-         * ausgabe.Show();
-         * ausgeführt werden.
-         */
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
         Ausgabe ausgabe;
@@ -823,6 +812,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    tab_insert.BackgroundImage = Image.FromFile("..\\..\\images\\map.png");
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -1018,9 +1008,5 @@ namespace Fortnite_WM
             
         }
         #endregion
-
-        
-
-        
     }
 }
