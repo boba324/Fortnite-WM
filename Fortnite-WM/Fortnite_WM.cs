@@ -12,16 +12,13 @@ namespace Fortnite_WM
 {
     public partial class Fortnite_WM : Form
     {
-        /*
-         * Größe des Fensters 507; 489
-         * Position der GroupBoxen 6,55
-         * Tabfenster Größe 467; 426
-         * */
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
+        Ausgabe ausgabe;
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
+        Dictionary<int, string> spalten = new Dictionary<int, string>();
         private string player_age = "";
         private int modes_weapontype = 0;//255
         private int modes_type = 0;//7
@@ -99,6 +96,7 @@ namespace Fortnite_WM
                 if (tbs["player"] != 0) { lb_TB_PlayersValue.Text = "existiert"; lb_TB_PlayersValue.ForeColor = Color.Lime; } else { lb_TB_PlayersValue.Text = "existiert nicht"; }
                 if (tbs["played_matches"] != 0) { lb_TB_PMValue.Text = "existiert"; lb_TB_PMValue.ForeColor = Color.Lime; } else { lb_TB_PMValue.Text = "existiert nicht"; }
                 if (tbs["teams"] != 0) { lb_TB_TeamsValue.Text = "existiert"; lb_TB_TeamsValue.ForeColor = Color.Lime; } else { lb_TB_TeamsValue.Text = "existiert nicht"; }
+                if (tbs["scores"] != 0) { lb_TB_ScoresValue.Text = "existiert"; lb_TB_ScoresValue.ForeColor = Color.Lime; } else { lb_TB_ScoresValue.Text = "existiert nicht"; }
                 if (tbs.ContainsValue(0))
                 {
                     btn_RestoreDB.Visible = true;
@@ -137,12 +135,14 @@ namespace Fortnite_WM
             if (DBConState())
             {
                 ComboFiller();
+                CheckedListFiller();
             }
         }
         private void Btn_RestoreDB_Click(object sender, EventArgs e)
         {
             dbcon.DBCreate();
             btn_RestoreDB.Visible = false;
+            resett = true;
         }
         private void Btn_SaveCred_Click(object sender, EventArgs e)
         {
@@ -155,7 +155,7 @@ namespace Fortnite_WM
         {
             if (dbConState)
             {
-                switch (cb_Insert_Table.SelectedIndex)
+                switch (cb_Insert_Table_Select.SelectedIndex)
                 {
                     case 0:
                         MessageBox.Show("Bitte wählen sie eine Tabelle aus.");
@@ -362,6 +362,168 @@ namespace Fortnite_WM
             WordsInit();
             vals.Clear();
         }
+        private void Ausgabe_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Teams_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from teams");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void Btn_Player_All_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Player_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from player");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void Btn_Maps_All_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Maps_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from maps");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void Btn_Modes_All_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Modes_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from modes");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void btn_Played_Matches_All_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Played_Matches_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from played_matches");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void btn_Scores_All_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            string spalten = "";
+            DataTable dt = new DataTable();
+            foreach (DataRowView itemChecked in clb_Ausgabe_Scores_Spalten.CheckedItems)
+            {
+                spalten += itemChecked.Row.ItemArray[0].ToString() + ",";
+                i++;
+            }
+            if (spalten != "")
+            {
+                spalten = spalten.Substring(0, spalten.Length - 1);
+                dt = dbcon.Select("Select " + spalten + " from scores");
+            }
+            else
+            {
+                MessageBox.Show("Bitte mindestens eine Spalte auswählen.");
+                return;
+            }
+
+            ausgabe = new Ausgabe();
+            ausgabe.GridFiller(dt);
+            ausgabe.Show();
+        }
+        private void btn_Update_Save_Click(object sender, EventArgs e)
+        {
+            DataTable changes = ((DataTable)dgv_Update.DataSource).GetChanges();
+
+            if (changes != null)
+            {
+                if (cb_Update_Table_Select.SelectedValue.ToString() != "-" || cb_Update_Table_Select.SelectedValue.ToString() != "---")
+                {
+                    dbcon.Update(changes, cb_Update_Table_Select.SelectedValue.ToString());
+                    ((DataTable)dgv_Update.DataSource).AcceptChanges();
+                }
+            }
+        }
         #endregion
         #region TextBox Events
         private void Tb_Enter(object sender, EventArgs e)
@@ -526,14 +688,20 @@ namespace Fortnite_WM
             lb_TB_PMValue.ForeColor = Color.Black;
             lb_TB_TeamsValue.Text = "unbekannt";
             lb_TB_TeamsValue.ForeColor = Color.Black;
+            lb_TB_ScoresValue.Text = "unbekannt";
+            lb_TB_ScoresValue.ForeColor = Color.Black;
         }
         private void ComboFiller()
         {
             if (resett)
             {
-                cb_Insert_Table.DataSource = dbcon.ComboData(0);
-                cb_Insert_Table.DisplayMember = "TABLE_NAME";
-                cb_Insert_Table.ValueMember = "TABLE_NAME";
+                cb_Insert_Table_Select.DataSource = dbcon.ComboData(0);
+                cb_Insert_Table_Select.DisplayMember = "TABLE_NAME";
+                cb_Insert_Table_Select.ValueMember = "TABLE_NAME";
+
+                cb_Update_Table_Select.DataSource = dbcon.ComboData(0);
+                cb_Update_Table_Select.DisplayMember = "TABLE_NAME";
+                cb_Update_Table_Select.ValueMember = "TABLE_NAME";
             }
             resett = false;
 
@@ -553,6 +721,62 @@ namespace Fortnite_WM
             cb_Scores_Team_ID.DisplayMember = "team_name";
             cb_Scores_Team_ID.ValueMember = "team_id";
         }
+        private void CheckedListFiller()
+        {
+            DataTable dtTeams = dbcon.ColumnNames("teams");
+            clb_Ausgabe_Teams_Spalten.DataSource = dtTeams;
+            clb_Ausgabe_Teams_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Teams_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Teams_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Teams_Spalten.SetItemChecked(i, true);
+            }
+
+            DataTable dtPlayer = dbcon.ColumnNames("player");
+            clb_Ausgabe_Player_Spalten.DataSource = dtPlayer;
+            clb_Ausgabe_Player_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Player_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Player_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Player_Spalten.SetItemChecked(i, true);
+            }
+
+            DataTable dtMaps = dbcon.ColumnNames("maps");
+            clb_Ausgabe_Maps_Spalten.DataSource = dtMaps;
+            clb_Ausgabe_Maps_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Maps_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Maps_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Maps_Spalten.SetItemChecked(i, true);
+            }
+
+            DataTable dtModes = dbcon.ColumnNames("modes");
+            clb_Ausgabe_Modes_Spalten.DataSource = dtModes;
+            clb_Ausgabe_Modes_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Modes_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Modes_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Modes_Spalten.SetItemChecked(i, true);
+            }
+
+            DataTable dtPlayed_Matches = dbcon.ColumnNames("played_matches");
+            clb_Ausgabe_Played_Matches_Spalten.DataSource = dtPlayed_Matches;
+            clb_Ausgabe_Played_Matches_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Played_Matches_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Played_Matches_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Played_Matches_Spalten.SetItemChecked(i, true);
+            }
+
+            DataTable dtScores = dbcon.ColumnNames("scores");
+            clb_Ausgabe_Scores_Spalten.DataSource = dtScores;
+            clb_Ausgabe_Scores_Spalten.DisplayMember = "COLUMN_NAME";
+            clb_Ausgabe_Scores_Spalten.ValueMember = "COLUMN_NAME";
+            for (int i = 0; i < clb_Ausgabe_Scores_Spalten.Items.Count; i++)
+            {
+                clb_Ausgabe_Scores_Spalten.SetItemChecked(i, true);
+            }
+        }
         private DateTime ConvertToDateTime(string value)
         {
             try
@@ -565,11 +789,15 @@ namespace Fortnite_WM
                 return Convert.ToDateTime(value);
             }
         }
+        private void DataGridFiller(DataTable data)
+        {
+            dgv_Update.DataSource = data;
+        }
         #endregion
         #region ComboBox Events
-        private void Cb_Insert_Table_TextChanged(object sender, EventArgs e)
+        private void CB_Insert_Table_Select_TextChanged(object sender, EventArgs e)
         {
-            switch (cb_Insert_Table.SelectedIndex)
+            switch (cb_Insert_Table_Select.SelectedIndex)
             {
                 case 0:
                     gb_Modes.Visible = false;
@@ -586,6 +814,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    tab_insert.BackgroundImage = Image.FromFile("..\\..\\images\\map.png");
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -628,15 +857,27 @@ namespace Fortnite_WM
                     gb_Scores.Visible = false;
                     break;
                 default:
-                    MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table.SelectedIndex + " nicht bekannt.");
+                    MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table_Select.SelectedIndex + " nicht bekannt.");
                     break;
             }
             ComboFiller();
             WordsInit();
         }
+        private void CB_Update_Table_Select_TextChanged(object sender, EventArgs e)
+        {
+            if (cb_Update_Table_Select.SelectedIndex == 0 )
+            {
+                dgv_Update.DataSource = null;
+                
+            }
+            else
+            {
+                DataGridFiller(dbcon.Select("SELECT * FROM " + cb_Update_Table_Select.SelectedValue.ToString()));
+            }
+        }
         private void CB_Played_Matches_Mode_Name_TextChanged(object sender, EventArgs e)
         {
-            if (dbConState && cb_Insert_Table.SelectedIndex == 3) {
+            if (dbConState && cb_Insert_Table_Select.SelectedIndex == 3) {
             
                 switch (dbcon.Mode_Type(cb_Played_Matches_Mode_Name.SelectedValue.ToString()))
                 {
