@@ -170,6 +170,17 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
+            this.lb_TB_Scores = new System.Windows.Forms.Label();
+            this.lb_TB_ScoresValue = new System.Windows.Forms.Label();
+            this.gb_Ausgabe_Played_Matches = new System.Windows.Forms.GroupBox();
+            this.gb_Ausgabe_Played_Matches_Spalten = new System.Windows.Forms.GroupBox();
+            this.clb_Ausgabe_Played_Matches_Spalten = new System.Windows.Forms.CheckedListBox();
+            this.btn_Played_Matches_All = new System.Windows.Forms.Button();
+            this.gb_Ausgabe_Scores = new System.Windows.Forms.GroupBox();
+            this.gb_Ausgabe_Scores_Spalten = new System.Windows.Forms.GroupBox();
+            this.clb_Ausgabe_Scores_Spalten = new System.Windows.Forms.CheckedListBox();
+            this.btn_Scores_All = new System.Windows.Forms.Button();
+            this.lb_CopyRight = new System.Windows.Forms.Label();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -209,6 +220,11 @@
             this.groupBox2.SuspendLayout();
             this.gb_Delete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).BeginInit();
+            this.gb_Ausgabe_Played_Matches.SuspendLayout();
+            this.gb_Ausgabe_Played_Matches_Spalten.SuspendLayout();
+            this.gb_Ausgabe_Scores.SuspendLayout();
+            this.gb_Ausgabe_Scores_Spalten.SuspendLayout();
+            this.gb_Insert_Table.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -1728,6 +1744,122 @@
             this.dgv_Delete.ReadOnly = true;
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
+            // lb_TB_Scores
+            // 
+            this.lb_TB_Scores.AutoSize = true;
+            this.lb_TB_Scores.Location = new System.Drawing.Point(6, 85);
+            this.lb_TB_Scores.Name = "lb_TB_Scores";
+            this.lb_TB_Scores.Size = new System.Drawing.Size(40, 13);
+            this.lb_TB_Scores.TabIndex = 10;
+            this.lb_TB_Scores.Text = "Scores";
+            // 
+            // lb_TB_ScoresValue
+            // 
+            this.lb_TB_ScoresValue.AutoSize = true;
+            this.lb_TB_ScoresValue.Location = new System.Drawing.Point(104, 85);
+            this.lb_TB_ScoresValue.Name = "lb_TB_ScoresValue";
+            this.lb_TB_ScoresValue.Size = new System.Drawing.Size(58, 13);
+            this.lb_TB_ScoresValue.TabIndex = 11;
+            this.lb_TB_ScoresValue.Text = "unbekannt";
+            // 
+            // gb_Ausgabe_Played_Matches
+            // 
+            this.gb_Ausgabe_Played_Matches.Controls.Add(this.gb_Ausgabe_Played_Matches_Spalten);
+            this.gb_Ausgabe_Played_Matches.Controls.Add(this.btn_Played_Matches_All);
+            this.gb_Ausgabe_Played_Matches.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gb_Ausgabe_Played_Matches.Location = new System.Drawing.Point(3, 376);
+            this.gb_Ausgabe_Played_Matches.Name = "gb_Ausgabe_Played_Matches";
+            this.gb_Ausgabe_Played_Matches.Size = new System.Drawing.Size(1080, 93);
+            this.gb_Ausgabe_Played_Matches.TabIndex = 5;
+            this.gb_Ausgabe_Played_Matches.TabStop = false;
+            this.gb_Ausgabe_Played_Matches.Text = "Abgeschlossene Runden";
+            // 
+            // gb_Ausgabe_Played_Matches_Spalten
+            // 
+            this.gb_Ausgabe_Played_Matches_Spalten.Controls.Add(this.clb_Ausgabe_Played_Matches_Spalten);
+            this.gb_Ausgabe_Played_Matches_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gb_Ausgabe_Played_Matches_Spalten.Location = new System.Drawing.Point(3, 16);
+            this.gb_Ausgabe_Played_Matches_Spalten.Name = "gb_Ausgabe_Played_Matches_Spalten";
+            this.gb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(999, 74);
+            this.gb_Ausgabe_Played_Matches_Spalten.TabIndex = 6;
+            this.gb_Ausgabe_Played_Matches_Spalten.TabStop = false;
+            this.gb_Ausgabe_Played_Matches_Spalten.Text = "Spalten";
+            // 
+            // clb_Ausgabe_Played_Matches_Spalten
+            // 
+            this.clb_Ausgabe_Played_Matches_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clb_Ausgabe_Played_Matches_Spalten.FormattingEnabled = true;
+            this.clb_Ausgabe_Played_Matches_Spalten.Location = new System.Drawing.Point(3, 16);
+            this.clb_Ausgabe_Played_Matches_Spalten.MultiColumn = true;
+            this.clb_Ausgabe_Played_Matches_Spalten.Name = "clb_Ausgabe_Played_Matches_Spalten";
+            this.clb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(993, 55);
+            this.clb_Ausgabe_Played_Matches_Spalten.TabIndex = 0;
+            // 
+            // btn_Played_Matches_All
+            // 
+            this.btn_Played_Matches_All.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_Played_Matches_All.Location = new System.Drawing.Point(1002, 16);
+            this.btn_Played_Matches_All.Name = "btn_Played_Matches_All";
+            this.btn_Played_Matches_All.Size = new System.Drawing.Size(75, 74);
+            this.btn_Played_Matches_All.TabIndex = 0;
+            this.btn_Played_Matches_All.Text = "Alle Abgeschlos-senen Spiele";
+            this.btn_Played_Matches_All.UseVisualStyleBackColor = true;
+            this.btn_Played_Matches_All.Click += new System.EventHandler(this.btn_Played_Matches_All_Click);
+            // 
+            // gb_Ausgabe_Scores
+            // 
+            this.gb_Ausgabe_Scores.Controls.Add(this.gb_Ausgabe_Scores_Spalten);
+            this.gb_Ausgabe_Scores.Controls.Add(this.btn_Scores_All);
+            this.gb_Ausgabe_Scores.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gb_Ausgabe_Scores.Location = new System.Drawing.Point(3, 469);
+            this.gb_Ausgabe_Scores.Name = "gb_Ausgabe_Scores";
+            this.gb_Ausgabe_Scores.Size = new System.Drawing.Size(1080, 93);
+            this.gb_Ausgabe_Scores.TabIndex = 6;
+            this.gb_Ausgabe_Scores.TabStop = false;
+            this.gb_Ausgabe_Scores.Text = "Punkte";
+            // 
+            // gb_Ausgabe_Scores_Spalten
+            // 
+            this.gb_Ausgabe_Scores_Spalten.Controls.Add(this.clb_Ausgabe_Scores_Spalten);
+            this.gb_Ausgabe_Scores_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gb_Ausgabe_Scores_Spalten.Location = new System.Drawing.Point(3, 16);
+            this.gb_Ausgabe_Scores_Spalten.Name = "gb_Ausgabe_Scores_Spalten";
+            this.gb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(999, 74);
+            this.gb_Ausgabe_Scores_Spalten.TabIndex = 6;
+            this.gb_Ausgabe_Scores_Spalten.TabStop = false;
+            this.gb_Ausgabe_Scores_Spalten.Text = "Spalten";
+            // 
+            // clb_Ausgabe_Scores_Spalten
+            // 
+            this.clb_Ausgabe_Scores_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clb_Ausgabe_Scores_Spalten.FormattingEnabled = true;
+            this.clb_Ausgabe_Scores_Spalten.Location = new System.Drawing.Point(3, 16);
+            this.clb_Ausgabe_Scores_Spalten.MultiColumn = true;
+            this.clb_Ausgabe_Scores_Spalten.Name = "clb_Ausgabe_Scores_Spalten";
+            this.clb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(993, 55);
+            this.clb_Ausgabe_Scores_Spalten.TabIndex = 0;
+            // 
+            // btn_Scores_All
+            // 
+            this.btn_Scores_All.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_Scores_All.Location = new System.Drawing.Point(1002, 16);
+            this.btn_Scores_All.Name = "btn_Scores_All";
+            this.btn_Scores_All.Size = new System.Drawing.Size(75, 74);
+            this.btn_Scores_All.TabIndex = 0;
+            this.btn_Scores_All.Text = "Alle Punkte";
+            this.btn_Scores_All.UseVisualStyleBackColor = true;
+            this.btn_Scores_All.Click += new System.EventHandler(this.btn_Scores_All_Click);
+            //
+            // lb_CopyRight
+            // 
+            this.lb_CopyRight.AutoSize = true;
+            this.lb_CopyRight.BackColor = System.Drawing.Color.Transparent;
+            this.lb_CopyRight.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_CopyRight.Location = new System.Drawing.Point(343, 9);
+            this.lb_CopyRight.Name = "lb_CopyRight";
+            this.lb_CopyRight.Size = new System.Drawing.Size(134, 14);
+            this.lb_CopyRight.TabIndex = 3;
+            this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
             // 
             // Fortnite_WM
             // 
@@ -1793,6 +1925,11 @@
             this.groupBox2.ResumeLayout(false);
             this.gb_Delete.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).EndInit();
+            this.gb_Ausgabe_Played_Matches.ResumeLayout(false);
+            this.gb_Ausgabe_Played_Matches_Spalten.ResumeLayout(false);
+            this.gb_Ausgabe_Scores.ResumeLayout(false);
+            this.gb_Ausgabe_Scores_Spalten.ResumeLayout(false);
+            this.gb_Insert_Table.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
