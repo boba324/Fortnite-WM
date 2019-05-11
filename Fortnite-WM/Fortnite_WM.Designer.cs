@@ -164,6 +164,7 @@
             this.gb_Ausgabe_Scores_Spalten = new System.Windows.Forms.GroupBox();
             this.clb_Ausgabe_Scores_Spalten = new System.Windows.Forms.CheckedListBox();
             this.btn_Scores_All = new System.Windows.Forms.Button();
+            this.lb_CopyRight = new System.Windows.Forms.Label();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -199,6 +200,7 @@
             this.gb_Ausgabe_Played_Matches_Spalten.SuspendLayout();
             this.gb_Ausgabe_Scores.SuspendLayout();
             this.gb_Ausgabe_Scores_Spalten.SuspendLayout();
+            this.gb_Insert_Table.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -1649,6 +1651,17 @@
             this.btn_Scores_All.Text = "Alle Punkte";
             this.btn_Scores_All.UseVisualStyleBackColor = true;
             this.btn_Scores_All.Click += new System.EventHandler(this.btn_Scores_All_Click);
+            //
+            // lb_CopyRight
+            // 
+            this.lb_CopyRight.AutoSize = true;
+            this.lb_CopyRight.BackColor = System.Drawing.Color.Transparent;
+            this.lb_CopyRight.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_CopyRight.Location = new System.Drawing.Point(343, 9);
+            this.lb_CopyRight.Name = "lb_CopyRight";
+            this.lb_CopyRight.Size = new System.Drawing.Size(134, 14);
+            this.lb_CopyRight.TabIndex = 3;
+            this.lb_CopyRight.Text = "© Kadircan Güngör 2019";
             // 
             // Fortnite_WM
             // 
@@ -1710,6 +1723,7 @@
             this.gb_Ausgabe_Played_Matches_Spalten.ResumeLayout(false);
             this.gb_Ausgabe_Scores.ResumeLayout(false);
             this.gb_Ausgabe_Scores_Spalten.ResumeLayout(false);
+            this.gb_Insert_Table.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
