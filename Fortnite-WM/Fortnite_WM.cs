@@ -150,6 +150,7 @@ namespace Fortnite_WM
         {
             dbcon.PropUid = tb_DB_UID.Text;
             dbcon.PropPassword = tb_DB_PW.Text;
+            dbcon.PropServer = tb_DB_Server.Text;
             Fortnite_WMInit();
             btn_ConnectRefresh.Enabled = true;
             MessageBox.Show("Daten wurden gespeichert.");

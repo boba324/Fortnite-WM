@@ -13,13 +13,14 @@ namespace Fortnite_WM
     {
         private MySqlConnection connection;
         private MySqlDataAdapter mda;
-        private readonly string server = "localhost";
+        private string server = "";
         private string database = "";
         private string uid;
         private string password;
         public string PropUid { set { uid = value; } }
         public string PropPassword { set { password = value; } }
         public string PropDatabase { set { database = value; } }
+        public string PropServer { set { server = value; } }
         public DBcon()
         {
             Connector();
