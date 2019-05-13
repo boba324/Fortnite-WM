@@ -52,8 +52,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dgv_Ausgabe);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Ausgabe";
             this.Text = "Ausgabe";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Ausgabe)).EndInit();

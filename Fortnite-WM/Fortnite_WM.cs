@@ -41,6 +41,7 @@ namespace Fortnite_WM
             LabelResetter();
             vals.Clear();
             mc_Age.SetDate(mc_Age.TodayDate.AddYears(-18));
+            btn_ConnectRefresh.Enabled = false;
             gb_Modes.Visible = false;
             gb_Maps.Visible = false;
             gb_Players.Visible = false;
@@ -64,6 +65,7 @@ namespace Fortnite_WM
             {
                 lb_ConnectionValue.Text = "nicht verbunden";
                 lb_ConnectionValue.ForeColor = Color.Red;
+                btn_ConnectRefresh.Enabled = false;
                 dbConState = false;
                 return false;
             }
@@ -149,6 +151,7 @@ namespace Fortnite_WM
             dbcon.PropUid = tb_DB_UID.Text;
             dbcon.PropPassword = tb_DB_PW.Text;
             Fortnite_WMInit();
+            btn_ConnectRefresh.Enabled = true;
             MessageBox.Show("Daten wurden gespeichert.");
         }
         private void Btn_Insert_Click(object sender, EventArgs e)
