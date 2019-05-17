@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
@@ -581,6 +578,32 @@ NOW());";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(tableDS);
             return tableDS;
+        }
+
+        public int NicknameExist(string nick)
+        {
+            string query = "SELECT COUNT(*) FROM player WHERE player_nickname = '" + nick + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            return state;
+        }
+
+        public int TeamnameExist(string team)
+        {
+            string query = "SELECT COUNT(*) FROM teams WHERE team_name = '" + team + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            return state;
         }
     }
 }

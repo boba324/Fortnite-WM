@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fortnite_WM
@@ -285,11 +282,20 @@ namespace Fortnite_WM
                             if (tb_Player_Streetnr.Text != words[tb_Player_Streetnr.Name]) { vals.Add(tb_Player_Streetnr.Name, tb_Player_Streetnr.Text); } else { vals.Add(tb_Player_Streetnr.Name, "NULL"); }
                             if (tb_Player_Street.Text != words[tb_Player_Street.Name]) { vals.Add(tb_Player_Street.Name, tb_Player_Street.Text); } else { vals.Add(tb_Player_Street.Name, "NULL"); }
                             if (tb_Player_Phonenumber.Text != words[tb_Player_Phonenumber.Name]) { vals.Add(tb_Player_Phonenumber.Name, tb_Player_Phonenumber.Text); } else { vals.Add(tb_Player_Phonenumber.Name, "NULL"); }
-                            dbcon.DBInsert(vals);
-                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
-                            WordsInit();
-                            LabelResetter();
-                            ComboFiller();
+                            if (dbcon.NicknameExist(tb_Player_Nickname.Text) == 1)
+                            {
+                                MessageBox.Show("Nickname bereits vergeben.");
+                                vals.Clear();
+                                return;
+                            }
+                            else
+                            {
+                                dbcon.DBInsert(vals);
+                                MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                                WordsInit();
+                                LabelResetter();
+                                ComboFiller();
+                            }
                         }
                         else
                         {
@@ -335,11 +341,20 @@ namespace Fortnite_WM
                             vals.Add(tb_Teams_Streetnr.Name, tb_Teams_Streetnr.Text);
                             vals.Add(tb_Teams_Street.Name, tb_Teams_Street.Text);
                             if (tb_Description.Text != words[tb_Description.Name]) { vals.Add(tb_Description.Name, tb_Description.Text); } else { vals.Add(tb_Description.Name, null); }
-                            dbcon.DBInsert(vals);
-                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
-                            WordsInit();
-                            LabelResetter();
-                            ComboFiller();
+                            if (dbcon.TeamnameExist(tb_Teams_Name.Text) == 1)
+                            {
+                                MessageBox.Show("Teamname bereits vergeben.");
+                                vals.Clear();
+                                return;
+                            }
+                            else
+                            {
+                                dbcon.DBInsert(vals);
+                                MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                                WordsInit();
+                                LabelResetter();
+                                ComboFiller();
+                            }
                         }
                         else
                         {
