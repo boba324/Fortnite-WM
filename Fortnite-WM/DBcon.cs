@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
 `team_description` TEXT DEFAULT NULL, 
 `team_created` DATETIME NOT NULL, 
 `team_kills` SMALLINT UNSIGNED DEFAULT 0,
+`team_member` TINYINT UNSIGNED DEFAULT 0,
 PRIMARY KEY (`team_id`));
  
  
@@ -180,7 +181,7 @@ PRIMARY KEY (`map_id`));
 ###############################################################
 CREATE TABLE IF NOT EXISTS `player` ( 
 `player_id` int UNSIGNED AUTO_INCREMENT, 
-`player_nickname`TINYTEXT NOT NULL, 
+`player_nickname` TINYTEXT UNIQUE NOT NULL, 
 `player_team_id` SMALLINT UNSIGNED NOT NULL, 
 `player_familyname` TINYTEXT NOT NULL, 
 `player_firstname` TINYTEXT NOT NULL, 
@@ -228,7 +229,7 @@ FOREIGN KEY(`mode_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDA
 ###############################################################
 ########                 Zu den Waffen                 ########
 ###############################################################
-#	mode_type
+#	mode_weapon_types
 #
 #	1 	= Pistolen
 #	2	= Schrotflinten
@@ -244,7 +245,7 @@ FOREIGN KEY(`mode_map_id`) REFERENCES `maps`(`map_id`) ON DELETE CASCADE ON UPDA
 ###############################################################
 ########               Zu den Seltenheiten             ########
 ###############################################################
-#	mode_type
+#	mode_weapon_rarity
 #
 #	1 	= gewöhnlich
 #	2	= ungewöhnlich
