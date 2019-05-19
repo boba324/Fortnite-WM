@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fortnite_WM));
             this.gb_DB_State = new System.Windows.Forms.GroupBox();
+            this.lb_DB_Server = new System.Windows.Forms.Label();
+            this.tb_DB_Server = new System.Windows.Forms.TextBox();
             this.btn_ConnectRefresh = new System.Windows.Forms.Button();
             this.btn_SaveCred = new System.Windows.Forms.Button();
             this.tb_DB_PW = new System.Windows.Forms.TextBox();
@@ -170,8 +172,6 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
-            this.tb_DB_Server = new System.Windows.Forms.TextBox();
-            this.lb_DB_Server = new System.Windows.Forms.Label();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -233,6 +233,23 @@
             this.gb_DB_State.TabIndex = 0;
             this.gb_DB_State.TabStop = false;
             this.gb_DB_State.Text = "Datenbank Status";
+            // 
+            // lb_DB_Server
+            // 
+            this.lb_DB_Server.AutoSize = true;
+            this.lb_DB_Server.Location = new System.Drawing.Point(6, 58);
+            this.lb_DB_Server.Name = "lb_DB_Server";
+            this.lb_DB_Server.Size = new System.Drawing.Size(41, 13);
+            this.lb_DB_Server.TabIndex = 12;
+            this.lb_DB_Server.Text = "Server:";
+            // 
+            // tb_DB_Server
+            // 
+            this.tb_DB_Server.Location = new System.Drawing.Point(94, 55);
+            this.tb_DB_Server.Name = "tb_DB_Server";
+            this.tb_DB_Server.Size = new System.Drawing.Size(100, 20);
+            this.tb_DB_Server.TabIndex = 11;
+            this.tb_DB_Server.Text = "localhost";
             // 
             // btn_ConnectRefresh
             // 
@@ -1351,7 +1368,7 @@
             this.gb_Ausgabe_Scores_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_Ausgabe_Scores_Spalten.Location = new System.Drawing.Point(3, 16);
             this.gb_Ausgabe_Scores_Spalten.Name = "gb_Ausgabe_Scores_Spalten";
-            this.gb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(358, 74);
+            this.gb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(331, 74);
             this.gb_Ausgabe_Scores_Spalten.TabIndex = 6;
             this.gb_Ausgabe_Scores_Spalten.TabStop = false;
             this.gb_Ausgabe_Scores_Spalten.Text = "Spalten";
@@ -1363,15 +1380,15 @@
             this.clb_Ausgabe_Scores_Spalten.Location = new System.Drawing.Point(3, 16);
             this.clb_Ausgabe_Scores_Spalten.MultiColumn = true;
             this.clb_Ausgabe_Scores_Spalten.Name = "clb_Ausgabe_Scores_Spalten";
-            this.clb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(352, 55);
+            this.clb_Ausgabe_Scores_Spalten.Size = new System.Drawing.Size(325, 55);
             this.clb_Ausgabe_Scores_Spalten.TabIndex = 0;
             // 
             // btn_Scores_All
             // 
             this.btn_Scores_All.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_Scores_All.Location = new System.Drawing.Point(361, 16);
+            this.btn_Scores_All.Location = new System.Drawing.Point(334, 16);
             this.btn_Scores_All.Name = "btn_Scores_All";
-            this.btn_Scores_All.Size = new System.Drawing.Size(75, 74);
+            this.btn_Scores_All.Size = new System.Drawing.Size(102, 74);
             this.btn_Scores_All.TabIndex = 0;
             this.btn_Scores_All.Text = "Alle Punkte";
             this.btn_Scores_All.UseVisualStyleBackColor = true;
@@ -1395,7 +1412,7 @@
             this.gb_Ausgabe_Played_Matches_Spalten.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_Ausgabe_Played_Matches_Spalten.Location = new System.Drawing.Point(3, 16);
             this.gb_Ausgabe_Played_Matches_Spalten.Name = "gb_Ausgabe_Played_Matches_Spalten";
-            this.gb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(358, 74);
+            this.gb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(331, 74);
             this.gb_Ausgabe_Played_Matches_Spalten.TabIndex = 6;
             this.gb_Ausgabe_Played_Matches_Spalten.TabStop = false;
             this.gb_Ausgabe_Played_Matches_Spalten.Text = "Spalten";
@@ -1408,17 +1425,17 @@
             this.clb_Ausgabe_Played_Matches_Spalten.Location = new System.Drawing.Point(3, 16);
             this.clb_Ausgabe_Played_Matches_Spalten.MultiColumn = true;
             this.clb_Ausgabe_Played_Matches_Spalten.Name = "clb_Ausgabe_Played_Matches_Spalten";
-            this.clb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(352, 55);
+            this.clb_Ausgabe_Played_Matches_Spalten.Size = new System.Drawing.Size(325, 55);
             this.clb_Ausgabe_Played_Matches_Spalten.TabIndex = 0;
             // 
             // btn_Played_Matches_All
             // 
             this.btn_Played_Matches_All.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_Played_Matches_All.Location = new System.Drawing.Point(361, 16);
+            this.btn_Played_Matches_All.Location = new System.Drawing.Point(334, 16);
             this.btn_Played_Matches_All.Name = "btn_Played_Matches_All";
-            this.btn_Played_Matches_All.Size = new System.Drawing.Size(75, 74);
+            this.btn_Played_Matches_All.Size = new System.Drawing.Size(102, 74);
             this.btn_Played_Matches_All.TabIndex = 0;
-            this.btn_Played_Matches_All.Text = "Alle Abgeschlos-senen Spiele";
+            this.btn_Played_Matches_All.Text = "Alle Abgeschlossenen Spiele";
             this.btn_Played_Matches_All.UseVisualStyleBackColor = true;
             this.btn_Played_Matches_All.Click += new System.EventHandler(this.Btn_Played_Matches_All_Click);
             // 
@@ -1732,23 +1749,6 @@
             this.dgv_Delete.ReadOnly = true;
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
-            // 
-            // tb_DB_Server
-            // 
-            this.tb_DB_Server.Location = new System.Drawing.Point(94, 55);
-            this.tb_DB_Server.Name = "tb_DB_Server";
-            this.tb_DB_Server.Size = new System.Drawing.Size(100, 20);
-            this.tb_DB_Server.TabIndex = 11;
-            this.tb_DB_Server.Text = "localhost";
-            // 
-            // lb_DB_Server
-            // 
-            this.lb_DB_Server.AutoSize = true;
-            this.lb_DB_Server.Location = new System.Drawing.Point(6, 58);
-            this.lb_DB_Server.Name = "lb_DB_Server";
-            this.lb_DB_Server.Size = new System.Drawing.Size(41, 13);
-            this.lb_DB_Server.TabIndex = 12;
-            this.lb_DB_Server.Text = "Server:";
             // 
             // Fortnite_WM
             // 
