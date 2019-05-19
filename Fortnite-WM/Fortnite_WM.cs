@@ -169,12 +169,21 @@ namespace Fortnite_WM
                         if (rb_Maps_Small.Checked) vals.Add("map_type", "1");
                         if (!words.ContainsValue(tb_Map_Name.Text) && rb_Maps_Small.Checked || rb_Maps_Middle.Checked || rb_Maps_Large.Checked)
                         {
-                            vals.Add(tb_Map_Name.Name, tb_Map_Name.Text);
-                            dbcon.DBInsert(vals);
-                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
-                            WordsInit();
-                            LabelResetter();
-                            ComboFiller();
+                            if (dbcon.MapExist(tb_Map_Name.Text) == 1)
+                            {
+                                MessageBox.Show("Map existiert bereits.");
+                                vals.Clear();
+                                return;
+                            }
+                            else
+                            {
+                                vals.Add(tb_Map_Name.Name, tb_Map_Name.Text);
+                                dbcon.DBInsert(vals);
+                                MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                                WordsInit();
+                                LabelResetter();
+                                ComboFiller();
+                            }
                         }
                         else
                         {
@@ -214,11 +223,20 @@ namespace Fortnite_WM
                             vals.Add("modes_type", modes_type.ToString());
                             vals.Add("modes_rarity", modes_rarity.ToString());
                             vals.Add(nud_Max_Player.Name, nud_Max_Player.Value.ToString());
-                            dbcon.DBInsert(vals);
-                            MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
-                            WordsInit();
-                            LabelResetter();
-                            ComboFiller();
+                            if (dbcon.ModeExist(tb_Mode_Name.Text) == 1)
+                            {
+                                MessageBox.Show("Modus existiert bereits.");
+                                vals.Clear();
+                                return;
+                            }
+                            else
+                            {
+                                dbcon.DBInsert(vals);
+                                MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
+                                WordsInit();
+                                LabelResetter();
+                                ComboFiller();
+                            }
                         }
                         modes_weapontype = 0;
                         modes_type = 0;

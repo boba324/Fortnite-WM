@@ -605,5 +605,31 @@ NOW());";
             }
             return state;
         }
+
+        public int ModeExist(string mode)
+        {
+            string query = "SELECT COUNT(*) FROM modes WHERE mode_name = '" + mode + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            return state;
+        }
+
+        public int MapExist(string map)
+        {
+            string query = "SELECT COUNT(*) FROM maps WHERE map_name = '" + map + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            return state;
+        }
     }
 }
