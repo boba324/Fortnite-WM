@@ -134,7 +134,7 @@ USE fortnite_wm;
 ###############################################################
 CREATE TABLE IF NOT EXISTS `teams` ( 
 `team_id` SMALLINT UNSIGNED AUTO_INCREMENT,
-`team_name` TINYTEXT NOT NULL, 
+`team_name` VARCHAR(40) UNIQUE NOT NULL, 
 `team_wins` TINYINT UNSIGNED DEFAULT 0, 
 `team_country` TINYTEXT NOT NULL,
 `team_state` TINYTEXT NOT NULL,
@@ -178,7 +178,7 @@ PRIMARY KEY (`map_id`));
 ###############################################################
 CREATE TABLE IF NOT EXISTS `player` ( 
 `player_id` int UNSIGNED AUTO_INCREMENT, 
-`player_nickname` TINYTEXT UNIQUE NOT NULL, 
+`player_nickname` VARCHAR(20) UNIQUE NOT NULL, 
 `player_team_id` SMALLINT UNSIGNED NOT NULL, 
 `player_familyname` TINYTEXT NOT NULL, 
 `player_firstname` TINYTEXT NOT NULL, 
