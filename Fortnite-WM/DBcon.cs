@@ -14,6 +14,9 @@ namespace Fortnite_WM
         private string database = "";
         private string uid;
         private string password;
+        private int[] PlayerSolo;
+        private int[] PlayerDuo;
+        private int[] PlayerSquad;
         public string PropUid { set { uid = value; } }
         public string PropPassword { set { password = value; } }
         public string PropDatabase { set { database = value; } }
@@ -630,6 +633,28 @@ NOW());";
                 this.CloseConnection();
             }
             return state;
+        }
+
+        public void SimulateRound()
+        {
+
+        }
+        
+        private void RandomSolo()
+        {
+            string querySolo = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 1) as 'player_id' from player group by player_team_id order by rand() limit 100;";
+        }
+        private void RandomMode()
+        {
+            string queryMode = "select mode_id from modes order by rand() limit 1;";
+        }
+        private void RandomDuo()
+        {
+            string queryDuo = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 2) as 'player_id' from player group by player_team_id order by rand() limit 50;";
+        }
+        private void RandomSquad()
+        {
+            string querySquad = "select player_team_id,  group_concat(player_id order by rand()) as 'player_id' from player group by player_team_id order by rand() limit 25;";
         }
     }
 }

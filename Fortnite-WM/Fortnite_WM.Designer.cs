@@ -172,6 +172,11 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
+            this.gb_WM_Info = new System.Windows.Forms.GroupBox();
+            this.tb_WM_Info = new System.Windows.Forms.TextBox();
+            this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
+            this.lb_Disabled = new System.Windows.Forms.Label();
+            this.btn_Played_Matches_Simulate_Match = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -211,6 +216,7 @@
             this.groupBox2.SuspendLayout();
             this.gb_Delete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).BeginInit();
+            this.gb_WM_Info.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -363,6 +369,8 @@
             // tab_Database_Infos
             // 
             this.tab_Database_Infos.BackColor = System.Drawing.Color.Gray;
+            this.tab_Database_Infos.Controls.Add(this.gb_WM_Simulation);
+            this.tab_Database_Infos.Controls.Add(this.gb_WM_Info);
             this.tab_Database_Infos.Controls.Add(this.gb_TB_State);
             this.tab_Database_Infos.Controls.Add(this.gb_DB_State);
             this.tab_Database_Infos.Location = new System.Drawing.Point(4, 22);
@@ -516,6 +524,7 @@
             // tab_Insert
             // 
             this.tab_Insert.BackColor = System.Drawing.Color.Gray;
+            this.tab_Insert.Controls.Add(this.lb_Disabled);
             this.tab_Insert.Controls.Add(this.gb_Scores);
             this.tab_Insert.Controls.Add(this.gb_Played_Matches);
             this.tab_Insert.Controls.Add(this.mc_Age);
@@ -547,6 +556,7 @@
             // 
             // cb_Scores_Team_ID
             // 
+            this.cb_Scores_Team_ID.Enabled = false;
             this.cb_Scores_Team_ID.FormattingEnabled = true;
             this.cb_Scores_Team_ID.Location = new System.Drawing.Point(6, 19);
             this.cb_Scores_Team_ID.Name = "cb_Scores_Team_ID";
@@ -555,6 +565,7 @@
             // 
             // tb_Scores_Points
             // 
+            this.tb_Scores_Points.Enabled = false;
             this.tb_Scores_Points.Location = new System.Drawing.Point(133, 20);
             this.tb_Scores_Points.Name = "tb_Scores_Points";
             this.tb_Scores_Points.Size = new System.Drawing.Size(100, 20);
@@ -565,6 +576,7 @@
             // gb_Played_Matches
             // 
             this.gb_Played_Matches.BackColor = System.Drawing.Color.Transparent;
+            this.gb_Played_Matches.Controls.Add(this.btn_Played_Matches_Simulate_Match);
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Player_at_Round_Start);
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Third_Place);
             this.gb_Played_Matches.Controls.Add(this.lb_Played_Matches_Second_Place);
@@ -579,7 +591,7 @@
             this.gb_Played_Matches.Controls.Add(this.cb_Played_Matches_Mode_Name);
             this.gb_Played_Matches.Location = new System.Drawing.Point(6, 55);
             this.gb_Played_Matches.Name = "gb_Played_Matches";
-            this.gb_Played_Matches.Size = new System.Drawing.Size(236, 185);
+            this.gb_Played_Matches.Size = new System.Drawing.Size(236, 218);
             this.gb_Played_Matches.TabIndex = 22;
             this.gb_Played_Matches.TabStop = false;
             this.gb_Played_Matches.Text = "Abgeschlossene Spiele";
@@ -587,6 +599,7 @@
             // lb_Played_Matches_Player_at_Round_Start
             // 
             this.lb_Played_Matches_Player_at_Round_Start.AutoSize = true;
+            this.lb_Played_Matches_Player_at_Round_Start.Enabled = false;
             this.lb_Played_Matches_Player_at_Round_Start.Location = new System.Drawing.Point(6, 160);
             this.lb_Played_Matches_Player_at_Round_Start.Name = "lb_Played_Matches_Player_at_Round_Start";
             this.lb_Played_Matches_Player_at_Round_Start.Size = new System.Drawing.Size(123, 13);
@@ -596,6 +609,7 @@
             // lb_Played_Matches_Third_Place
             // 
             this.lb_Played_Matches_Third_Place.AutoSize = true;
+            this.lb_Played_Matches_Third_Place.Enabled = false;
             this.lb_Played_Matches_Third_Place.Location = new System.Drawing.Point(6, 134);
             this.lb_Played_Matches_Third_Place.Name = "lb_Played_Matches_Third_Place";
             this.lb_Played_Matches_Third_Place.Size = new System.Drawing.Size(42, 13);
@@ -605,6 +619,7 @@
             // lb_Played_Matches_Second_Place
             // 
             this.lb_Played_Matches_Second_Place.AutoSize = true;
+            this.lb_Played_Matches_Second_Place.Enabled = false;
             this.lb_Played_Matches_Second_Place.Location = new System.Drawing.Point(6, 106);
             this.lb_Played_Matches_Second_Place.Name = "lb_Played_Matches_Second_Place";
             this.lb_Played_Matches_Second_Place.Size = new System.Drawing.Size(42, 13);
@@ -614,6 +629,7 @@
             // lb_Played_Matches_First_Place
             // 
             this.lb_Played_Matches_First_Place.AutoSize = true;
+            this.lb_Played_Matches_First_Place.Enabled = false;
             this.lb_Played_Matches_First_Place.Location = new System.Drawing.Point(6, 78);
             this.lb_Played_Matches_First_Place.Name = "lb_Played_Matches_First_Place";
             this.lb_Played_Matches_First_Place.Size = new System.Drawing.Size(42, 13);
@@ -623,6 +639,7 @@
             // lb_Played_Matches_Mode_Type
             // 
             this.lb_Played_Matches_Mode_Type.AutoSize = true;
+            this.lb_Played_Matches_Mode_Type.Enabled = false;
             this.lb_Played_Matches_Mode_Type.Location = new System.Drawing.Point(6, 50);
             this.lb_Played_Matches_Mode_Type.Name = "lb_Played_Matches_Mode_Type";
             this.lb_Played_Matches_Mode_Type.Size = new System.Drawing.Size(60, 13);
@@ -632,6 +649,7 @@
             // lb_Played_Matches_Mode_Name
             // 
             this.lb_Played_Matches_Mode_Name.AutoSize = true;
+            this.lb_Played_Matches_Mode_Name.Enabled = false;
             this.lb_Played_Matches_Mode_Name.Location = new System.Drawing.Point(6, 22);
             this.lb_Played_Matches_Mode_Name.Name = "lb_Played_Matches_Mode_Name";
             this.lb_Played_Matches_Mode_Name.Size = new System.Drawing.Size(73, 13);
@@ -640,6 +658,7 @@
             // 
             // nud_Played_Matches_Player_at_Round_Start
             // 
+            this.nud_Played_Matches_Player_at_Round_Start.Enabled = false;
             this.nud_Played_Matches_Player_at_Round_Start.Location = new System.Drawing.Point(150, 158);
             this.nud_Played_Matches_Player_at_Round_Start.Minimum = new decimal(new int[] {
             40,
@@ -657,6 +676,7 @@
             // 
             // cb_Played_Matches_Third_Place
             // 
+            this.cb_Played_Matches_Third_Place.Enabled = false;
             this.cb_Played_Matches_Third_Place.FormattingEnabled = true;
             this.cb_Played_Matches_Third_Place.Location = new System.Drawing.Point(108, 131);
             this.cb_Played_Matches_Third_Place.Name = "cb_Played_Matches_Third_Place";
@@ -665,6 +685,7 @@
             // 
             // cb_Played_Matches_Second_Place
             // 
+            this.cb_Played_Matches_Second_Place.Enabled = false;
             this.cb_Played_Matches_Second_Place.FormattingEnabled = true;
             this.cb_Played_Matches_Second_Place.Location = new System.Drawing.Point(108, 103);
             this.cb_Played_Matches_Second_Place.Name = "cb_Played_Matches_Second_Place";
@@ -674,6 +695,7 @@
             // 
             // cb_Played_Matches_First_Place
             // 
+            this.cb_Played_Matches_First_Place.Enabled = false;
             this.cb_Played_Matches_First_Place.FormattingEnabled = true;
             this.cb_Played_Matches_First_Place.Location = new System.Drawing.Point(108, 75);
             this.cb_Played_Matches_First_Place.Name = "cb_Played_Matches_First_Place";
@@ -683,6 +705,7 @@
             // 
             // cb_Played_Matches_Mode_Type
             // 
+            this.cb_Played_Matches_Mode_Type.Enabled = false;
             this.cb_Played_Matches_Mode_Type.FormattingEnabled = true;
             this.cb_Played_Matches_Mode_Type.Location = new System.Drawing.Point(108, 47);
             this.cb_Played_Matches_Mode_Type.Name = "cb_Played_Matches_Mode_Type";
@@ -692,6 +715,7 @@
             // 
             // cb_Played_Matches_Mode_Name
             // 
+            this.cb_Played_Matches_Mode_Name.Enabled = false;
             this.cb_Played_Matches_Mode_Name.FormattingEnabled = true;
             this.cb_Played_Matches_Mode_Name.Location = new System.Drawing.Point(108, 19);
             this.cb_Played_Matches_Mode_Name.Name = "cb_Played_Matches_Mode_Name";
@@ -1750,6 +1774,62 @@
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
             // 
+            // gb_WM_Info
+            // 
+            this.gb_WM_Info.BackColor = System.Drawing.Color.Transparent;
+            this.gb_WM_Info.Controls.Add(this.tb_WM_Info);
+            this.gb_WM_Info.Location = new System.Drawing.Point(213, 7);
+            this.gb_WM_Info.Name = "gb_WM_Info";
+            this.gb_WM_Info.Size = new System.Drawing.Size(241, 501);
+            this.gb_WM_Info.TabIndex = 2;
+            this.gb_WM_Info.TabStop = false;
+            this.gb_WM_Info.Text = "WM Info";
+            // 
+            // tb_WM_Info
+            // 
+            this.tb_WM_Info.BackColor = System.Drawing.Color.Gray;
+            this.tb_WM_Info.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_WM_Info.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.tb_WM_Info.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_WM_Info.Location = new System.Drawing.Point(3, 16);
+            this.tb_WM_Info.Multiline = true;
+            this.tb_WM_Info.Name = "tb_WM_Info";
+            this.tb_WM_Info.ReadOnly = true;
+            this.tb_WM_Info.Size = new System.Drawing.Size(235, 482);
+            this.tb_WM_Info.TabIndex = 0;
+            this.tb_WM_Info.TabStop = false;
+            this.tb_WM_Info.Text = resources.GetString("tb_WM_Info.Text");
+            // 
+            // gb_WM_Simulation
+            // 
+            this.gb_WM_Simulation.Location = new System.Drawing.Point(4, 316);
+            this.gb_WM_Simulation.Name = "gb_WM_Simulation";
+            this.gb_WM_Simulation.Size = new System.Drawing.Size(196, 192);
+            this.gb_WM_Simulation.TabIndex = 3;
+            this.gb_WM_Simulation.TabStop = false;
+            this.gb_WM_Simulation.Text = "Simulation";
+            // 
+            // lb_Disabled
+            // 
+            this.lb_Disabled.AutoSize = true;
+            this.lb_Disabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_Disabled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_Disabled.Location = new System.Drawing.Point(6, 347);
+            this.lb_Disabled.Name = "lb_Disabled";
+            this.lb_Disabled.Size = new System.Drawing.Size(357, 15);
+            this.lb_Disabled.TabIndex = 24;
+            this.lb_Disabled.Text = "Einige Elemente dieser Eingabemaske wurden vorübergehend deaktiviert.";
+            // 
+            // btn_Played_Matches_Simulate_Match
+            // 
+            this.btn_Played_Matches_Simulate_Match.Location = new System.Drawing.Point(9, 184);
+            this.btn_Played_Matches_Simulate_Match.Name = "btn_Played_Matches_Simulate_Match";
+            this.btn_Played_Matches_Simulate_Match.Size = new System.Drawing.Size(221, 27);
+            this.btn_Played_Matches_Simulate_Match.TabIndex = 12;
+            this.btn_Played_Matches_Simulate_Match.Text = "Runde Simulieren";
+            this.btn_Played_Matches_Simulate_Match.UseVisualStyleBackColor = true;
+            this.btn_Played_Matches_Simulate_Match.Click += new System.EventHandler(this.Btn_Played_Matches_Simulate_Match_Click);
+            // 
             // Fortnite_WM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1770,6 +1850,7 @@
             this.gb_TB_State.ResumeLayout(false);
             this.gb_TB_State.PerformLayout();
             this.tab_Insert.ResumeLayout(false);
+            this.tab_Insert.PerformLayout();
             this.gb_Scores.ResumeLayout(false);
             this.gb_Scores.PerformLayout();
             this.gb_Played_Matches.ResumeLayout(false);
@@ -1814,6 +1895,8 @@
             this.groupBox2.ResumeLayout(false);
             this.gb_Delete.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).EndInit();
+            this.gb_WM_Info.ResumeLayout(false);
+            this.gb_WM_Info.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1963,6 +2046,11 @@
         private System.Windows.Forms.DataGridView dgv_Delete;
         private System.Windows.Forms.Label lb_DB_Server;
         private System.Windows.Forms.TextBox tb_DB_Server;
+        private System.Windows.Forms.GroupBox gb_WM_Info;
+        private System.Windows.Forms.TextBox tb_WM_Info;
+        private System.Windows.Forms.GroupBox gb_WM_Simulation;
+        private System.Windows.Forms.Label lb_Disabled;
+        private System.Windows.Forms.Button btn_Played_Matches_Simulate_Match;
     }
 }
 

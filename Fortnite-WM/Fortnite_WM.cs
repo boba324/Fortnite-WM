@@ -39,6 +39,8 @@ namespace Fortnite_WM
             vals.Clear();
             mc_Age.SetDate(mc_Age.TodayDate.AddYears(-18));
             btn_ConnectRefresh.Enabled = false;
+            nud_Max_Player.Enabled = false;
+            nud_Played_Matches_Player_at_Round_Start.Enabled = false;
             gb_Modes.Visible = false;
             gb_Maps.Visible = false;
             gb_Players.Visible = false;
@@ -583,6 +585,10 @@ namespace Fortnite_WM
                 }
             }
         }
+        private void Btn_Played_Matches_Simulate_Match_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
         #region TextBox Events
         private void Tb_Enter(object sender, EventArgs e)
@@ -880,6 +886,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = false;
                     break;
                 case 1:
                     gb_Modes.Visible = false;
@@ -888,6 +895,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = false;
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -896,6 +904,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = false;
                     break;
                 case 3:
                     gb_Modes.Visible = false;
@@ -904,6 +913,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = true;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = true;
                     break;
                 case 4:
                     gb_Modes.Visible = false;
@@ -912,6 +922,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = false;
                     break;
                 case 5:
                     gb_Modes.Visible = false;
@@ -920,6 +931,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = false;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = true;
+                    lb_Disabled.Visible = true;
                     break;
                 case 6:
                     gb_Modes.Visible = false;
@@ -928,6 +940,7 @@ namespace Fortnite_WM
                     gb_Teams.Visible = true;
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
+                    lb_Disabled.Visible = false;
                     break;
                 default:
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table_Select.SelectedIndex + " nicht bekannt.");

@@ -117,6 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="tb_WM_Info.Text" xml:space="preserve">
+    <value>Fortnite WM 2019
+
+In jeder Runde werden die besten 3 Teams / Spieler ermittelt. (Bei Solo Runden kann ein Team mehrmals Vertreten sein)
+
+Punkteverteilung:
+
+Platz 1: 50 Punkte
+Platz 2: 35 Punkte
+Platz 3: 15 Punkte
+
+Alle Siege gehen immer auf das Punkte Konto des Teams.
+
+Pro Runde wird ein Preisgeld von 300.000€ an die Besten 12 Teams vergeben.
+
+Die Aufteilung des Gewinns sieht wie folgt aus:
+
+      Platz 1:  100.000€  Platz  7:    9.000€
+      Platz 2:    60.000€  Platz  8:    7.500€
+      Platz 3:    45.000€  Platz  9:    6.000€
+      Platz 4:    30.000€  Platz 10:   6.000€
+      Platz 5:    17.000€  Platz 11:   3.000€ 
+      Platz 6:    13.500€  Platz 12:   3.000€
+
+Die WM enthällt 80 Spiele (24 mio.)
+
+Dazu wird es eine Extra-Runde geben in der 100 zufällige Spieler die Chance haben 1 Mio. € ein zu Sacken.
+
+Die Restlichen 5 Mio. € werden auf die 
+3 Teams mit den meisten Punkten 
+aufgeteilt(s.o. Punkteverteilung).</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
