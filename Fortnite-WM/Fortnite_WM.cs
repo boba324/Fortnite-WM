@@ -41,6 +41,8 @@ namespace Fortnite_WM
             btn_ConnectRefresh.Enabled = false;
             nud_Max_Player.Enabled = false;
             nud_Played_Matches_Player_at_Round_Start.Enabled = false;
+            lb_Disabled.Visible = false;
+            gb_WM_Simulation.Enabled = false;
             gb_Modes.Visible = false;
             gb_Maps.Visible = false;
             gb_Players.Visible = false;
@@ -137,6 +139,7 @@ namespace Fortnite_WM
             {
                 ComboFiller();
                 CheckedListFiller();
+                gb_WM_Simulation.Enabled = true;
             }
         }
         private void Btn_RestoreDB_Click(object sender, EventArgs e)
@@ -560,29 +563,58 @@ namespace Fortnite_WM
         }
         private void Btn_Update_Save_Click(object sender, EventArgs e)
         {
-            DataTable changes = ((DataTable)dgv_Update.DataSource).GetChanges();
-
-            if (changes != null)
+            if (cb_Update_Table_Select.SelectedValue != null)
             {
-                if (cb_Update_Table_Select.SelectedValue.ToString() != "-" || cb_Update_Table_Select.SelectedValue.ToString() != "---")
+                if (cb_Update_Table_Select.SelectedValue.ToString().Length > 1)
                 {
-                    dbcon.Update(changes, cb_Update_Table_Select.SelectedValue.ToString());
-                    ((DataTable)dgv_Update.DataSource).AcceptChanges();
-                    MessageBox.Show("Daten wurden erfolgreich geupdated.");
+                    DataTable changes = ((DataTable)dgv_Update.DataSource).GetChanges();
+
+                    if (changes != null)
+                    {
+
+                        DialogResult dialogResult = MessageBox.Show("Sind sie sicher das sie alle vorgenommenen Änderungen in die Datenbank speichern möchten?", "Update", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            dbcon.Update(changes, cb_Update_Table_Select.SelectedValue.ToString());
+                            ((DataTable)dgv_Update.DataSource).AcceptChanges();
+                            MessageBox.Show("Daten wurden erfolgreich geupdated.");
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            DataGridFiller(dbcon.Select("SELECT * FROM " + cb_Update_Table_Select.SelectedValue.ToString()), 0);
+                            dgv_Update.Update();
+                            dgv_Update.Refresh();
+                        }
+                    }
                 }
             }
         }
         private void Btn_Delete_Save_Click(object sender, EventArgs e)
         {
-            DataTable changes = ((DataTable)dgv_Delete.DataSource).GetChanges();
-
-            if (changes != null)
+            if (cb_Delete_Table_Select.SelectedValue != null)
             {
-                if (cb_Delete_Table_Select.SelectedValue.ToString() != "-" || cb_Delete_Table_Select.SelectedValue.ToString() != "---")
+                if (cb_Delete_Table_Select.SelectedValue.ToString().Length > 1)
                 {
-                    dbcon.Delete(changes, cb_Delete_Table_Select.SelectedValue.ToString());
-                    ((DataTable)dgv_Delete.DataSource).AcceptChanges();
-                    MessageBox.Show("Daten wurden erfolgreich gelöscht.");
+                    DataTable changes = ((DataTable)dgv_Delete.DataSource).GetChanges();
+
+                    if (changes != null)
+                    {
+
+
+                        DialogResult dialogResult = MessageBox.Show("Sind sie sicher das sie alle gelöschten Datensätze in übernehmen möchten?", "Delete", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            dbcon.Delete(changes, cb_Delete_Table_Select.SelectedValue.ToString());
+                            ((DataTable)dgv_Delete.DataSource).AcceptChanges();
+                            MessageBox.Show("Daten wurden erfolgreich gelöscht.");
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            DataGridFiller(dbcon.Select("SELECT * FROM " + cb_Delete_Table_Select.SelectedValue.ToString()), 0);
+                            dgv_Delete.Update();
+                            dgv_Delete.Refresh();
+                        }
+                    }
                 }
             }
         }
@@ -600,19 +632,35 @@ namespace Fortnite_WM
         }
         private void Btn_WM_Simulator_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
-            if (dbcon.GetPlayedRounds() < 80)
+            int rounds = dbcon.GetPlayedRounds();
+            if (rounds < 80)
             {
-                for (int i = 0; i < (80 - dbcon.GetPlayedRounds()); i++)
+                MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
+                for (int i = 0; i < (80 - rounds); i++)
                 {
                     dbcon.SimulateRound();
                 }
-                MessageBox.Show("Es wurden " + (80 - dbcon.GetPlayedRounds()) + " Spiele Simuliert.");
+                MessageBox.Show("Es wurden " + (80 - rounds) + " Spiele Simuliert.");
             }
             else
             {
                 MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
             }
+        }
+        private void Btn_WM_Fill_Data_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Um die Datenbank mit Beispieldaten befüllen zu können, muss vorher die Datenbank geleert werden um Duplikate zu vermeiden. \n\rWollen sie dennoch fortfahren?", "Filler", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                dbcon.DBTruncate();
+                dbcon.DBFill();
+                MessageBox.Show("Beispieldaten wurden erfolgreich in die Datenbank geladen.");
+            }
+            else
+            {
+                MessageBox.Show("Es wurden keine Daten übertragen.");
+            }
+            
         }
         #endregion
         #region TextBox Events
@@ -1138,5 +1186,6 @@ namespace Fortnite_WM
         }
         #endregion
 
+        
     }
 }

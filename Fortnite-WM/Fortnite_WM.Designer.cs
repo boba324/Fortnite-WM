@@ -45,6 +45,7 @@
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tab_Database_Infos = new System.Windows.Forms.TabPage();
             this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
+            this.btn_WM_Simulator = new System.Windows.Forms.Button();
             this.gb_WM_Info = new System.Windows.Forms.GroupBox();
             this.tb_WM_Info = new System.Windows.Forms.TextBox();
             this.gb_TB_State = new System.Windows.Forms.GroupBox();
@@ -177,7 +178,7 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
-            this.btn_WM_Simulator = new System.Windows.Forms.Button();
+            this.btn_WM_Fill_Data = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -384,6 +385,7 @@
             // 
             // gb_WM_Simulation
             // 
+            this.gb_WM_Simulation.Controls.Add(this.btn_WM_Fill_Data);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_Simulator);
             this.gb_WM_Simulation.Location = new System.Drawing.Point(4, 316);
             this.gb_WM_Simulation.Name = "gb_WM_Simulation";
@@ -391,6 +393,16 @@
             this.gb_WM_Simulation.TabIndex = 3;
             this.gb_WM_Simulation.TabStop = false;
             this.gb_WM_Simulation.Text = "Simulation";
+            // 
+            // btn_WM_Simulator
+            // 
+            this.btn_WM_Simulator.Location = new System.Drawing.Point(8, 49);
+            this.btn_WM_Simulator.Name = "btn_WM_Simulator";
+            this.btn_WM_Simulator.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Simulator.TabIndex = 0;
+            this.btn_WM_Simulator.Text = "WM Simulieren";
+            this.btn_WM_Simulator.UseVisualStyleBackColor = true;
+            this.btn_WM_Simulator.Click += new System.EventHandler(this.Btn_WM_Simulator_Click);
             // 
             // gb_WM_Info
             // 
@@ -1833,15 +1845,15 @@
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
             // 
-            // btn_WM_Simulator
+            // btn_WM_Fill_Data
             // 
-            this.btn_WM_Simulator.Location = new System.Drawing.Point(6, 98);
-            this.btn_WM_Simulator.Name = "btn_WM_Simulator";
-            this.btn_WM_Simulator.Size = new System.Drawing.Size(188, 23);
-            this.btn_WM_Simulator.TabIndex = 0;
-            this.btn_WM_Simulator.Text = "WM Simulieren";
-            this.btn_WM_Simulator.UseVisualStyleBackColor = true;
-            this.btn_WM_Simulator.Click += new System.EventHandler(this.Btn_WM_Simulator_Click);
+            this.btn_WM_Fill_Data.Location = new System.Drawing.Point(8, 20);
+            this.btn_WM_Fill_Data.Name = "btn_WM_Fill_Data";
+            this.btn_WM_Fill_Data.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Fill_Data.TabIndex = 1;
+            this.btn_WM_Fill_Data.Text = "Beispiel Daten Laden";
+            this.btn_WM_Fill_Data.UseVisualStyleBackColor = true;
+            this.btn_WM_Fill_Data.Click += new System.EventHandler(this.Btn_WM_Fill_Data_Click);
             // 
             // Fortnite_WM
             // 
@@ -2066,6 +2078,7 @@
         private System.Windows.Forms.Label lb_Disabled;
         private System.Windows.Forms.Button btn_Played_Matches_Simulate_Match;
         private System.Windows.Forms.Button btn_WM_Simulator;
+        private System.Windows.Forms.Button btn_WM_Fill_Data;
     }
 }
 
