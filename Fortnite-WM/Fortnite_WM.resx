@@ -120,13 +120,13 @@
   <data name="tb_WM_Info.Text" xml:space="preserve">
     <value>Fortnite WM 2019
 
-In jeder Runde werden die besten 3 Teams / Spieler ermittelt. (Bei Solo Runden kann ein Team mehrmals Vertreten sein)
+In jeder Runde wird ermittelt welcher Spieler wann auscheidet. Der Letzte überlebende ist auf dem ersten Platz.
 
 Punkteverteilung:
 
-Platz 1: 50 Punkte
-Platz 2: 35 Punkte
-Platz 3: 15 Punkte
+Platz     1: 99 Punkte
+...
+Platz 100:   0 Punkte
 
 Alle Siege gehen immer auf das Punkte Konto des Teams.
 

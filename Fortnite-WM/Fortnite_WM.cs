@@ -310,6 +310,7 @@ namespace Fortnite_WM
                             }
                             else
                             {
+                                dbcon.AddMember(vals);
                                 dbcon.DBInsert(vals);
                                 MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                                 WordsInit();
@@ -587,7 +588,31 @@ namespace Fortnite_WM
         }
         private void Btn_Played_Matches_Simulate_Match_Click(object sender, EventArgs e)
         {
-
+            if (dbcon.GetPlayedRounds() < 80)
+            {
+                dbcon.SimulateRound();
+                MessageBox.Show("Es wurde ein Spiele Simuliert");
+            }
+            else
+            {
+                MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+            }
+        }
+        private void Btn_WM_Simulator_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
+            if (dbcon.GetPlayedRounds() < 80)
+            {
+                for (int i = 0; i < (80 - dbcon.GetPlayedRounds()); i++)
+                {
+                    dbcon.SimulateRound();
+                }
+                MessageBox.Show("Es wurden " + (80 - dbcon.GetPlayedRounds()) + " Spiele Simuliert.");
+            }
+            else
+            {
+                MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+            }
         }
         #endregion
         #region TextBox Events
@@ -981,7 +1006,7 @@ namespace Fortnite_WM
         {
             if (dbConState && cb_Insert_Table_Select.SelectedIndex == 3) {
             
-                switch (dbcon.Mode_Type(cb_Played_Matches_Mode_Name.SelectedValue.ToString()))
+                switch (dbcon.Mode_Type_ID(cb_Played_Matches_Mode_Name.SelectedValue.ToString()))
                 {
                     case 1:
                         cb_Played_Matches_Mode_Type.Items.Clear();
@@ -1016,7 +1041,7 @@ namespace Fortnite_WM
                         cb_Played_Matches_Mode_Type.Items.Insert(1, "Duo");
                         cb_Played_Matches_Mode_Type.Items.Insert(2, "Squad");
                         break;
-                    default: MessageBox.Show("Unbekannter Modus Typ. " + dbcon.Mode_Type(cb_Played_Matches_Mode_Name.SelectedValue.ToString()));
+                    default: MessageBox.Show("Unbekannter Modus Typ. " + dbcon.Mode_Type_ID(cb_Played_Matches_Mode_Name.SelectedValue.ToString()));
                         break;
                 }
             }
@@ -1112,5 +1137,6 @@ namespace Fortnite_WM
             
         }
         #endregion
+
     }
 }

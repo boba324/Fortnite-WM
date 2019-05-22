@@ -14,9 +14,7 @@ namespace Fortnite_WM
         private string database = "";
         private string uid;
         private string password;
-        private int[] PlayerSolo;
-        private int[] PlayerDuo;
-        private int[] PlayerSquad;
+        private int[] player;
         public string PropUid { set { uid = value; } }
         public string PropPassword { set { password = value; } }
         public string PropDatabase { set { database = value; } }
@@ -148,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `teams` (
 `team_mail` TINYTEXT NOT NULL, 
 `team_description` TEXT DEFAULT NULL, 
 `team_created` DATETIME NOT NULL, 
-`team_kills` SMALLINT UNSIGNED DEFAULT 0,
 `team_member` TINYINT UNSIGNED DEFAULT 0,
 PRIMARY KEY (`team_id`));
  
@@ -195,8 +192,6 @@ CREATE TABLE IF NOT EXISTS `player` (
 `player_phonenumber` BIGINT UNSIGNED DEFAULT NULL, 
 `player_mail` TINYTEXT NOT NULL, 
 `player_created` DATETIME NOT NULL, 
-`player_kills` SMALLINT DEFAULT 0, 
-`player_played_matches` SMALLINT DEFAULT 0,
 PRIMARY KEY(`player_id`),
 FOREIGN KEY(`player_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE);
 
@@ -264,15 +259,108 @@ CREATE TABLE IF NOT EXISTS `played_matches` (
 `pm_id` INT UNSIGNED AUTO_INCREMENT,
 `pm_mode_id`  TINYINT UNSIGNED NOT NULL,
 `pm_match_type` TINYTEXT NOT NULL,
-`pm_winning_team_id` SMALLINT UNSIGNED NOT NULL,
-`pm_second_team_id` SMALLINT UNSIGNED NOT NULL,
-`pm_third_team_id` SMALLINT UNSIGNED NOT NULL,
-`pm_player_round_start` TINYINT UNSIGNED DEFAULT 100,
+`pm_1` SMALLINT UNSIGNED NOT NULL,
+`pm_2` SMALLINT UNSIGNED NOT NULL,
+`pm_3` SMALLINT UNSIGNED NOT NULL,
+`pm_4` SMALLINT UNSIGNED NOT NULL,
+`pm_5` SMALLINT UNSIGNED NOT NULL,
+`pm_6` SMALLINT UNSIGNED NOT NULL,
+`pm_7` SMALLINT UNSIGNED NOT NULL,
+`pm_8` SMALLINT UNSIGNED NOT NULL,
+`pm_9` SMALLINT UNSIGNED NOT NULL,
+`pm_10` SMALLINT UNSIGNED NOT NULL,
+`pm_11` SMALLINT UNSIGNED NOT NULL,
+`pm_12` SMALLINT UNSIGNED NOT NULL,
+`pm_13` SMALLINT UNSIGNED NOT NULL,
+`pm_14` SMALLINT UNSIGNED NOT NULL,
+`pm_15` SMALLINT UNSIGNED NOT NULL,
+`pm_16` SMALLINT UNSIGNED NOT NULL,
+`pm_17` SMALLINT UNSIGNED NOT NULL,
+`pm_18` SMALLINT UNSIGNED NOT NULL,
+`pm_19` SMALLINT UNSIGNED NOT NULL,
+`pm_20` SMALLINT UNSIGNED NOT NULL,
+`pm_21` SMALLINT UNSIGNED NOT NULL,
+`pm_22` SMALLINT UNSIGNED NOT NULL,
+`pm_23` SMALLINT UNSIGNED NOT NULL,
+`pm_24` SMALLINT UNSIGNED NOT NULL,
+`pm_25` SMALLINT UNSIGNED NOT NULL,
+`pm_26` SMALLINT UNSIGNED NOT NULL,
+`pm_27` SMALLINT UNSIGNED NOT NULL,
+`pm_28` SMALLINT UNSIGNED NOT NULL,
+`pm_29` SMALLINT UNSIGNED NOT NULL,
+`pm_30` SMALLINT UNSIGNED NOT NULL,
+`pm_31` SMALLINT UNSIGNED NOT NULL,
+`pm_32` SMALLINT UNSIGNED NOT NULL,
+`pm_33` SMALLINT UNSIGNED NOT NULL,
+`pm_34` SMALLINT UNSIGNED NOT NULL,
+`pm_35` SMALLINT UNSIGNED NOT NULL,
+`pm_36` SMALLINT UNSIGNED NOT NULL,
+`pm_37` SMALLINT UNSIGNED NOT NULL,
+`pm_38` SMALLINT UNSIGNED NOT NULL,
+`pm_39` SMALLINT UNSIGNED NOT NULL,
+`pm_40` SMALLINT UNSIGNED NOT NULL,
+`pm_41` SMALLINT UNSIGNED NOT NULL,
+`pm_42` SMALLINT UNSIGNED NOT NULL,
+`pm_43` SMALLINT UNSIGNED NOT NULL,
+`pm_44` SMALLINT UNSIGNED NOT NULL,
+`pm_45` SMALLINT UNSIGNED NOT NULL,
+`pm_46` SMALLINT UNSIGNED NOT NULL,
+`pm_47` SMALLINT UNSIGNED NOT NULL,
+`pm_48` SMALLINT UNSIGNED NOT NULL,
+`pm_49` SMALLINT UNSIGNED NOT NULL,
+`pm_50` SMALLINT UNSIGNED NOT NULL,
+`pm_51` SMALLINT UNSIGNED NOT NULL,
+`pm_52` SMALLINT UNSIGNED NOT NULL,
+`pm_53` SMALLINT UNSIGNED NOT NULL,
+`pm_54` SMALLINT UNSIGNED NOT NULL,
+`pm_55` SMALLINT UNSIGNED NOT NULL,
+`pm_56` SMALLINT UNSIGNED NOT NULL,
+`pm_57` SMALLINT UNSIGNED NOT NULL,
+`pm_58` SMALLINT UNSIGNED NOT NULL,
+`pm_59` SMALLINT UNSIGNED NOT NULL,
+`pm_60` SMALLINT UNSIGNED NOT NULL,
+`pm_61` SMALLINT UNSIGNED NOT NULL,
+`pm_62` SMALLINT UNSIGNED NOT NULL,
+`pm_63` SMALLINT UNSIGNED NOT NULL,
+`pm_64` SMALLINT UNSIGNED NOT NULL,
+`pm_65` SMALLINT UNSIGNED NOT NULL,
+`pm_66` SMALLINT UNSIGNED NOT NULL,
+`pm_67` SMALLINT UNSIGNED NOT NULL,
+`pm_68` SMALLINT UNSIGNED NOT NULL,
+`pm_69` SMALLINT UNSIGNED NOT NULL,
+`pm_70` SMALLINT UNSIGNED NOT NULL,
+`pm_71` SMALLINT UNSIGNED NOT NULL,
+`pm_72` SMALLINT UNSIGNED NOT NULL,
+`pm_73` SMALLINT UNSIGNED NOT NULL,
+`pm_74` SMALLINT UNSIGNED NOT NULL,
+`pm_75` SMALLINT UNSIGNED NOT NULL,
+`pm_76` SMALLINT UNSIGNED NOT NULL,
+`pm_77` SMALLINT UNSIGNED NOT NULL,
+`pm_78` SMALLINT UNSIGNED NOT NULL,
+`pm_79` SMALLINT UNSIGNED NOT NULL,
+`pm_80` SMALLINT UNSIGNED NOT NULL,
+`pm_81` SMALLINT UNSIGNED NOT NULL,
+`pm_82` SMALLINT UNSIGNED NOT NULL,
+`pm_83` SMALLINT UNSIGNED NOT NULL,
+`pm_84` SMALLINT UNSIGNED NOT NULL,
+`pm_85` SMALLINT UNSIGNED NOT NULL,
+`pm_86` SMALLINT UNSIGNED NOT NULL,
+`pm_87` SMALLINT UNSIGNED NOT NULL,
+`pm_88` SMALLINT UNSIGNED NOT NULL,
+`pm_89` SMALLINT UNSIGNED NOT NULL,
+`pm_90` SMALLINT UNSIGNED NOT NULL,
+`pm_91` SMALLINT UNSIGNED NOT NULL,
+`pm_92` SMALLINT UNSIGNED NOT NULL,
+`pm_93` SMALLINT UNSIGNED NOT NULL,
+`pm_94` SMALLINT UNSIGNED NOT NULL,
+`pm_95` SMALLINT UNSIGNED NOT NULL,
+`pm_96` SMALLINT UNSIGNED NOT NULL,
+`pm_97` SMALLINT UNSIGNED NOT NULL,
+`pm_98` SMALLINT UNSIGNED NOT NULL,
+`pm_99` SMALLINT UNSIGNED NOT NULL,
+`pm_100` SMALLINT UNSIGNED NOT NULL,
 PRIMARY KEY(`pm_id`),
-FOREIGN KEY(`pm_mode_id`) REFERENCES `modes`(`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY(`pm_winning_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY(`pm_second_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY(`pm_third_team_id`) REFERENCES `teams`(`team_id`) ON DELETE CASCADE ON UPDATE CASCADE);
+FOREIGN KEY(`pm_mode_id`) REFERENCES `modes`(`mode_id`) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
 ###############################################################
@@ -327,17 +415,17 @@ VALUES
                 query = @"INSERT INTO `fortnite_wm`.`played_matches`
 (`pm_mode_id`,
 `pm_match_type`,
-`pm_winning_team_id`,
-`pm_second_team_id`,
-`pm_third_team_id`,
-`pm_player_round_start`)
+`pm_1`,`pm_2`,`pm_3`,`pm_4`,`pm_5`,`pm_6`,`pm_7`,`pm_8`,`pm_9`,`pm_10`,`pm_11`,`pm_12`,`pm_13`,`pm_14`,`pm_15`,`pm_16`,`pm_17`,`pm_18`,`pm_19`,`pm_20`,`pm_21`,`pm_22`,`pm_23`,`pm_24`,`pm_25`,
+`pm_26`,`pm_27`,`pm_28`,`pm_29`,`pm_30`,`pm_31`,`pm_32`,`pm_33`,`pm_34`,`pm_35`,`pm_36`,`pm_37`,`pm_38`,`pm_39`,`pm_40`,`pm_41`,`pm_42`,`pm_43`,`pm_44`,`pm_45`,`pm_46`,`pm_47`,`pm_48`,`pm_49`,`pm_50`,
+`pm_51`,`pm_52`,`pm_53`,`pm_54`,`pm_55`,`pm_56`,`pm_57`,`pm_58`,`pm_59`,`pm_60`,`pm_61`,`pm_62`,`pm_63`,`pm_64`,`pm_65`,`pm_66`,`pm_67`,`pm_68`,`pm_69`,`pm_70`,`pm_71`,`pm_72`,`pm_73`,`pm_74`,`pm_75`,
+`pm_76`,`pm_77`,`pm_78`,`pm_79`,`pm_80`,`pm_81`,`pm_82`,`pm_83`,`pm_84`,`pm_85`,`pm_86`,`pm_87`,`pm_88`,`pm_89`,`pm_90`,`pm_91`,`pm_92`,`pm_93`,`pm_94`,`pm_95`,`pm_96`,`pm_97`,`pm_98`,`pm_99`,`pm_100`)
 VALUES
-(" + par["cb_Played_Matches_Mode_Name"] + @",
-'" + par["cb_Played_Matches_Mode_Type"] + @"',
-" + par["cb_Played_Matches_First_Place"] + @",
-" + par["cb_Played_Matches_Second_Place"] + @",
-" + par["cb_Played_Matches_Third_Place"] + @",
-" + par["nud_Max_Player"] + @");";
+("+ par["mode_id"] + @",
+'" + par["match_type"] + @"',
+" + par["pm_1"] + @"," + par["pm_2"] + @"," + par["pm_3"] + @"," + par["pm_4"] + @"," + par["pm_5"] + @"," + par["pm_6"] + @"," + par["pm_7"] + @"," + par["pm_8"] + @"," + par["pm_9"] + @"," + par["pm_10"] + @"," + par["pm_11"] + @"," + par["pm_12"] + @"," + par["pm_13"] + @"," + par["pm_14"] + @"," + par["pm_15"] + @"," + par["pm_16"] + @"," + par["pm_17"] + @"," + par["pm_18"] + @"," + par["pm_19"] + @"," + par["pm_20"] + @"," + par["pm_21"] + @"," + par["pm_22"] + @"," + par["pm_23"] + @"," + par["pm_24"] + @"," + par["pm_25"] + @",
+" + par["pm_26"] + @"," + par["pm_27"] + @"," + par["pm_28"] + @"," + par["pm_29"] + @"," + par["pm_30"] + @"," + par["pm_31"] + @"," + par["pm_32"] + @"," + par["pm_33"] + @"," + par["pm_34"] + @"," + par["pm_35"] + @"," + par["pm_36"] + @"," + par["pm_37"] + @"," + par["pm_38"] + @"," + par["pm_39"] + @"," + par["pm_40"] + @"," + par["pm_41"] + @"," + par["pm_42"] + @"," + par["pm_43"] + @"," + par["pm_44"] + @"," + par["pm_45"] + @"," + par["pm_46"] + @"," + par["pm_47"] + @"," + par["pm_48"] + @"," + par["pm_49"] + @"," + par["pm_50"] + @",
+" + par["pm_51"] + @"," + par["pm_52"] + @"," + par["pm_53"] + @"," + par["pm_54"] + @"," + par["pm_55"] + @"," + par["pm_56"] + @"," + par["pm_57"] + @"," + par["pm_58"] + @"," + par["pm_59"] + @"," + par["pm_60"] + @"," + par["pm_61"] + @"," + par["pm_62"] + @"," + par["pm_63"] + @"," + par["pm_64"] + @"," + par["pm_65"] + @"," + par["pm_66"] + @"," + par["pm_67"] + @"," + par["pm_68"] + @"," + par["pm_69"] + @"," + par["pm_70"] + @"," + par["pm_71"] + @"," + par["pm_72"] + @"," + par["pm_73"] + @"," + par["pm_74"] + @"," + par["pm_75"] + @",
+" + par["pm_76"] + @"," + par["pm_77"] + @"," + par["pm_78"] + @"," + par["pm_79"] + @"," + par["pm_80"] + @"," + par["pm_81"] + @"," + par["pm_82"] + @"," + par["pm_83"] + @"," + par["pm_84"] + @"," + par["pm_85"] + @"," + par["pm_86"] + @"," + par["pm_87"] + @"," + par["pm_88"] + @"," + par["pm_89"] + @"," + par["pm_90"] + @"," + par["pm_91"] + @"," + par["pm_92"] + @"," + par["pm_93"] + @"," + par["pm_94"] + @"," + par["pm_95"] + @"," + par["pm_96"] + @"," + par["pm_97"] + @"," + par["pm_98"] + @"," + par["pm_99"] + @"," + par["pm_100"] + @");";
                 #endregion
             }
             else if (par["Tabelle"] == "player")
@@ -434,7 +522,7 @@ NOW());";
                     tableDS.Rows.InsertAt(row, 0);
                     return tableDS;
                 case 1:
-                    query = "SELECT * FROM teams;";
+                    query = "SELECT * FROM teams where team_member = '4';";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     return tableDS;
@@ -560,7 +648,7 @@ NOW());";
             return tableDS;
         }
         
-        public int Mode_Type(string id)
+        public int Mode_Type_ID(string id)
         {
             string query = "SELECT mode_type FROM modes where mode_id = " + id + ";";
             int value = new int();
@@ -635,26 +723,266 @@ NOW());";
             return state;
         }
 
+        public void AddMember(Dictionary<string, string> par)
+        {
+            if (this.OpenConnection() == true)
+            {
+                string query = "SELECT team_member from teams WHERE team_id ='" + par["cb_Player_Team_ID"] + "';";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                int member = int.Parse(cmd.ExecuteScalar() + "") + 1;
+                query = "UPDATE TABLE teams SET team_member = '" + member + "' WHERE team_id = '" + par["cb_Player_Team_ID"] + "' ;";
+                cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+            }
+        }
+
+        public void RefreshTeamMember()
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable dt = new DataTable();
+            int[] team;
+            string query = "SELECT player_team_id, count(player_id) FROM player GROUP BY player_team_id ORDER BY player_team_id asc;";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            team = new int[dt.Rows.Count];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                team[i] = int.Parse(row.ItemArray.GetValue(1).ToString());
+                i++;
+            }
+            i = 0;
+            if (this.OpenConnection() == true)
+            {
+                foreach (var member in team)
+                {
+                    query = "UPDATE TABLE teams SET team_member = '" + team[i] + "' WHERE team_id = '" + (i + 1) + "' ;";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                }
+                this.CloseConnection();
+            }
+            tableAdapter.Dispose();
+            dt.Dispose();
+        }
+        #region Simulator
         public void SimulateRound()
         {
+            Dictionary<string, string> sim = new Dictionary<string, string>
+            {
+                ["Tabelle"] = "played_matches",
+                ["mode_id"] = RandomMode().ToString()
+            };
+            string type = GetModeTypeName(int.Parse(sim["mode_id"]));
+            int[] player;
+            Random rand = new Random();
+            if (type.Contains(","))
+            {
+                sim["match_type"] = type.Split(',')[rand.Next(0, type.Split(',').Length-1)];
+            }
+            else
+            {
+                sim["match_type"] = type;
+            }
+            if (sim["match_type"] == "solo")
+            {
+                player = RandomSolo();
+            }
+            else if (sim["match_type"] == "duo")
+            {
+                player = RandomDuo();
+            }
+            else
+            {
+                player = RandomSquad();
+            }
+            for (int i = 0; i < player.Length - 1; i++)
+            {
+                int j = rand.Next(i, player.Length);
+                int temp = player[i];
+                player[i] = player[j];
+                player[j] = temp;
+            }
+            int place = 1;
+            foreach (var index in player)
+            {
+                sim["pm_"+place.ToString()] = index.ToString();
+                place++;
+            }
+            DBInsert(sim);
+            SimulatePoints(sim);
+            sim.Clear();
+        }
+        private int[] RandomSolo()
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable dt = new DataTable();
+            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 1) as 'player_id' from player group by player_team_id order by rand() limit 100;";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            player = new int[dt.Rows.Count];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                player[i] = int.Parse(row.ItemArray.GetValue(1).ToString());
+                i++;
+            }
+            return player;
+        }
+        private int RandomMode()
+        {
+            string query = "select mode_id from modes order by rand() limit 1;";
+            int modeID;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                modeID = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            else
+            {
+                modeID = -1;
+            }
+            return modeID;
+        }
+        private string GetModeTypeName(int id)
+        {
+            string query = "select mode_type from modes where mode_id = '" + id + "' limit 1;";
+            int type_id;
+            string type;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                type_id = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            else
+            {
+                type_id = -1;
+            }
+            switch (type_id)
+            {
+                case 1:
+                    type = "solo";
+                    break;
+                case 2:
+                    type = "duo";
+                    break;
+                case 3:
+                    type = "solo,duo";
+                    break;
+                case 4:
+                    type = "squad";
+                    break;
+                case 5:
+                    type = "solo,squad";
+                    break;
+                case 6:
+                    type = "duo,squad";
+                    break;
+                case 7:
+                    type = "solo,duo,squad";
+                    break;
+                default:
+                    type = "err";
+                    break;
+            }
+            return type;
+        }
+        private int[] RandomDuo()
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable dt = new DataTable();
+            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 2) as 'player_id' from player group by player_team_id order by rand() limit 50;";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            player = new int[dt.Rows.Count * 2];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                player[i] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[0]);
+                player[i+1] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[1]);
+                i += 2;
+            }
+            return player;
+        }
+        private int[] RandomSquad()
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable dt = new DataTable();
+            string query = "select player_team_id,  group_concat(player_id order by rand()) as 'player_id' from player group by player_team_id order by rand() limit 25;";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            player = new int[dt.Rows.Count * 4];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                player[i] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[0]);
+                player[i + 1] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[1]);
+                player[i + 2] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[2]);
+                player[i + 3] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[3]);
+                i += 4;
+            }
+            return player;
+        }
+        private void SimulatePoints(Dictionary<string, string> par)
+        {
+            string queryPlayer;
+            string query;
+            int team = -1;
+            if (this.OpenConnection() == true)
+            {
+                for (int i = 1; i < 101; i++)
+                {
+                    queryPlayer = "SELECT player_team_id FROM player WHERE player_id = '" + par["pm_" + i] + "' LIMIT 1; ";
+                    MySqlCommand cmd = new MySqlCommand(queryPlayer, connection);
+                    team = int.Parse(cmd.ExecuteScalar() + "");
+                    query = "INSERT INTO `fortnite_wm`.`scores`(`sc_team_id`,`sc_points`) VALUES(" + team + ", " + (100 - i) + ")";
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.ExecuteNonQuery();
+                    if (i == 1)
+                    {
+                        SimulateRoundWinner(par);
+                    }
+                }
+                this.CloseConnection();
+            }
 
         }
-        
-        private void RandomSolo()
+        private void SimulateRoundWinner(Dictionary<string, string> par)
         {
-            string querySolo = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 1) as 'player_id' from player group by player_team_id order by rand() limit 100;";
+            if (this.OpenConnection() == true)
+            {
+                string query = "SELECT player_team_id from player WHERE player_id ='" + par["pm_1"] + "';";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                int team = int.Parse(cmd.ExecuteScalar() + "");
+                query = "SELECT team_wins FROM teams WHERE team_id = '" + team + "';";
+                int wins = int.Parse(cmd.ExecuteScalar() + "") + 1;
+                query = "UPDATE TABLE teams SET team_wins = '" + wins + "' WHERE team_id = '" + team + "' ;";
+                cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+            }
+            
         }
-        private void RandomMode()
+        public int GetPlayedRounds()
         {
-            string queryMode = "select mode_id from modes order by rand() limit 1;";
+            string query = "SELECT count(*) FROM played_matches;";
+            int matches;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                matches = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+            }
+            else
+            {
+                matches = -1;
+            }
+            return matches;
         }
-        private void RandomDuo()
-        {
-            string queryDuo = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 2) as 'player_id' from player group by player_team_id order by rand() limit 50;";
-        }
-        private void RandomSquad()
-        {
-            string querySquad = "select player_team_id,  group_concat(player_id order by rand()) as 'player_id' from player group by player_team_id order by rand() limit 25;";
-        }
+        #endregion
     }
 }

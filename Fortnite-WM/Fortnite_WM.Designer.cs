@@ -44,6 +44,9 @@
             this.lb_Connection = new System.Windows.Forms.Label();
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tab_Database_Infos = new System.Windows.Forms.TabPage();
+            this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
+            this.gb_WM_Info = new System.Windows.Forms.GroupBox();
+            this.tb_WM_Info = new System.Windows.Forms.TextBox();
             this.gb_TB_State = new System.Windows.Forms.GroupBox();
             this.lb_TB_ScoresValue = new System.Windows.Forms.Label();
             this.lb_TB_Scores = new System.Windows.Forms.Label();
@@ -59,10 +62,12 @@
             this.lb_TB_Modes = new System.Windows.Forms.Label();
             this.lb_TB_Maps = new System.Windows.Forms.Label();
             this.tab_Insert = new System.Windows.Forms.TabPage();
+            this.lb_Disabled = new System.Windows.Forms.Label();
             this.gb_Scores = new System.Windows.Forms.GroupBox();
             this.cb_Scores_Team_ID = new System.Windows.Forms.ComboBox();
             this.tb_Scores_Points = new System.Windows.Forms.TextBox();
             this.gb_Played_Matches = new System.Windows.Forms.GroupBox();
+            this.btn_Played_Matches_Simulate_Match = new System.Windows.Forms.Button();
             this.lb_Played_Matches_Player_at_Round_Start = new System.Windows.Forms.Label();
             this.lb_Played_Matches_Third_Place = new System.Windows.Forms.Label();
             this.lb_Played_Matches_Second_Place = new System.Windows.Forms.Label();
@@ -172,14 +177,12 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
-            this.gb_WM_Info = new System.Windows.Forms.GroupBox();
-            this.tb_WM_Info = new System.Windows.Forms.TextBox();
-            this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
-            this.lb_Disabled = new System.Windows.Forms.Label();
-            this.btn_Played_Matches_Simulate_Match = new System.Windows.Forms.Button();
+            this.btn_WM_Simulator = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
+            this.gb_WM_Simulation.SuspendLayout();
+            this.gb_WM_Info.SuspendLayout();
             this.gb_TB_State.SuspendLayout();
             this.tab_Insert.SuspendLayout();
             this.gb_Scores.SuspendLayout();
@@ -216,7 +219,6 @@
             this.groupBox2.SuspendLayout();
             this.gb_Delete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).BeginInit();
-            this.gb_WM_Info.SuspendLayout();
             this.SuspendLayout();
             // 
             // gb_DB_State
@@ -380,6 +382,42 @@
             this.tab_Database_Infos.TabIndex = 0;
             this.tab_Database_Infos.Text = "DB Infos";
             // 
+            // gb_WM_Simulation
+            // 
+            this.gb_WM_Simulation.Controls.Add(this.btn_WM_Simulator);
+            this.gb_WM_Simulation.Location = new System.Drawing.Point(4, 316);
+            this.gb_WM_Simulation.Name = "gb_WM_Simulation";
+            this.gb_WM_Simulation.Size = new System.Drawing.Size(202, 192);
+            this.gb_WM_Simulation.TabIndex = 3;
+            this.gb_WM_Simulation.TabStop = false;
+            this.gb_WM_Simulation.Text = "Simulation";
+            // 
+            // gb_WM_Info
+            // 
+            this.gb_WM_Info.BackColor = System.Drawing.Color.Transparent;
+            this.gb_WM_Info.Controls.Add(this.tb_WM_Info);
+            this.gb_WM_Info.Location = new System.Drawing.Point(213, 7);
+            this.gb_WM_Info.Name = "gb_WM_Info";
+            this.gb_WM_Info.Size = new System.Drawing.Size(241, 501);
+            this.gb_WM_Info.TabIndex = 2;
+            this.gb_WM_Info.TabStop = false;
+            this.gb_WM_Info.Text = "WM Info";
+            // 
+            // tb_WM_Info
+            // 
+            this.tb_WM_Info.BackColor = System.Drawing.Color.Gray;
+            this.tb_WM_Info.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_WM_Info.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.tb_WM_Info.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_WM_Info.Location = new System.Drawing.Point(3, 16);
+            this.tb_WM_Info.Multiline = true;
+            this.tb_WM_Info.Name = "tb_WM_Info";
+            this.tb_WM_Info.ReadOnly = true;
+            this.tb_WM_Info.Size = new System.Drawing.Size(235, 482);
+            this.tb_WM_Info.TabIndex = 0;
+            this.tb_WM_Info.TabStop = false;
+            this.tb_WM_Info.Text = resources.GetString("tb_WM_Info.Text");
+            // 
             // gb_TB_State
             // 
             this.gb_TB_State.Controls.Add(this.lb_TB_ScoresValue);
@@ -542,6 +580,17 @@
             this.tab_Insert.TabIndex = 1;
             this.tab_Insert.Text = "Dateneingaben";
             // 
+            // lb_Disabled
+            // 
+            this.lb_Disabled.AutoSize = true;
+            this.lb_Disabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lb_Disabled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lb_Disabled.Location = new System.Drawing.Point(6, 347);
+            this.lb_Disabled.Name = "lb_Disabled";
+            this.lb_Disabled.Size = new System.Drawing.Size(357, 15);
+            this.lb_Disabled.TabIndex = 24;
+            this.lb_Disabled.Text = "Einige Elemente dieser Eingabemaske wurden vorübergehend deaktiviert.";
+            // 
             // gb_Scores
             // 
             this.gb_Scores.BackColor = System.Drawing.Color.Transparent;
@@ -595,6 +644,16 @@
             this.gb_Played_Matches.TabIndex = 22;
             this.gb_Played_Matches.TabStop = false;
             this.gb_Played_Matches.Text = "Abgeschlossene Spiele";
+            // 
+            // btn_Played_Matches_Simulate_Match
+            // 
+            this.btn_Played_Matches_Simulate_Match.Location = new System.Drawing.Point(9, 184);
+            this.btn_Played_Matches_Simulate_Match.Name = "btn_Played_Matches_Simulate_Match";
+            this.btn_Played_Matches_Simulate_Match.Size = new System.Drawing.Size(221, 27);
+            this.btn_Played_Matches_Simulate_Match.TabIndex = 12;
+            this.btn_Played_Matches_Simulate_Match.Text = "Runde Simulieren";
+            this.btn_Played_Matches_Simulate_Match.UseVisualStyleBackColor = true;
+            this.btn_Played_Matches_Simulate_Match.Click += new System.EventHandler(this.Btn_Played_Matches_Simulate_Match_Click);
             // 
             // lb_Played_Matches_Player_at_Round_Start
             // 
@@ -1774,61 +1833,15 @@
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
             // 
-            // gb_WM_Info
+            // btn_WM_Simulator
             // 
-            this.gb_WM_Info.BackColor = System.Drawing.Color.Transparent;
-            this.gb_WM_Info.Controls.Add(this.tb_WM_Info);
-            this.gb_WM_Info.Location = new System.Drawing.Point(213, 7);
-            this.gb_WM_Info.Name = "gb_WM_Info";
-            this.gb_WM_Info.Size = new System.Drawing.Size(241, 501);
-            this.gb_WM_Info.TabIndex = 2;
-            this.gb_WM_Info.TabStop = false;
-            this.gb_WM_Info.Text = "WM Info";
-            // 
-            // tb_WM_Info
-            // 
-            this.tb_WM_Info.BackColor = System.Drawing.Color.Gray;
-            this.tb_WM_Info.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_WM_Info.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tb_WM_Info.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tb_WM_Info.Location = new System.Drawing.Point(3, 16);
-            this.tb_WM_Info.Multiline = true;
-            this.tb_WM_Info.Name = "tb_WM_Info";
-            this.tb_WM_Info.ReadOnly = true;
-            this.tb_WM_Info.Size = new System.Drawing.Size(235, 482);
-            this.tb_WM_Info.TabIndex = 0;
-            this.tb_WM_Info.TabStop = false;
-            this.tb_WM_Info.Text = resources.GetString("tb_WM_Info.Text");
-            // 
-            // gb_WM_Simulation
-            // 
-            this.gb_WM_Simulation.Location = new System.Drawing.Point(4, 316);
-            this.gb_WM_Simulation.Name = "gb_WM_Simulation";
-            this.gb_WM_Simulation.Size = new System.Drawing.Size(196, 192);
-            this.gb_WM_Simulation.TabIndex = 3;
-            this.gb_WM_Simulation.TabStop = false;
-            this.gb_WM_Simulation.Text = "Simulation";
-            // 
-            // lb_Disabled
-            // 
-            this.lb_Disabled.AutoSize = true;
-            this.lb_Disabled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lb_Disabled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lb_Disabled.Location = new System.Drawing.Point(6, 347);
-            this.lb_Disabled.Name = "lb_Disabled";
-            this.lb_Disabled.Size = new System.Drawing.Size(357, 15);
-            this.lb_Disabled.TabIndex = 24;
-            this.lb_Disabled.Text = "Einige Elemente dieser Eingabemaske wurden vorübergehend deaktiviert.";
-            // 
-            // btn_Played_Matches_Simulate_Match
-            // 
-            this.btn_Played_Matches_Simulate_Match.Location = new System.Drawing.Point(9, 184);
-            this.btn_Played_Matches_Simulate_Match.Name = "btn_Played_Matches_Simulate_Match";
-            this.btn_Played_Matches_Simulate_Match.Size = new System.Drawing.Size(221, 27);
-            this.btn_Played_Matches_Simulate_Match.TabIndex = 12;
-            this.btn_Played_Matches_Simulate_Match.Text = "Runde Simulieren";
-            this.btn_Played_Matches_Simulate_Match.UseVisualStyleBackColor = true;
-            this.btn_Played_Matches_Simulate_Match.Click += new System.EventHandler(this.Btn_Played_Matches_Simulate_Match_Click);
+            this.btn_WM_Simulator.Location = new System.Drawing.Point(6, 98);
+            this.btn_WM_Simulator.Name = "btn_WM_Simulator";
+            this.btn_WM_Simulator.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Simulator.TabIndex = 0;
+            this.btn_WM_Simulator.Text = "WM Simulieren";
+            this.btn_WM_Simulator.UseVisualStyleBackColor = true;
+            this.btn_WM_Simulator.Click += new System.EventHandler(this.Btn_WM_Simulator_Click);
             // 
             // Fortnite_WM
             // 
@@ -1847,6 +1860,9 @@
             this.gb_DB_State.PerformLayout();
             this.tc_fortnitewm.ResumeLayout(false);
             this.tab_Database_Infos.ResumeLayout(false);
+            this.gb_WM_Simulation.ResumeLayout(false);
+            this.gb_WM_Info.ResumeLayout(false);
+            this.gb_WM_Info.PerformLayout();
             this.gb_TB_State.ResumeLayout(false);
             this.gb_TB_State.PerformLayout();
             this.tab_Insert.ResumeLayout(false);
@@ -1895,8 +1911,6 @@
             this.groupBox2.ResumeLayout(false);
             this.gb_Delete.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Delete)).EndInit();
-            this.gb_WM_Info.ResumeLayout(false);
-            this.gb_WM_Info.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2051,6 +2065,7 @@
         private System.Windows.Forms.GroupBox gb_WM_Simulation;
         private System.Windows.Forms.Label lb_Disabled;
         private System.Windows.Forms.Button btn_Played_Matches_Simulate_Match;
+        private System.Windows.Forms.Button btn_WM_Simulator;
     }
 }
 
