@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fortnite_WM));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gb_DB_State = new System.Windows.Forms.GroupBox();
             this.lb_DB_Server = new System.Windows.Forms.Label();
             this.tb_DB_Server = new System.Windows.Forms.TextBox();
@@ -45,6 +46,7 @@
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tab_Database_Infos = new System.Windows.Forms.TabPage();
             this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
+            this.btn_WM_DB_Truncate = new System.Windows.Forms.Button();
             this.btn_WM_Fill_Data = new System.Windows.Forms.Button();
             this.btn_WM_Simulator = new System.Windows.Forms.Button();
             this.gb_WM_Info = new System.Windows.Forms.GroupBox();
@@ -179,7 +181,6 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
-            this.btn_WM_DB_Truncate = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -395,6 +396,16 @@
             this.gb_WM_Simulation.TabIndex = 3;
             this.gb_WM_Simulation.TabStop = false;
             this.gb_WM_Simulation.Text = "Simulation";
+            // 
+            // btn_WM_DB_Truncate
+            // 
+            this.btn_WM_DB_Truncate.Location = new System.Drawing.Point(8, 49);
+            this.btn_WM_DB_Truncate.Name = "btn_WM_DB_Truncate";
+            this.btn_WM_DB_Truncate.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_DB_Truncate.TabIndex = 2;
+            this.btn_WM_DB_Truncate.Text = "Datenbank Leeren";
+            this.btn_WM_DB_Truncate.UseVisualStyleBackColor = true;
+            this.btn_WM_DB_Truncate.Click += new System.EventHandler(this.Btn_WM_DB_Truncate_Click);
             // 
             // btn_WM_Fill_Data
             // 
@@ -1783,10 +1794,15 @@
             // 
             this.dgv_Update.AllowUserToAddRows = false;
             this.dgv_Update.AllowUserToDeleteRows = false;
-            this.dgv_Update.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Update.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_Update.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_Update.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_Update.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgv_Update.Location = new System.Drawing.Point(3, 16);
             this.dgv_Update.Name = "dgv_Update";
+            this.dgv_Update.RowHeadersVisible = false;
+            this.dgv_Update.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgv_Update.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgv_Update.Size = new System.Drawing.Size(450, 448);
             this.dgv_Update.TabIndex = 0;
             // 
@@ -1849,23 +1865,24 @@
             // dgv_Delete
             // 
             this.dgv_Delete.AllowUserToAddRows = false;
+            this.dgv_Delete.AllowUserToResizeRows = false;
             this.dgv_Delete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_Delete.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_Delete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_Delete.Location = new System.Drawing.Point(3, 16);
             this.dgv_Delete.Name = "dgv_Delete";
             this.dgv_Delete.ReadOnly = true;
+            this.dgv_Delete.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv_Delete.Size = new System.Drawing.Size(450, 448);
             this.dgv_Delete.TabIndex = 0;
-            // 
-            // btn_WM_DB_Truncate
-            // 
-            this.btn_WM_DB_Truncate.Location = new System.Drawing.Point(8, 49);
-            this.btn_WM_DB_Truncate.Name = "btn_WM_DB_Truncate";
-            this.btn_WM_DB_Truncate.Size = new System.Drawing.Size(188, 23);
-            this.btn_WM_DB_Truncate.TabIndex = 2;
-            this.btn_WM_DB_Truncate.Text = "Datenbank Leeren";
-            this.btn_WM_DB_Truncate.UseVisualStyleBackColor = true;
-            this.btn_WM_DB_Truncate.Click += new System.EventHandler(this.Btn_WM_DB_Truncate_Click);
+            this.dgv_Delete.TabStop = false;
             // 
             // Fortnite_WM
             // 
