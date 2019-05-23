@@ -26,6 +26,7 @@ namespace Fortnite_WM
         DataTable ranking_second = new DataTable();
         DataTable ranking_third = new DataTable();
         #endregion
+
         #region Init
         public Fortnite_WM()
         {
@@ -51,6 +52,7 @@ namespace Fortnite_WM
             gb_Scores.Visible = false;
         }
         #endregion
+
         #region DB Status Abfrage / Erstellung
         private bool DBConState()
         {
@@ -132,6 +134,7 @@ namespace Fortnite_WM
             }
         }
         #endregion
+
         #region Button Events
         private void Btn_ConnectRefresh_Click(object sender, EventArgs e)
         {
@@ -147,6 +150,7 @@ namespace Fortnite_WM
             dbcon.DBCreate();
             btn_RestoreDB.Visible = false;
             resett = true;
+            ComboFiller();
         }
         private void Btn_SaveCred_Click(object sender, EventArgs e)
         {
@@ -290,7 +294,7 @@ namespace Fortnite_WM
                         vals.Add("Tabelle", "player");
                         if (tb_Player_Nickname.Text != words[tb_Player_Nickname.Name] &&  tb_Player_Mail.Text != words[tb_Player_Mail.Name] &&
                             tb_Player_Age.Text != words[tb_Player_Age.Name] && tb_Player_Firstname.Text != words[tb_Player_Firstname.Name] && 
-                            tb_Player_Familyname.Text != words[tb_Player_Familyname.Name])
+                            tb_Player_Familyname.Text != words[tb_Player_Familyname.Name] && cb_Player_Team_ID.SelectedValue != null)
                         {
                             vals.Add(tb_Player_Nickname.Name, tb_Player_Nickname.Text);
                             vals.Add(tb_Player_Age.Name, player_age);
@@ -313,7 +317,7 @@ namespace Fortnite_WM
                             }
                             else
                             {
-                                dbcon.AddMember(vals);
+                                dbcon.AddTeamMember(vals);
                                 dbcon.DBInsert(vals);
                                 MessageBox.Show("Die Daten wurden Erfolgreich in die Datenbank eingetragen.");
                                 WordsInit();
@@ -390,6 +394,7 @@ namespace Fortnite_WM
                     default:
                         break;
                 }
+                ComboFiller();
             }
             else
             {
@@ -588,6 +593,7 @@ namespace Fortnite_WM
                     }
                 }
             }
+            ComboFiller();
         }
         private void Btn_Delete_Save_Click(object sender, EventArgs e)
         {
@@ -606,6 +612,7 @@ namespace Fortnite_WM
                         {
                             dbcon.Delete(changes, cb_Delete_Table_Select.SelectedValue.ToString());
                             ((DataTable)dgv_Delete.DataSource).AcceptChanges();
+                            dbcon.RefreshTeamMember();
                             MessageBox.Show("Daten wurden erfolgreich gelöscht.");
                         }
                         else if (dialogResult == DialogResult.No)
@@ -617,34 +624,49 @@ namespace Fortnite_WM
                     }
                 }
             }
+            ComboFiller();
         }
         private void Btn_Played_Matches_Simulate_Match_Click(object sender, EventArgs e)
         {
-            if (dbcon.GetPlayedRounds() < 80)
+            if (dbcon.MinPlayerCheck() > 99)
             {
-                dbcon.SimulateRound();
-                MessageBox.Show("Es wurde ein Spiele Simuliert");
+                if (dbcon.GetPlayedRounds() < 80)
+                {
+                    dbcon.SimulateRound();
+                    MessageBox.Show("Es wurde ein Spiele Simuliert");
+                }
+                else
+                {
+                    MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+                }
             }
             else
             {
-                MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+                MessageBox.Show("Es müssen mindestens 100 Spieler vorhanden sein um ein Spiel zu simulieren.");
             }
         }
         private void Btn_WM_Simulator_Click(object sender, EventArgs e)
         {
             int rounds = dbcon.GetPlayedRounds();
-            if (rounds < 80)
+            if (dbcon.MinPlayerCheck() > 99)
             {
-                MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
-                for (int i = 0; i < (80 - rounds); i++)
+                if (rounds < 80)
                 {
-                    dbcon.SimulateRound();
+                    MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
+                    for (int i = 0; i < (80 - rounds); i++)
+                    {
+                        dbcon.SimulateRound();
+                    }
+                    MessageBox.Show("Es wurden " + (80 - rounds) + " Spiele Simuliert.");
                 }
-                MessageBox.Show("Es wurden " + (80 - rounds) + " Spiele Simuliert.");
+                else
+                {
+                    MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+                }
             }
             else
             {
-                MessageBox.Show("Es wurden genug Spiele Simuliert. Bitte WM auswerten.");
+                MessageBox.Show("Es müssen mindestens 100 Spieler vorhanden sein um die WM zu simulieren.");
             }
         }
         private void Btn_WM_Fill_Data_Click(object sender, EventArgs e)
@@ -654,6 +676,8 @@ namespace Fortnite_WM
             {
                 dbcon.DBTruncate();
                 dbcon.DBFill();
+                dbcon.RefreshTeamMember();
+                ComboFiller();
                 MessageBox.Show("Beispieldaten wurden erfolgreich in die Datenbank geladen.");
             }
             else
@@ -668,6 +692,7 @@ namespace Fortnite_WM
             if (dialogResult == DialogResult.Yes)
             {
                 dbcon.DBTruncate();
+                ComboFiller();
                 MessageBox.Show("Die Datenbank wurde erfolgreich geleert.");
             }
             else
@@ -676,6 +701,7 @@ namespace Fortnite_WM
             }
         }
         #endregion
+
         #region TextBox Events
         private void Tb_Enter(object sender, EventArgs e)
         {
@@ -738,6 +764,7 @@ namespace Fortnite_WM
             }
         }
         #endregion
+
         #region MonthCalender Events
         private void MC_DateSelected(object sender, System.Windows.Forms.DateRangeEventArgs e)
         {
@@ -746,6 +773,7 @@ namespace Fortnite_WM
             tb_Player_Age.ForeColor = Color.Black;
         }
         #endregion
+
         #region Hintergrund Methoden
         private void WordsInit()
         {
@@ -960,6 +988,7 @@ namespace Fortnite_WM
             
         }
         #endregion
+
         #region ComboBox Events
         private void CB_Insert_Table_Select_TextChanged(object sender, EventArgs e)
         {
@@ -1197,9 +1226,6 @@ namespace Fortnite_WM
             }
             
         }
-
         #endregion
-
-        
     }
 }

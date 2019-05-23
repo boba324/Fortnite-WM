@@ -8,6 +8,7 @@ namespace Fortnite_WM
 {
     class DBcon
     {
+        #region Variablen Deklaration
         private MySqlConnection connection;
         private MySqlDataAdapter mda;
         private string server = "";
@@ -19,6 +20,9 @@ namespace Fortnite_WM
         public string PropPassword { set { password = value; } }
         public string PropDatabase { set { database = value; } }
         public string PropServer { set { server = value; } }
+        #endregion
+
+        #region DB Connection
         public DBcon()
         {
             Connector();
@@ -39,86 +43,48 @@ namespace Fortnite_WM
             return state;
         }
 
-        public int DBexist()
+        private bool OpenConnection()
         {
-            string query = "SELECT COUNT(*) FROM information_schema.schemata WHERE SCHEMA_NAME='fortnite_wm';";
-            int Count = -1;
-            if (this.OpenConnection() == true)
+            try
             {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                Count = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-                return Count;
+                connection.Open();
+                return true;
             }
-            else
+            catch (MySqlException ex)
             {
-                return Count;
-            }
-        }
-
-        public Dictionary<string, int> TBexist()
-        {
-            Dictionary<string, int> tbexist = new Dictionary<string, int>();
-            string query = "";
-            string key = "";
-
-            if (this.OpenConnection() == true)
-            {
-                int i = 0;
-                while (i < 6)
+                switch (ex.Number)
                 {
-                    switch (i + 1)
-                    {
-                        case 1:
-                            key = "maps";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'maps' LIMIT 1; ";
-                            break;
-                        case 2:
-                            key = "modes";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'modes' LIMIT 1;";
-                            break;
-                        case 3:
-                            key = "played_matches";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'played_matches' LIMIT 1;";
-                            break;
-                        case 4:
-                            key = "player";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'player' LIMIT 1;";
-                            break;
-                        case 5:
-                            key = "teams";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'teams' LIMIT 1;";
-                            break;
-                        case 6:
-                            key = "scores";
-                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'scores' LIMIT 1;";
-                            break;
-                        default:
-                            MessageBox.Show("Tabelle nicht bekannt.");
-                            break;
-                    }
-                    try
-                    {
-                        MySqlCommand cmd = new MySqlCommand(query, connection);
-                        tbexist.Add(key, int.Parse(cmd.ExecuteScalar() + ""));
-                        cmd.Dispose();
-                    }
-                    catch (Exception)
-                    {
-                        tbexist.Add(key, 0);
-                    }
-                    i++;
+                    case 0:
+                        MessageBox.Show("Keine Verbindung zum Server. Bitte kontaktieren sie ihren Systemadministrator");
+                        break;
+
+                    case 1045:
+                        MessageBox.Show("User ID oder Passwort stimmt nicht überein, bitte versuche sie es erneut.");
+                        break;
+                    default:
+                        MessageBox.Show(ex.ToString());
+                        break;
                 }
-                this.CloseConnection();
-                return tbexist;
-            }
-            else
-            {
-                return tbexist;
+                return false;
             }
         }
 
+        private bool CloseConnection()
+        {
+            try
+            {
+                connection.Close();
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        #endregion
+
+        #region DB Create / Fill / Clear
         public void DBCreate()
         {
             #region CreateDBQuery
@@ -383,7 +349,6 @@ FOREIGN KEY(`sc_pm_id`) REFERENCES `played_matches`(`pm_id`) ON DELETE CASCADE O
                 cmd.Dispose();
             }
         }
-
         public void DBFill()
         {
             if (this.OpenConnection() == true)
@@ -1476,6 +1441,9 @@ SET FOREIGN_KEY_CHECKS = 1;";
                 cmd.Dispose();
             }
         }
+        #endregion
+
+        #region _UPDATE | SELECT | INSERT | DELETE_
         public void DBInsert(Dictionary<string, string> par)
         {
             string query = "";
@@ -1600,7 +1568,80 @@ NOW());";
                 cmd.Dispose();
             }
         }
+        public void Update(DataTable changes, string table)
+        {
+            if (this.OpenConnection() == true)
+            {
+                try
+                {
+                    mda = new MySqlDataAdapter("select * from " + table, connection);
+                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                    mda.UpdateCommand = mcb.GetUpdateCommand();
+                    mda.Update(changes);
+                    mcb.Dispose();
+                    mda.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
+            }
+            
+        }
+        public void Delete(DataTable changes, string table)
+        {
+            if (this.OpenConnection() == true)
+            {
+                try
+                {
+                    mda = new MySqlDataAdapter("select * from " + table, connection);
+                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                    mda.DeleteCommand = mcb.GetDeleteCommand();
+                    mda.Update(changes);
+                    mcb.Dispose();
+                    mda.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
+            }
+            
+        }
+        public DataTable Select(string query)
+        {
+            MySqlDataAdapter tableAdapter;
+            DataTable tableDS = new DataTable();
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(tableDS);
+            tableAdapter.Dispose();
+            tableDS.Dispose();
+            return tableDS;
+        }
+        #endregion
 
+        #region Prüf Methoden
+        public int Mode_Type_ID(string id)
+        {
+            string query = "SELECT mode_type FROM modes where mode_id = " + id + ";";
+            int value = new int();
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                value = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return value;
+        }
         public DataTable ComboData(int par)
         {
             string query = "";
@@ -1620,7 +1661,7 @@ NOW());";
                     tableDS.Dispose();
                     return tableDS;
                 case 1:
-                    query = "SELECT * FROM teams where team_member = '4';";
+                    query = "SELECT * FROM teams where team_member != '4';";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
@@ -1669,122 +1710,6 @@ NOW());";
                     return tableDS;
             }
         }
-
-        private bool OpenConnection()
-        {
-            try
-            {
-                connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                switch (ex.Number)
-                {
-                    case 0:
-                        MessageBox.Show("Keine Verbindung zum Server. Bitte kontaktieren sie ihren Systemadministrator");
-                        break;
-
-                    case 1045:
-                        MessageBox.Show("User ID oder Passwort stimmt nicht überein, bitte versuche sie es erneut.");
-                        break;
-                    default:
-                        MessageBox.Show(ex.ToString());
-                        break;
-                }
-                return false;
-            }
-        }
-
-        private bool CloseConnection()
-        {
-            try
-            {
-                connection.Close();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-        public void Update(DataTable changes, string table)
-        {
-            if (this.OpenConnection() == true)
-            {
-                try
-                {
-                    mda = new MySqlDataAdapter("select * from " + table, connection);
-                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
-                    mda.UpdateCommand = mcb.GetUpdateCommand();
-                    mda.Update(changes);
-                    mcb.Dispose();
-                    mda.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-                finally
-                {
-                    this.CloseConnection();
-                }
-            }
-            
-        }
-        
-        public void Delete(DataTable changes, string table)
-        {
-            if (this.OpenConnection() == true)
-            {
-                try
-                {
-                    mda = new MySqlDataAdapter("select * from " + table, connection);
-                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
-                    mda.DeleteCommand = mcb.GetDeleteCommand();
-                    mda.Update(changes);
-                    mcb.Dispose();
-                    mda.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-                finally
-                {
-                    this.CloseConnection();
-                }
-            }
-            
-        }
-        
-        public DataTable Select(string query)
-        {
-            MySqlDataAdapter tableAdapter;
-            DataTable tableDS = new DataTable();
-            tableAdapter = new MySqlDataAdapter(query, connection);
-            tableAdapter.Fill(tableDS);
-            tableAdapter.Dispose();
-            tableDS.Dispose();
-            return tableDS;
-        }
-        
-        public int Mode_Type_ID(string id)
-        {
-            string query = "SELECT mode_type FROM modes where mode_id = " + id + ";";
-            int value = new int();
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                value = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-            return value;
-        }
-
         public DataTable ColumnNames(string table)
         {
             MySqlDataAdapter tableAdapter;
@@ -1796,78 +1721,6 @@ NOW());";
             tableDS.Dispose();
             return tableDS;
         }
-
-        public int NicknameExist(string nick)
-        {
-            string query = "SELECT COUNT(*) FROM player WHERE player_nickname = '" + nick + "' LIMIT 1; ";
-            int state = 0;
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                state = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-            return state;
-        }
-
-        public int TeamnameExist(string team)
-        {
-            string query = "SELECT COUNT(*) FROM teams WHERE team_name = '" + team + "' LIMIT 1; ";
-            int state = 0;
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                state = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-            return state;
-        }
-
-        public int ModeExist(string mode)
-        {
-            string query = "SELECT COUNT(*) FROM modes WHERE mode_name = '" + mode + "' LIMIT 1; ";
-            int state = 0;
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                state = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-            return state;
-        }
-
-        public int MapExist(string map)
-        {
-            string query = "SELECT COUNT(*) FROM maps WHERE map_name = '" + map + "' LIMIT 1; ";
-            int state = 0;
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                state = int.Parse(cmd.ExecuteScalar() + "");
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-            return state;
-        }
-
-        public void AddMember(Dictionary<string, string> par)
-        {
-            if (this.OpenConnection() == true)
-            {
-                string query = "SELECT team_member from teams WHERE team_id ='" + par["cb_Player_Team_ID"] + "';";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                int member = int.Parse(cmd.ExecuteScalar() + "") + 1;
-                query = "UPDATE teams SET team_member = '" + member + "' WHERE team_id = '" + par["cb_Player_Team_ID"] + "' ;";
-                cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-                this.CloseConnection();
-                cmd.Dispose();
-            }
-        }
-
         public void RefreshTeamMember()
         {
             MySqlDataAdapter tableAdapter;
@@ -1886,19 +1739,179 @@ NOW());";
             i = 0;
             if (this.OpenConnection() == true)
             {
-                foreach (var member in team)
+                MySqlCommand cmd = new MySqlCommand();
+                foreach (int member in team)
                 {
-                    query = "UPDATE teams SET team_member = '" + team[i] + "' WHERE team_id = '" + (i + 1) + "' ;";
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    query = "UPDATE teams SET team_member = '" + member + "' WHERE team_id = '" + (i + 1) + "' ;";//
                     cmd = new MySqlCommand(query, connection);
                     cmd.ExecuteNonQuery();
-                    cmd.Dispose();
+                    i++;
                 }
                 this.CloseConnection();
+                cmd.Dispose();
             }
             tableAdapter.Dispose();
             dt.Dispose();
         }
+        public void AddTeamMember(Dictionary<string, string> par)
+        {
+            if (this.OpenConnection() == true)
+            {
+                string query = "SELECT team_member from teams WHERE team_id ='" + par["cb_Player_Team_ID"] + "';";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                int member = int.Parse(cmd.ExecuteScalar() + "") + 1;
+                query = "UPDATE teams SET team_member = '" + member + "' WHERE team_id = '" + par["cb_Player_Team_ID"] + "' ;";
+                cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+        }
+        public int MinPlayerCheck()
+        {
+            string query = "SELECT COUNT(*) FROM player";
+            int player = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                player = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return player;
+        }
+        public int DBexist()
+        {
+            string query = "SELECT COUNT(*) FROM information_schema.schemata WHERE SCHEMA_NAME='fortnite_wm';";
+            int Count = -1;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                Count = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+                return Count;
+            }
+            else
+            {
+                return Count;
+            }
+        }
+        public Dictionary<string, int> TBexist()
+        {
+            Dictionary<string, int> tbexist = new Dictionary<string, int>();
+            string query = "";
+            string key = "";
+
+            if (this.OpenConnection() == true)
+            {
+                int i = 0;
+                while (i < 6)
+                {
+                    switch (i + 1)
+                    {
+                        case 1:
+                            key = "maps";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'maps' LIMIT 1; ";
+                            break;
+                        case 2:
+                            key = "modes";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'modes' LIMIT 1;";
+                            break;
+                        case 3:
+                            key = "played_matches";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'played_matches' LIMIT 1;";
+                            break;
+                        case 4:
+                            key = "player";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'player' LIMIT 1;";
+                            break;
+                        case 5:
+                            key = "teams";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'teams' LIMIT 1;";
+                            break;
+                        case 6:
+                            key = "scores";
+                            query = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'fortnite_wm' AND table_name = 'scores' LIMIT 1;";
+                            break;
+                        default:
+                            MessageBox.Show("Tabelle nicht bekannt.");
+                            break;
+                    }
+                    try
+                    {
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        tbexist.Add(key, int.Parse(cmd.ExecuteScalar() + ""));
+                        cmd.Dispose();
+                    }
+                    catch (Exception)
+                    {
+                        tbexist.Add(key, 0);
+                    }
+                    i++;
+                }
+                this.CloseConnection();
+                return tbexist;
+            }
+            else
+            {
+                return tbexist;
+            }
+        }
+        public int NicknameExist(string nick)
+        {
+            string query = "SELECT COUNT(*) FROM player WHERE player_nickname = '" + nick + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return state;
+        }
+        public int TeamnameExist(string team)
+        {
+            string query = "SELECT COUNT(*) FROM teams WHERE team_name = '" + team + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return state;
+        }
+        public int ModeExist(string mode)
+        {
+            string query = "SELECT COUNT(*) FROM modes WHERE mode_name = '" + mode + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return state;
+        }
+        public int MapExist(string map)
+        {
+            string query = "SELECT COUNT(*) FROM maps WHERE map_name = '" + map + "' LIMIT 1; ";
+            int state = 0;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                state = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+            return state;
+        }
+        #endregion
+        
         #region Simulator
         public void SimulateRound()
         {
