@@ -48,7 +48,7 @@ namespace Fortnite_WM
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 Count = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
-
+                cmd.Dispose();
                 return Count;
             }
             else
@@ -102,6 +102,7 @@ namespace Fortnite_WM
                     {
                         MySqlCommand cmd = new MySqlCommand(query, connection);
                         tbexist.Add(key, int.Parse(cmd.ExecuteScalar() + ""));
+                        cmd.Dispose();
                     }
                     catch (Exception)
                     {
@@ -110,7 +111,6 @@ namespace Fortnite_WM
                     i++;
                 }
                 this.CloseConnection();
-
                 return tbexist;
             }
             else
@@ -380,6 +380,7 @@ FOREIGN KEY(`sc_pm_id`) REFERENCES `played_matches`(`pm_id`) ON DELETE CASCADE O
                 MySqlCommand cmd = new MySqlCommand(createDBQuery, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
+                cmd.Dispose();
             }
         }
 
@@ -1437,6 +1438,7 @@ INSERT INTO `fortnite_wm`.`modes` (`mode_name`,`mode_type`,`mode_map_id`,`mode_w
                 MySqlCommand cmd = new MySqlCommand(insertDBQuery, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
+                cmd.Dispose();
             }
         }
         public void DBTruncate()
@@ -1471,6 +1473,7 @@ SET FOREIGN_KEY_CHECKS = 1;";
                 MySqlCommand cmd = new MySqlCommand(truncateTabelsQuery, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
+                cmd.Dispose();
             }
         }
         public void DBInsert(Dictionary<string, string> par)
@@ -1594,6 +1597,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
+                cmd.Dispose();
             }
         }
 
@@ -1612,41 +1616,56 @@ NOW());";
                     row = tableDS.NewRow();
                     row["TABLE_NAME"] = "-";
                     tableDS.Rows.InsertAt(row, 0);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 1:
                     query = "SELECT * FROM teams where team_member = '4';";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 2:
                     query = "SELECT * FROM player;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 3:
                     query = "SELECT * FROM maps;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 4:
                     query = "SELECT * FROM modes;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 5:
                     query = "SELECT * FROM played_matches;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 case 6:
                     query = "SELECT * FROM scores;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
+                    tableAdapter.Dispose();
+                    tableDS.Dispose();
                     return tableDS;
                 default:
                     row = tableDS.NewRow();
                     row["err"] = "err";
                     tableDS.Rows.InsertAt(row, 0);
+                    tableDS.Dispose();
                     return tableDS;
             }
         }
@@ -1693,42 +1712,52 @@ NOW());";
 
         public void Update(DataTable changes, string table)
         {
-            OpenConnection();
-            try
+            if (this.OpenConnection() == true)
             {
-                mda = new MySqlDataAdapter("select * from " + table, connection);
-                MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
-                mda.UpdateCommand = mcb.GetUpdateCommand();
-                mda.Update(changes);
+                try
+                {
+                    mda = new MySqlDataAdapter("select * from " + table, connection);
+                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                    mda.UpdateCommand = mcb.GetUpdateCommand();
+                    mda.Update(changes);
+                    mcb.Dispose();
+                    mda.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                CloseConnection();
-            }
+            
         }
         
         public void Delete(DataTable changes, string table)
         {
-            OpenConnection();
-            try
+            if (this.OpenConnection() == true)
             {
-                mda = new MySqlDataAdapter("select * from " + table, connection);
-                MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
-                mda.DeleteCommand = mcb.GetDeleteCommand();
-                mda.Update(changes);
+                try
+                {
+                    mda = new MySqlDataAdapter("select * from " + table, connection);
+                    MySqlCommandBuilder mcb = new MySqlCommandBuilder(mda);
+                    mda.DeleteCommand = mcb.GetDeleteCommand();
+                    mda.Update(changes);
+                    mcb.Dispose();
+                    mda.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
-                CloseConnection();
-            }
+            
         }
         
         public DataTable Select(string query)
@@ -1737,6 +1766,8 @@ NOW());";
             DataTable tableDS = new DataTable();
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(tableDS);
+            tableAdapter.Dispose();
+            tableDS.Dispose();
             return tableDS;
         }
         
@@ -1749,6 +1780,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 value = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             return value;
         }
@@ -1760,6 +1792,8 @@ NOW());";
             string query = "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = 'fortnite_wm' AND table_name = '"+ table +"'";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(tableDS);
+            tableAdapter.Dispose();
+            tableDS.Dispose();
             return tableDS;
         }
 
@@ -1772,6 +1806,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 state = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             return state;
         }
@@ -1785,6 +1820,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 state = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             return state;
         }
@@ -1798,6 +1834,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 state = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             return state;
         }
@@ -1811,6 +1848,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 state = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             return state;
         }
@@ -1826,6 +1864,7 @@ NOW());";
                 cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
                 this.CloseConnection();
+                cmd.Dispose();
             }
         }
 
@@ -1853,6 +1892,7 @@ NOW());";
                     MySqlCommand cmd = new MySqlCommand(query, connection);
                     cmd = new MySqlCommand(query, connection);
                     cmd.ExecuteNonQuery();
+                    cmd.Dispose();
                 }
                 this.CloseConnection();
             }
@@ -1921,6 +1961,8 @@ NOW());";
                 player[i] = int.Parse(row.ItemArray.GetValue(1).ToString());
                 i++;
             }
+            tableAdapter.Dispose();
+            dt.Dispose();
             return player;
         }
         private int RandomMode()
@@ -1932,6 +1974,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 modeID = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             else
             {
@@ -1949,6 +1992,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 type_id = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             else
             {
@@ -1998,6 +2042,8 @@ NOW());";
                 player[i+1] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[1]);
                 i += 2;
             }
+            tableAdapter.Dispose();
+            dt.Dispose();
             return player;
         }
         private int[] RandomSquad()
@@ -2017,6 +2063,8 @@ NOW());";
                 player[i + 3] = int.Parse(row.ItemArray.GetValue(1).ToString().Split(',')[3]);
                 i += 4;
             }
+            tableAdapter.Dispose();
+            dt.Dispose();
             return player;
         }
         private void SimulatePoints(Dictionary<string, string> par)
@@ -2039,6 +2087,7 @@ NOW());";
                     query = "INSERT INTO `fortnite_wm`.`scores`(`sc_team_id`,`sc_points`,`sc_pm_id`) VALUES(" + team + ", " + (100 - i) + ", " + pm + ")";
                     cmd = new MySqlCommand(query, connection);
                     cmd.ExecuteNonQuery();
+                    cmd.Dispose();
                     if (i == 1)
                     {
                         SimulateRoundWinner(par);
@@ -2059,6 +2108,7 @@ NOW());";
             query = "UPDATE teams SET team_wins = '" + wins + "' WHERE team_id = '" + team + "' ;";
             cmd = new MySqlCommand(query, connection);
             cmd.ExecuteNonQuery();
+            cmd.Dispose();
         }
         public int GetPlayedRounds()
         {
@@ -2069,6 +2119,7 @@ NOW());";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 matches = int.Parse(cmd.ExecuteScalar() + "");
                 this.CloseConnection();
+                cmd.Dispose();
             }
             else
             {

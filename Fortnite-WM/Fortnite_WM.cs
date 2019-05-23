@@ -662,6 +662,19 @@ namespace Fortnite_WM
             }
             
         }
+        private void Btn_WM_DB_Truncate_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Sind sie sicher das sie alle Daten löschen wollen?", "Löschen", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                dbcon.DBTruncate();
+                MessageBox.Show("Die Datenbank wurde erfolgreich geleert.");
+            }
+            else
+            {
+                MessageBox.Show("Es wurden keine Änderung vorgenommen.");
+            }
+        }
         #endregion
         #region TextBox Events
         private void Tb_Enter(object sender, EventArgs e)
@@ -1184,6 +1197,7 @@ namespace Fortnite_WM
             }
             
         }
+
         #endregion
 
         

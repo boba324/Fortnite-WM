@@ -42,6 +42,7 @@
             this.dgv_Ausgabe.Location = new System.Drawing.Point(0, 0);
             this.dgv_Ausgabe.Name = "dgv_Ausgabe";
             this.dgv_Ausgabe.ReadOnly = true;
+            this.dgv_Ausgabe.RowHeadersVisible = false;
             this.dgv_Ausgabe.Size = new System.Drawing.Size(800, 450);
             this.dgv_Ausgabe.TabIndex = 0;
             // 
