@@ -181,6 +181,7 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
+            this.btn_WM_Winner = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -387,6 +388,7 @@
             // 
             // gb_WM_Simulation
             // 
+            this.gb_WM_Simulation.Controls.Add(this.btn_WM_Winner);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_DB_Truncate);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_Fill_Data);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_Simulator);
@@ -1884,6 +1886,16 @@
             this.dgv_Delete.TabIndex = 0;
             this.dgv_Delete.TabStop = false;
             // 
+            // btn_WM_Winner
+            // 
+            this.btn_WM_Winner.Location = new System.Drawing.Point(8, 163);
+            this.btn_WM_Winner.Name = "btn_WM_Winner";
+            this.btn_WM_Winner.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Winner.TabIndex = 3;
+            this.btn_WM_Winner.Text = "WM Auswerten";
+            this.btn_WM_Winner.UseVisualStyleBackColor = true;
+            this.btn_WM_Winner.Click += new System.EventHandler(this.btn_WM_Winner_Click);
+            // 
             // Fortnite_WM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2109,6 +2121,7 @@
         private System.Windows.Forms.Button btn_WM_Simulator;
         private System.Windows.Forms.Button btn_WM_Fill_Data;
         private System.Windows.Forms.Button btn_WM_DB_Truncate;
+        private System.Windows.Forms.Button btn_WM_Winner;
     }
 }
 

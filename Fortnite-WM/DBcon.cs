@@ -8,7 +8,7 @@ namespace Fortnite_WM
 {
     class DBcon
     {
-        #region Variablen Deklaration
+        #region _Variablen Deklaration_
         private MySqlConnection connection;
         private MySqlDataAdapter mda;
         private string server = "";
@@ -22,7 +22,7 @@ namespace Fortnite_WM
         public string PropServer { set { server = value; } }
         #endregion
 
-        #region DB Connection
+        #region _DB Connection_
         public DBcon()
         {
             Connector();
@@ -84,7 +84,7 @@ namespace Fortnite_WM
         }
         #endregion
 
-        #region DB Create / Fill / Clear
+        #region _DB Create | Fill | Clear_
         public void DBCreate()
         {
             #region CreateDBQuery
@@ -1628,7 +1628,7 @@ NOW());";
         }
         #endregion
 
-        #region Prüf Methoden
+        #region _Prüf Methoden_
         public int Mode_Type_ID(string id)
         {
             string query = "SELECT mode_type FROM modes where mode_id = " + id + ";";
@@ -1912,7 +1912,7 @@ NOW());";
         }
         #endregion
         
-        #region Simulator
+        #region _Simulator_
         public void SimulateRound()
         {
             Dictionary<string, string> sim = new Dictionary<string, string>
@@ -1964,7 +1964,7 @@ NOW());";
         {
             MySqlDataAdapter tableAdapter;
             DataTable dt = new DataTable();
-            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 1) as 'player_id' from player group by player_team_id order by rand() limit 100;";
+            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 1) as 'player_id' from player where player_team_id in (select team_id from teams where team_member = '4') group by player_team_id order by rand() limit 100;";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(dt);
             player = new int[dt.Rows.Count];
@@ -2044,7 +2044,7 @@ NOW());";
         {
             MySqlDataAdapter tableAdapter;
             DataTable dt = new DataTable();
-            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 2) as 'player_id' from player group by player_team_id order by rand() limit 50;";
+            string query = "select player_team_id,  substring_index(group_concat(player_id order by rand()), ',' , 2) as 'player_id' from player where player_team_id in (select team_id from teams where team_member = '4') group by player_team_id order by rand() limit 50;";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(dt);
             player = new int[dt.Rows.Count * 2];
@@ -2063,7 +2063,7 @@ NOW());";
         {
             MySqlDataAdapter tableAdapter;
             DataTable dt = new DataTable();
-            string query = "select player_team_id,  group_concat(player_id order by rand()) as 'player_id' from player group by player_team_id order by rand() limit 25;";
+            string query = "select player_team_id,  group_concat(player_id order by rand()) as 'player_id' from player where player_team_id in (select team_id from teams where team_member = '4') group by player_team_id order by rand() limit 25;";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(dt);
             player = new int[dt.Rows.Count * 4];
@@ -2139,6 +2139,62 @@ NOW());";
                 matches = -1;
             }
             return matches;
+        }
+        #endregion
+
+        #region _Winner_
+        public void Winner()
+        {
+            Dictionary<int, int> preisgeld = new Dictionary<int, int>
+            {
+                [99] = 100000,
+                [98] = 60000,
+                [97] = 45000,
+                [96] = 30000,
+                [95] = 17000,
+                [94] = 13500,
+                [93] = 9000,
+                [92] = 7500,
+                [91] = 6000,
+                [90] = 6000,
+                [89] = 3000,
+                [88] = 3000
+            };
+            MySqlDataAdapter tableAdapter;
+            DataTable dt = new DataTable();
+            int[,] teams;
+            string query = "select team_id from teams where team_member = '4';";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            teams = new int[dt.Rows.Count,2];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                teams[i,0] = int.Parse(row.ItemArray.GetValue(0).ToString());
+                i++;
+            }
+            tableAdapter.Dispose();
+            dt.Dispose();
+            dt.Clear();
+            for (int j = 99; j > 87; j--)
+            {
+                query = "select sc_team_id from scores where sc_points = '" + j + "';";
+                tableAdapter = new MySqlDataAdapter(query, connection);
+                tableAdapter.Fill(dt);
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int k = 0; k < (teams.Length / 2) - 1 ; k++)
+                    {
+                        if (teams[k,0] == int.Parse(row.ItemArray.GetValue(1).ToString()))
+                        {
+                            teams[k,1] += preisgeld[j];
+                        }
+                    }
+                }
+                dt.Clear();
+            }
+            tableAdapter.Dispose();
+            dt.Dispose();
         }
         #endregion
     }

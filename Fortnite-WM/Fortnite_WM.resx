@@ -130,7 +130,7 @@ Platz 100:   0 Punkte
 
 Alle Siege gehen immer auf das Punkte Konto des Teams.
 
-Pro Runde wird ein Preisgeld von 300.000€ an die Besten 12 Teams vergeben.
+Pro Runde wird ein Preisgeld von 300.000€ an die besten 12 Teams vergeben.
 
 Die Aufteilung des Gewinns sieht wie folgt aus:
 
@@ -143,11 +143,9 @@ Die Aufteilung des Gewinns sieht wie folgt aus:
 
 Die WM enthällt 80 Spiele (24 mio.)
 
-Dazu wird es eine Extra-Runde geben in der 100 zufällige Spieler die Chance haben 1 Mio. € ein zu Sacken.
+Dazu wird es eine Extra-Runde geben in der 100 zufällige Spieler die Chance haben 1 Mio. € für ihr Team ein zu Sacken.
 
-Die Restlichen 5 Mio. € werden auf die 
-3 Teams mit den meisten Punkten 
-aufgeteilt(s.o. Punkteverteilung).</value>
+Die Restlichen 5 Mio. € werden durch eine Spezial-Runde an die 12 besten Teams verteilt.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

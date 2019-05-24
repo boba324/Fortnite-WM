@@ -157,6 +157,7 @@ namespace Fortnite_WM
             dbcon.PropUid = tb_DB_UID.Text;
             dbcon.PropPassword = tb_DB_PW.Text;
             dbcon.PropServer = tb_DB_Server.Text;
+            dbcon.PropDatabase = "";
             Fortnite_WMInit();
             btn_ConnectRefresh.Enabled = true;
             MessageBox.Show("Daten wurden gespeichert.");
@@ -700,6 +701,10 @@ namespace Fortnite_WM
                 MessageBox.Show("Es wurden keine Änderung vorgenommen.");
             }
         }
+        private void btn_WM_Winner_Click(object sender, EventArgs e)
+        {
+            dbcon.Winner();
+        }
         #endregion
 
         #region TextBox Events
@@ -1002,6 +1007,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = false;
+                    btn_Insert.Enabled = true;
                     break;
                 case 1:
                     gb_Modes.Visible = false;
@@ -1011,6 +1017,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = false;
+                    btn_Insert.Enabled = true;
                     break;
                 case 2:
                     gb_Modes.Visible = true;
@@ -1020,6 +1027,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = false;
+                    btn_Insert.Enabled = true;
                     break;
                 case 3:
                     gb_Modes.Visible = false;
@@ -1029,6 +1037,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = true;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = true;
+                    btn_Insert.Enabled = false;
                     break;
                 case 4:
                     gb_Modes.Visible = false;
@@ -1038,6 +1047,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = false;
+                    btn_Insert.Enabled = true;
                     break;
                 case 5:
                     gb_Modes.Visible = false;
@@ -1047,6 +1057,7 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = true;
                     lb_Disabled.Visible = true;
+                    btn_Insert.Enabled = false;
                     break;
                 case 6:
                     gb_Modes.Visible = false;
@@ -1056,9 +1067,11 @@ namespace Fortnite_WM
                     gb_Played_Matches.Visible = false;
                     gb_Scores.Visible = false;
                     lb_Disabled.Visible = false;
+                    btn_Insert.Enabled = true;
                     break;
                 default:
                     MessageBox.Show("Option mit der Indexnummer " + cb_Insert_Table_Select.SelectedIndex + " nicht bekannt.");
+                    btn_Insert.Enabled = true;
                     break;
             }
             ComboFiller();
@@ -1227,5 +1240,7 @@ namespace Fortnite_WM
             
         }
         #endregion
+
+        
     }
 }
