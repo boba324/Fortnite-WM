@@ -701,7 +701,7 @@ namespace Fortnite_WM
                 MessageBox.Show("Es wurden keine Änderung vorgenommen.");
             }
         }
-        private void btn_WM_Winner_Click(object sender, EventArgs e)
+        private void Btn_WM_Winner_Click(object sender, EventArgs e)
         {
             dbcon.Winner();
         }
