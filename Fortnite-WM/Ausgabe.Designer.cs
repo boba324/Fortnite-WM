@@ -37,6 +37,7 @@
             // 
             this.dgv_Ausgabe.AllowUserToAddRows = false;
             this.dgv_Ausgabe.AllowUserToDeleteRows = false;
+            this.dgv_Ausgabe.AllowUserToResizeRows = false;
             this.dgv_Ausgabe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Ausgabe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_Ausgabe.Location = new System.Drawing.Point(0, 0);
