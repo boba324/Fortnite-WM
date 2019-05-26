@@ -1894,7 +1894,7 @@
             this.btn_WM_Winner.TabIndex = 3;
             this.btn_WM_Winner.Text = "WM Auswerten";
             this.btn_WM_Winner.UseVisualStyleBackColor = true;
-            this.btn_WM_Winner.Click += new System.EventHandler(this.btn_WM_Winner_Click);
+            this.btn_WM_Winner.Click += new System.EventHandler(this.Btn_WM_Winner_Click);
             // 
             // Fortnite_WM
             // 
