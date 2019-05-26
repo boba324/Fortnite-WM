@@ -705,6 +705,20 @@ namespace Fortnite_WM
         {
             dbcon.Winner();
         }
+        private void Btn_WM_Reset_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Sind sie sicher das sie alle Ergebnisse zurücksetzen wollen?", "Löschen", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                dbcon.DBReset();
+                ComboFiller();
+                MessageBox.Show("Die Ergebnisse wurden erfolgreich zurückgesetzt.");
+            }
+            else
+            {
+                MessageBox.Show("Es wurden keine Änderung vorgenommen.");
+            }
+        }
         #endregion
 
         #region TextBox Events
@@ -1239,8 +1253,9 @@ namespace Fortnite_WM
             }
             
         }
+
         #endregion
 
-        
+       
     }
 }

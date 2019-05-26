@@ -46,6 +46,7 @@
             this.tc_fortnitewm = new System.Windows.Forms.TabControl();
             this.tab_Database_Infos = new System.Windows.Forms.TabPage();
             this.gb_WM_Simulation = new System.Windows.Forms.GroupBox();
+            this.btn_WM_Winner = new System.Windows.Forms.Button();
             this.btn_WM_DB_Truncate = new System.Windows.Forms.Button();
             this.btn_WM_Fill_Data = new System.Windows.Forms.Button();
             this.btn_WM_Simulator = new System.Windows.Forms.Button();
@@ -181,7 +182,7 @@
             this.cb_Delete_Table_Select = new System.Windows.Forms.ComboBox();
             this.gb_Delete = new System.Windows.Forms.GroupBox();
             this.dgv_Delete = new System.Windows.Forms.DataGridView();
-            this.btn_WM_Winner = new System.Windows.Forms.Button();
+            this.btn_WM_Reset = new System.Windows.Forms.Button();
             this.gb_DB_State.SuspendLayout();
             this.tc_fortnitewm.SuspendLayout();
             this.tab_Database_Infos.SuspendLayout();
@@ -388,6 +389,7 @@
             // 
             // gb_WM_Simulation
             // 
+            this.gb_WM_Simulation.Controls.Add(this.btn_WM_Reset);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_Winner);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_DB_Truncate);
             this.gb_WM_Simulation.Controls.Add(this.btn_WM_Fill_Data);
@@ -399,9 +401,19 @@
             this.gb_WM_Simulation.TabStop = false;
             this.gb_WM_Simulation.Text = "Simulation";
             // 
+            // btn_WM_Winner
+            // 
+            this.btn_WM_Winner.Location = new System.Drawing.Point(8, 78);
+            this.btn_WM_Winner.Name = "btn_WM_Winner";
+            this.btn_WM_Winner.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Winner.TabIndex = 3;
+            this.btn_WM_Winner.Text = "WM Auswerten";
+            this.btn_WM_Winner.UseVisualStyleBackColor = true;
+            this.btn_WM_Winner.Click += new System.EventHandler(this.Btn_WM_Winner_Click);
+            // 
             // btn_WM_DB_Truncate
             // 
-            this.btn_WM_DB_Truncate.Location = new System.Drawing.Point(8, 49);
+            this.btn_WM_DB_Truncate.Location = new System.Drawing.Point(8, 163);
             this.btn_WM_DB_Truncate.Name = "btn_WM_DB_Truncate";
             this.btn_WM_DB_Truncate.Size = new System.Drawing.Size(188, 23);
             this.btn_WM_DB_Truncate.TabIndex = 2;
@@ -421,7 +433,7 @@
             // 
             // btn_WM_Simulator
             // 
-            this.btn_WM_Simulator.Location = new System.Drawing.Point(8, 77);
+            this.btn_WM_Simulator.Location = new System.Drawing.Point(8, 49);
             this.btn_WM_Simulator.Name = "btn_WM_Simulator";
             this.btn_WM_Simulator.Size = new System.Drawing.Size(188, 23);
             this.btn_WM_Simulator.TabIndex = 0;
@@ -1886,15 +1898,15 @@
             this.dgv_Delete.TabIndex = 0;
             this.dgv_Delete.TabStop = false;
             // 
-            // btn_WM_Winner
+            // btn_WM_Reset
             // 
-            this.btn_WM_Winner.Location = new System.Drawing.Point(8, 163);
-            this.btn_WM_Winner.Name = "btn_WM_Winner";
-            this.btn_WM_Winner.Size = new System.Drawing.Size(188, 23);
-            this.btn_WM_Winner.TabIndex = 3;
-            this.btn_WM_Winner.Text = "WM Auswerten";
-            this.btn_WM_Winner.UseVisualStyleBackColor = true;
-            this.btn_WM_Winner.Click += new System.EventHandler(this.Btn_WM_Winner_Click);
+            this.btn_WM_Reset.Location = new System.Drawing.Point(8, 134);
+            this.btn_WM_Reset.Name = "btn_WM_Reset";
+            this.btn_WM_Reset.Size = new System.Drawing.Size(188, 23);
+            this.btn_WM_Reset.TabIndex = 4;
+            this.btn_WM_Reset.Text = "Ergebnisse zurücksetzen";
+            this.btn_WM_Reset.UseVisualStyleBackColor = true;
+            this.btn_WM_Reset.Click += new System.EventHandler(this.Btn_WM_Reset_Click);
             // 
             // Fortnite_WM
             // 
@@ -2122,6 +2134,7 @@
         private System.Windows.Forms.Button btn_WM_Fill_Data;
         private System.Windows.Forms.Button btn_WM_DB_Truncate;
         private System.Windows.Forms.Button btn_WM_Winner;
+        private System.Windows.Forms.Button btn_WM_Reset;
     }
 }
 

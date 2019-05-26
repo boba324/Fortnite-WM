@@ -143,9 +143,10 @@ Die Aufteilung des Gewinns sieht wie folgt aus:
 
 Die WM enthällt 80 Spiele (24 mio.)
 
-Dazu wird es eine Extra-Runde geben in der 100 zufällige Spieler die Chance haben 1 Mio. € für ihr Team ein zu Sacken.
+Gewonnen hat die WM das Team welches die Meisten Punkte erzielen konnte.
 
-Die Restlichen 5 Mio. € werden durch eine Spezial-Runde an die 12 besten Teams verteilt.</value>
+Ebenso erhällt das Sieger-Team ein Preisgeld 
+von 6 Mio.€.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

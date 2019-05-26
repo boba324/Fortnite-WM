@@ -1446,6 +1446,25 @@ SET FOREIGN_KEY_CHECKS = 1;";
                 cmd.Dispose();
             }
         }
+        public void DBReset()
+        {
+            if (this.OpenConnection() == true)
+            {
+                #region ResetQuery
+                string resetQuery = @"SET FOREIGN_KEY_CHECKS = 0; 
+TRUNCATE table played_matches;
+SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0; 
+TRUNCATE table scores;
+SET FOREIGN_KEY_CHECKS = 1;";
+                #endregion
+                MySqlCommand cmd = new MySqlCommand(resetQuery, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+                cmd.Dispose();
+            }
+        }
         #endregion
 
         #region _UPDATE | SELECT | INSERT | DELETE_
@@ -2185,7 +2204,7 @@ NOW());";
             }
             tableAdapter.Dispose();
             dt.Dispose();
-            dt.Clear();
+            dt.Reset();
             for (int j = 99; j > 87; j--)
             {
                 query = "select sc_team_id from scores where sc_points = '" + j + "';";
@@ -2195,7 +2214,7 @@ NOW());";
                 {
                     for (int k = 0; k < (teams.Length / 2) - 1 ; k++)
                     {
-                        if (teams[k,0] == int.Parse(row.ItemArray.GetValue(1).ToString()))
+                        if (teams[k,0] == int.Parse(row.ItemArray.GetValue(0).ToString()))
                         {
                             teams[k,1] += preisgeld[j];
                         }
@@ -2203,6 +2222,14 @@ NOW());";
                 }
                 dt.Clear();
             }
+            query = "select sc_team_id,SUM(sc_points) from scores group by sc_team_id order by SUM(sc_points) desc limit 1;";
+            tableAdapter = new MySqlDataAdapter(query, connection);
+            tableAdapter.Fill(dt);
+            foreach (DataRow row in dt.Rows)
+            {
+                teams[int.Parse(row.ItemArray.GetValue(0).ToString()) - 1, 1] += 6000000;
+            }
+            dt.Clear();
             tableAdapter.Dispose();
             dt.Dispose();
             
