@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Text;
+using System.IO;
 
 namespace Fortnite_WM
 {
@@ -16,6 +18,9 @@ namespace Fortnite_WM
         private string uid;
         private string password;
         private int[] player;
+        private readonly Encoding encoding = Encoding.UTF8;
+        private readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"; //"../../results/";
+        private readonly string delimiter = ";";
         public string PropUid { set { uid = value; } }
         public string PropPassword { set { password = value; } }
         public string PropDatabase { set { database = value; } }
@@ -1623,6 +1628,7 @@ NOW());";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(tableDS);
             tableAdapter.Dispose();
+            tableDS.Clear();
             tableDS.Dispose();
             return tableDS;
         }
@@ -1658,6 +1664,7 @@ NOW());";
                     row["TABLE_NAME"] = "-";
                     tableDS.Rows.InsertAt(row, 0);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 1:
@@ -1665,6 +1672,7 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 2:
@@ -1672,6 +1680,7 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 3:
@@ -1679,6 +1688,7 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 4:
@@ -1686,6 +1696,7 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 5:
@@ -1693,6 +1704,7 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 case 6:
@@ -1700,12 +1712,14 @@ NOW());";
                     tableAdapter = new MySqlDataAdapter(query, connection);
                     tableAdapter.Fill(tableDS);
                     tableAdapter.Dispose();
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
                 default:
                     row = tableDS.NewRow();
                     row["err"] = "err";
                     tableDS.Rows.InsertAt(row, 0);
+                    tableDS.Clear();
                     tableDS.Dispose();
                     return tableDS;
             }
@@ -1718,6 +1732,7 @@ NOW());";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(tableDS);
             tableAdapter.Dispose();
+            tableDS.Clear();
             tableDS.Dispose();
             return tableDS;
         }
@@ -1751,6 +1766,7 @@ NOW());";
                 cmd.Dispose();
             }
             tableAdapter.Dispose();
+            dt.Clear();
             dt.Dispose();
         }
         public void AddTeamMember(Dictionary<string, string> par)
@@ -1975,6 +1991,7 @@ NOW());";
                 i++;
             }
             tableAdapter.Dispose();
+            dt.Clear();
             dt.Dispose();
             return player;
         }
@@ -2056,6 +2073,7 @@ NOW());";
                 i += 2;
             }
             tableAdapter.Dispose();
+            dt.Clear();
             dt.Dispose();
             return player;
         }
@@ -2077,6 +2095,7 @@ NOW());";
                 i += 4;
             }
             tableAdapter.Dispose();
+            dt.Clear();
             dt.Dispose();
             return player;
         }
@@ -2195,6 +2214,25 @@ NOW());";
             }
             tableAdapter.Dispose();
             dt.Dispose();
+            
+            string createText = "Team" + delimiter + "Preisgeld" + delimiter + "Punkte" + delimiter + Environment.NewLine;
+            File.WriteAllText(path + "Fortnite-WM.csv", createText, encoding);
+            MySqlCommand cmd = new MySqlCommand();
+            if (this.OpenConnection() == true)
+            {
+                for (int t = 0; t < (teams.Length / 2); t++)
+                {
+                    query = "select SUM(sc_points) from scores where sc_team_id = '" + teams[t, 0] + "' group by sc_team_id order by sc_points;";
+                    int points;
+                    cmd = new MySqlCommand(query, connection);
+                    points = int.Parse(cmd.ExecuteScalar() + "");
+                    cmd.Dispose();
+                    string appendText = "Team "+ teams[t, 0] + delimiter + teams[t, 1]  + "€" + delimiter + points + delimiter + Environment.NewLine;
+                    File.AppendAllText(path + "Fortnite-WM.csv", appendText, encoding);
+                }
+            }
+            this.CloseConnection();
+            cmd.Dispose();
         }
         #endregion
     }
