@@ -19,7 +19,7 @@ namespace Fortnite_WM
         private string password;
         private int[] player;
         private readonly Encoding encoding = Encoding.UTF8;
-        private readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/"; //"../../results/";
+        private readonly string path = "../../results/";
         private readonly string delimiter = ";";
         public string PropUid { set { uid = value; } }
         public string PropPassword { set { password = value; } }
@@ -1624,13 +1624,12 @@ NOW());";
         public DataTable Select(string query)
         {
             MySqlDataAdapter tableAdapter;
-            DataTable tableDS = new DataTable();
+            DataTable dt = new DataTable();
             tableAdapter = new MySqlDataAdapter(query, connection);
-            tableAdapter.Fill(tableDS);
+            tableAdapter.Fill(dt);
             tableAdapter.Dispose();
-            tableDS.Clear();
-            tableDS.Dispose();
-            return tableDS;
+            dt.Dispose();
+            return dt;
         }
         #endregion
 
@@ -1652,89 +1651,81 @@ NOW());";
         {
             string query = "";
             MySqlDataAdapter tableAdapter;
-            DataTable tableDS = new DataTable();
+            DataTable dt = new DataTable();
             DataRow row;
             switch (par)
             {
                 case 0:
                     query = "SELECT * FROM information_schema.tables WHERE table_schema = 'fortnite_wm'";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
-                    row = tableDS.NewRow();
+                    tableAdapter.Fill(dt);
+                    row = dt.NewRow();
                     row["TABLE_NAME"] = "-";
-                    tableDS.Rows.InsertAt(row, 0);
+                    dt.Rows.InsertAt(row, 0);
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 case 1:
                     query = "SELECT * FROM teams where team_member != '4';";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
+
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 case 2:
                     query = "SELECT * FROM player;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    dt.Dispose();
+                    return dt;
                 case 3:
                     query = "SELECT * FROM maps;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 case 4:
                     query = "SELECT * FROM modes;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 case 5:
                     query = "SELECT * FROM played_matches;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 case 6:
                     query = "SELECT * FROM scores;";
                     tableAdapter = new MySqlDataAdapter(query, connection);
-                    tableAdapter.Fill(tableDS);
+                    tableAdapter.Fill(dt);
+                    dt.Dispose();
                     tableAdapter.Dispose();
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    return dt;
                 default:
-                    row = tableDS.NewRow();
+                    row = dt.NewRow();
                     row["err"] = "err";
-                    tableDS.Rows.InsertAt(row, 0);
-                    tableDS.Clear();
-                    tableDS.Dispose();
-                    return tableDS;
+                    dt.Rows.InsertAt(row, 0);
+                    dt.Dispose();
+                    return dt;
             }
         }
         public DataTable ColumnNames(string table)
         {
             MySqlDataAdapter tableAdapter;
-            DataTable tableDS = new DataTable();
+            DataTable dt = new DataTable();
             string query = "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = 'fortnite_wm' AND table_name = '"+ table +"'";
             tableAdapter = new MySqlDataAdapter(query, connection);
-            tableAdapter.Fill(tableDS);
+            tableAdapter.Fill(dt);
             tableAdapter.Dispose();
-            tableDS.Clear();
-            tableDS.Dispose();
-            return tableDS;
+            dt.Dispose();
+            return dt;
         }
         public void RefreshTeamMember()
         {
