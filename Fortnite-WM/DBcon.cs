@@ -1660,7 +1660,7 @@ NOW());";
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                value = int.Parse(cmd.ExecuteScalar() + "");
+                value = int.Parse(cmd.ExecuteScalar().ToString());
                 this.CloseConnection();
                 cmd.Dispose();
             }
@@ -1785,7 +1785,7 @@ NOW());";
             {
                 string query = "SELECT team_member from teams WHERE team_id ='" + par["cb_Player_Team_ID"] + "';";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                int member = int.Parse(cmd.ExecuteScalar() + "") + 1;
+                int member = int.Parse(cmd.ExecuteScalar().ToString()) + 1;
                 query = "UPDATE teams SET team_member = '" + member + "' WHERE team_id = '" + par["cb_Player_Team_ID"] + "' ;";
                 cmd = new MySqlCommand(query, connection);
                 cmd.ExecuteNonQuery();
@@ -1800,7 +1800,7 @@ NOW());";
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                player = int.Parse(cmd.ExecuteScalar() + "");
+                player = int.Parse(cmd.ExecuteScalar().ToString());
                 this.CloseConnection();
                 cmd.Dispose();
             }
@@ -1813,7 +1813,7 @@ NOW());";
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                Count = int.Parse(cmd.ExecuteScalar() + "");
+                Count = int.Parse(cmd.ExecuteScalar().ToString());
                 this.CloseConnection();
                 cmd.Dispose();
                 return Count;
@@ -1949,6 +1949,21 @@ NOW());";
             string type = GetModeTypeName(int.Parse(sim["mode_id"]));
             int[] player;
             Random rand = new Random();
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                string query = "Select count(*) from played_matches";
+                cmd = new MySqlCommand(query, connection);
+                if (int.Parse(cmd.ExecuteScalar().ToString()) > 79)
+                {
+                    MessageBox.Show("Die Maximale Anzahl an Spielen für diese WM wurde erreicht.");
+                    cmd.Dispose();
+                    this.CloseConnection();
+                    return;
+                }
+                cmd.Dispose();
+            }
+            this.CloseConnection();
             if (type.Contains(","))
             {
                 sim["match_type"] = type.Split(',')[rand.Next(0, type.Split(',').Length-1)];
@@ -2191,8 +2206,29 @@ NOW());";
             };
             MySqlDataAdapter tableAdapter;
             DataTable dt = new DataTable();
+            
+            MySqlCommand cmd = new MySqlCommand();
             int[,] teams;
+            int points;
+            string teamName;
             string query = "select team_id from teams where team_member = '4';";
+            string createText = "Team" + delimiter + "Preisgeld" + delimiter + "Punkte" + delimiter + Environment.NewLine;
+
+            if (this.OpenConnection() == true)
+            {
+                query = "Select count(*) from played_matches";
+                cmd = new MySqlCommand(query, connection);
+                if (int.Parse(cmd.ExecuteScalar().ToString()) < 79)
+                {
+                    MessageBox.Show("Es müssen noch " + (80 - int.Parse(cmd.ExecuteScalar().ToString())) + " Spiele gespielt werden um eine Auswertung durchführen zu können.");
+                    cmd.Dispose();
+                    this.CloseConnection();
+                    return;
+                }
+                cmd.Dispose();
+            }
+            this.CloseConnection();
+            query = "select team_id from teams where team_member = '4';";
             tableAdapter = new MySqlDataAdapter(query, connection);
             tableAdapter.Fill(dt);
             teams = new int[dt.Rows.Count,2];
@@ -2233,19 +2269,20 @@ NOW());";
             tableAdapter.Dispose();
             dt.Dispose();
             
-            string createText = "Team" + delimiter + "Preisgeld" + delimiter + "Punkte" + delimiter + Environment.NewLine;
-            File.WriteAllText(path + "Fortnite-WM.csv", createText, encoding);
-            MySqlCommand cmd = new MySqlCommand();
             if (this.OpenConnection() == true)
             {
+                File.WriteAllText(path + "Fortnite-WM.csv", createText, encoding);
                 for (int t = 0; t < (teams.Length / 2); t++)
                 {
                     query = "select SUM(sc_points) from scores where sc_team_id = '" + teams[t, 0] + "' group by sc_team_id order by sc_points;";
-                    int points;
                     cmd = new MySqlCommand(query, connection);
-                    points = int.Parse(cmd.ExecuteScalar() + "");
+                    points = int.Parse(cmd.ExecuteScalar().ToString());
                     cmd.Dispose();
-                    string appendText = "Team "+ teams[t, 0] + delimiter + teams[t, 1]  + "€" + delimiter + points + delimiter + Environment.NewLine;
+                    query = "select team_name from teams where team_id = '" + teams[t, 0] + "'";
+                    cmd = new MySqlCommand(query, connection);
+                    teamName = cmd.ExecuteScalar().ToString();
+                    cmd.Dispose();
+                    string appendText = teamName + delimiter + teams[t, 1]  + "€" + delimiter + points + delimiter + Environment.NewLine;
                     File.AppendAllText(path + "Fortnite-WM.csv", appendText, encoding);
                 }
             }

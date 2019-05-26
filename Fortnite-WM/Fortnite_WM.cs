@@ -12,6 +12,7 @@ namespace Fortnite_WM
         #region Variablen Deklaration
         DBcon dbcon = new DBcon();
         Ausgabe ausgabe;
+        SimulationProgress prog = new SimulationProgress();
         private bool dbConState = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
@@ -50,6 +51,9 @@ namespace Fortnite_WM
             gb_Teams.Visible = false;
             gb_Played_Matches.Visible = false;
             gb_Scores.Visible = false;
+
+
+            
         }
         #endregion
 
@@ -648,17 +652,22 @@ namespace Fortnite_WM
         }
         private void Btn_WM_Simulator_Click(object sender, EventArgs e)
         {
+            prog = new SimulationProgress();
             int rounds = dbcon.GetPlayedRounds();
+            prog.Maximum = 2750;
+
             if (dbcon.MinPlayerCheck() > 99)
             {
                 if (rounds < 80)
                 {
-                    MessageBox.Show("Dies kann einige Sekunden dauern. Bitte haben sie etwas geduld bis die Komplette WM simuliert wird.");
+                    prog.Show();
+                    prog.Progress("Runden werden Simuliert", 0);
                     for (int i = 0; i < (80 - rounds); i++)
                     {
                         dbcon.SimulateRound();
+                        prog.Progress(i);
                     }
-                    MessageBox.Show("Es wurden " + (80 - rounds) + " Spiele Simuliert.");
+                    prog.Progress((80 - rounds) + " Runden wurden simuliert.", prog.Maximum);
                 }
                 else
                 {
