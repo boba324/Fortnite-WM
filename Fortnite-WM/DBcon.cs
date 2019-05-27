@@ -2284,9 +2284,11 @@ NOW());";
                     string appendText = teamName + delimiter + teams[t, 1]  + "€" + delimiter + points + delimiter + Environment.NewLine;
                     File.AppendAllText(path + "Fortnite-WM.csv", appendText, encoding);
                 }
+                File.Copy(path + "Fortnite-WM.csv", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Fortnite-WM.csv", true);
             }
             this.CloseConnection();
             cmd.Dispose();
+            MessageBox.Show("Sie finden die Auswertung in Form einer CSV Datei im Ordner Result(Fortnite-WM/result/) oder auf ihrem Desktop.");
         }
         #endregion
     }

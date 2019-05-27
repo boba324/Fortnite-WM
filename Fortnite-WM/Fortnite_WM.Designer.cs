@@ -505,7 +505,7 @@ Die Aufteilung des Gewinns sieht wie folgt aus:
 
 Die WM enthällt 80 Spiele(24 mio.)
 
-Gewonnen hat die WM das Team welches die Meisten Punkte erzielen konnte.
+Gewonnen hat die WM das Team welches die meisten Punkte erzielen konnte.
 
 Ebenso erhällt das Sieger Team ein Preisgeld
 von 6 Mio.€.";
