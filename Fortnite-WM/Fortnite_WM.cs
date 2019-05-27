@@ -14,6 +14,7 @@ namespace Fortnite_WM
         Ausgabe ausgabe;
         SimulationProgress prog = new SimulationProgress();
         private bool dbConState = false;
+        private bool dbExist = false;
         Dictionary<string, string> words = new Dictionary<string, string>();
         Dictionary<string, string> vals = new Dictionary<string, string>();
         Dictionary<int, string> spalten = new Dictionary<int, string>();
@@ -85,14 +86,15 @@ namespace Fortnite_WM
                 lb_DatabaseValue.Text = "existiert";
                 lb_DatabaseValue.ForeColor = Color.Lime;
                 dbcon.PropDatabase = "fortnite_wm";
-                this.TBexist(true);
+                dbExist = true;
+                TBexist(true);
             }
             else
             {
                 lb_DatabaseValue.Text = "existiert nicht";
                 lb_DatabaseValue.ForeColor = Color.Red;
-                this.DBCreate();
-                this.TBexist(false);
+                dbExist = false;
+                DBCreate();
             }
         }
         private void TBexist(bool dbex)
@@ -122,6 +124,7 @@ namespace Fortnite_WM
                 lb_TB_PlayersValue.Text = "unbekannt";
                 lb_TB_PMValue.Text = "unbekannt";
                 lb_TB_TeamsValue.Text = "unbekannt";
+                lb_TB_ScoresValue.Text = "unbekannt";
             }
         }
         private void DBCreate()
@@ -130,10 +133,11 @@ namespace Fortnite_WM
             if (dialogResult == DialogResult.Yes)
             {
                 dbcon.DBCreate();
-                this.DBexist();
+                DBexist();
             }
             else if (dialogResult == DialogResult.No)
             {
+                TBexist(false);
                 MessageBox.Show("Es wurde keine Datenbank erstellt.");
             }
         }
@@ -900,92 +904,98 @@ namespace Fortnite_WM
         }
         private void ComboFiller()
         {
-            if (resett)
+            if (dbExist)
             {
-                cb_Insert_Table_Select.DataSource = dbcon.ComboData(0);
-                cb_Insert_Table_Select.DisplayMember = "TABLE_NAME";
-                cb_Insert_Table_Select.ValueMember = "TABLE_NAME";
+                if (resett)
+                {
+                    cb_Insert_Table_Select.DataSource = dbcon.ComboData(0);
+                    cb_Insert_Table_Select.DisplayMember = "TABLE_NAME";
+                    cb_Insert_Table_Select.ValueMember = "TABLE_NAME";
 
-                cb_Update_Table_Select.DataSource = dbcon.ComboData(0);
-                cb_Update_Table_Select.DisplayMember = "TABLE_NAME";
-                cb_Update_Table_Select.ValueMember = "TABLE_NAME";
+                    cb_Update_Table_Select.DataSource = dbcon.ComboData(0);
+                    cb_Update_Table_Select.DisplayMember = "TABLE_NAME";
+                    cb_Update_Table_Select.ValueMember = "TABLE_NAME";
 
-                cb_Delete_Table_Select.DataSource = dbcon.ComboData(0);
-                cb_Delete_Table_Select.DisplayMember = "TABLE_NAME";
-                cb_Delete_Table_Select.ValueMember = "TABLE_NAME";
+                    cb_Delete_Table_Select.DataSource = dbcon.ComboData(0);
+                    cb_Delete_Table_Select.DisplayMember = "TABLE_NAME";
+                    cb_Delete_Table_Select.ValueMember = "TABLE_NAME";
+                }
+                resett = false;
+
+                cb_Player_Team_ID.DataSource = dbcon.ComboData(1);
+                cb_Player_Team_ID.DisplayMember = "team_name";
+                cb_Player_Team_ID.ValueMember = "team_id";
+
+                cb_Mode_Map_Name.DataSource = dbcon.ComboData(3);
+                cb_Mode_Map_Name.DisplayMember = "map_name";
+                cb_Mode_Map_Name.ValueMember = "map_id";
+
+                cb_Played_Matches_Mode_Name.DataSource = dbcon.ComboData(4);
+                cb_Played_Matches_Mode_Name.DisplayMember = "mode_name";
+                cb_Played_Matches_Mode_Name.ValueMember = "mode_id";
+
+                cb_Scores_Team_ID.DataSource = dbcon.ComboData(1);
+                cb_Scores_Team_ID.DisplayMember = "team_name";
+                cb_Scores_Team_ID.ValueMember = "team_id";
             }
-            resett = false;
-
-            cb_Player_Team_ID.DataSource = dbcon.ComboData(1);
-            cb_Player_Team_ID.DisplayMember = "team_name";
-            cb_Player_Team_ID.ValueMember = "team_id";
-
-            cb_Mode_Map_Name.DataSource = dbcon.ComboData(3);
-            cb_Mode_Map_Name.DisplayMember = "map_name";
-            cb_Mode_Map_Name.ValueMember = "map_id";
-
-            cb_Played_Matches_Mode_Name.DataSource = dbcon.ComboData(4);
-            cb_Played_Matches_Mode_Name.DisplayMember = "mode_name";
-            cb_Played_Matches_Mode_Name.ValueMember = "mode_id";
-
-            cb_Scores_Team_ID.DataSource = dbcon.ComboData(1);
-            cb_Scores_Team_ID.DisplayMember = "team_name";
-            cb_Scores_Team_ID.ValueMember = "team_id";
         }
         private void CheckedListFiller()
         {
-            DataTable dtTeams = dbcon.ColumnNames("teams");
-            clb_Ausgabe_Teams_Spalten.DataSource = dtTeams;
-            clb_Ausgabe_Teams_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Teams_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Teams_Spalten.Items.Count; i++)
+            if (dbExist)
             {
-                clb_Ausgabe_Teams_Spalten.SetItemChecked(i, true);
-            }
+                DataTable dtTeams = dbcon.ColumnNames("teams");
+                clb_Ausgabe_Teams_Spalten.DataSource = dtTeams;
+                clb_Ausgabe_Teams_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Teams_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Teams_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Teams_Spalten.SetItemChecked(i, true);
+                }
 
-            DataTable dtPlayer = dbcon.ColumnNames("player");
-            clb_Ausgabe_Player_Spalten.DataSource = dtPlayer;
-            clb_Ausgabe_Player_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Player_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Player_Spalten.Items.Count; i++)
-            {
-                clb_Ausgabe_Player_Spalten.SetItemChecked(i, true);
-            }
+                DataTable dtPlayer = dbcon.ColumnNames("player");
+                clb_Ausgabe_Player_Spalten.DataSource = dtPlayer;
+                clb_Ausgabe_Player_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Player_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Player_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Player_Spalten.SetItemChecked(i, true);
+                }
 
-            DataTable dtMaps = dbcon.ColumnNames("maps");
-            clb_Ausgabe_Maps_Spalten.DataSource = dtMaps;
-            clb_Ausgabe_Maps_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Maps_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Maps_Spalten.Items.Count; i++)
-            {
-                clb_Ausgabe_Maps_Spalten.SetItemChecked(i, true);
-            }
+                DataTable dtMaps = dbcon.ColumnNames("maps");
+                clb_Ausgabe_Maps_Spalten.DataSource = dtMaps;
+                clb_Ausgabe_Maps_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Maps_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Maps_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Maps_Spalten.SetItemChecked(i, true);
+                }
 
-            DataTable dtModes = dbcon.ColumnNames("modes");
-            clb_Ausgabe_Modes_Spalten.DataSource = dtModes;
-            clb_Ausgabe_Modes_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Modes_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Modes_Spalten.Items.Count; i++)
-            {
-                clb_Ausgabe_Modes_Spalten.SetItemChecked(i, true);
-            }
+                DataTable dtModes = dbcon.ColumnNames("modes");
+                clb_Ausgabe_Modes_Spalten.DataSource = dtModes;
+                clb_Ausgabe_Modes_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Modes_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Modes_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Modes_Spalten.SetItemChecked(i, true);
+                }
 
-            DataTable dtPlayed_Matches = dbcon.ColumnNames("played_matches");
-            clb_Ausgabe_Played_Matches_Spalten.DataSource = dtPlayed_Matches;
-            clb_Ausgabe_Played_Matches_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Played_Matches_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Played_Matches_Spalten.Items.Count; i++)
-            {
-                clb_Ausgabe_Played_Matches_Spalten.SetItemChecked(i, true);
-            }
+                DataTable dtPlayed_Matches = dbcon.ColumnNames("played_matches");
+                clb_Ausgabe_Played_Matches_Spalten.DataSource = dtPlayed_Matches;
+                clb_Ausgabe_Played_Matches_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Played_Matches_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Played_Matches_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Played_Matches_Spalten.SetItemChecked(i, true);
+                }
 
-            DataTable dtScores = dbcon.ColumnNames("scores");
-            clb_Ausgabe_Scores_Spalten.DataSource = dtScores;
-            clb_Ausgabe_Scores_Spalten.DisplayMember = "COLUMN_NAME";
-            clb_Ausgabe_Scores_Spalten.ValueMember = "COLUMN_NAME";
-            for (int i = 0; i < clb_Ausgabe_Scores_Spalten.Items.Count; i++)
-            {
-                clb_Ausgabe_Scores_Spalten.SetItemChecked(i, true);
+                DataTable dtScores = dbcon.ColumnNames("scores");
+                clb_Ausgabe_Scores_Spalten.DataSource = dtScores;
+                clb_Ausgabe_Scores_Spalten.DisplayMember = "COLUMN_NAME";
+                clb_Ausgabe_Scores_Spalten.ValueMember = "COLUMN_NAME";
+                for (int i = 0; i < clb_Ausgabe_Scores_Spalten.Items.Count; i++)
+                {
+                    clb_Ausgabe_Scores_Spalten.SetItemChecked(i, true);
+                }
             }
         }
         private DateTime ConvertToDateTime(string value)

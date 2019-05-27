@@ -37,7 +37,6 @@ namespace Fortnite_WM
         {
             string connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
             connection = new MySqlConnection(connectionString);
-
         }
 
         public bool DBConState()
